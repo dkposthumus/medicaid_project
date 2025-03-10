@@ -1,0 +1,178 @@
+import pandas as pd
+from pathlib import Path
+# let's create a set of locals referring to our directory and working directory 
+home = Path.home()
+work_dir = (home / 'medicaid_project')
+data = (work_dir / 'data')
+raw_data = (data / 'raw')
+clean_data = (data / 'clean')
+election_data = (clean_data / 'election_results')
+output = (work_dir / 'output')
+code = Path.cwd() 
+
+historical_election = pd.read_csv(f'{raw_data}/county_pres_2000_2020.csv')
+election_2024 = pd.read_excel(f'{raw_data}/county_pres_2024.xlsx', sheet_name='County')
+
+for df in [historical_election, election_2024]:
+    df.columns = df.columns.str.lower()
+# now make everything lowercase in both datasets
+historical_election = historical_election.applymap(lambda x: x.lower() if isinstance(x, str) else x)
+election_2024 = election_2024.applymap(lambda x: x.lower() if isinstance(x, str) else x)
+'''
+We want to produce 2 datasets:
+- CD-level 
+- State-level 
+Each of these datasets needs to have the following features:
+- Cover each presidential election from 2000 to 2024
+- Contain the percentage of votes at the geographic level of the dataset achieved by the following data categories:
+    - Republican 
+    - Democrat 
+    - all other (including 3rd party candidates)
+This baseline dataset will allow us to do everything else, namely calculate swing from year x to year y -- the direction that this analysis is heading towards
+'''
+
+'''
+Unfortunately, the two datasets we're working with (one historical [2000-2024] and the other current [2024]) are very different in structure.
+Let's just clean them separately.'
+'''
+
+######################################################################################################################################
+# Historical 
+######################################################################################################################################
+'''
+Here are the relevant columns:
+- county
+- state
+- mode (type of voting that's captured by these numbers) 
+- candidate/party
+- candidatevotes (number of votes candidate won)
+- totalvotes (toal votes for this mode of voting)
+
+# we first want to make a long dataset, rather than a wide one w/the following columns:
+- year 
+- county
+- state 
+- party (either democrat, republican, or other)
+- % of votes for that candidate
+- number of votes for that candidate
+- total number of votes in that county in that year
+'''
+
+# first, let's check how many counties have mode == 'TOTAL'
+# test with 'party' == 'DEMOCRATIC'
+dem_historical = historical_election[historical_election['party'] == 'democrat']
+total_present = dem_historical.groupby(['county_name', 'state', 'year'])['mode'].apply(lambda x: 'total' in x.unique())
+missing_total = total_present[~total_present]
+#print('County-Year groups missing "total":')
+#print(missing_total.index.tolist())
+
+# so it appears that for 2020 there are quite a few counties missing 'total'; for these observations we have to manually sum up to get the total
+votes_2020 = historical_election[historical_election['year'] == 2020]
+# collapse on year-state-county_name for averages of 'totalvotes'
+votes_2020 = votes_2020[votes_2020['mode'] != 'total']
+total_2020 = votes_2020.groupby(['county_name', 'state', 'mode']).agg(
+    {'totalvotes': 'mean'}).reset_index()
+# now total by county_name and state
+total_2020 = total_2020.groupby(['county_name', 'state']).agg(
+    {'totalvotes': 'sum'}).reset_index()
+total_2020 = total_2020[['county_name', 'state', 'totalvotes']]
+# now aggregate candidates_2020 totalvotes 
+candidates_2020 = votes_2020.groupby(['county_name', 'state', 'party']).agg(
+    {'candidatevotes': 'sum'}).reset_index()
+candidates_2020 = candidates_2020[['county_name', 'state', 'party', 'candidatevotes']]
+# merge to create master 2020 dataframe
+votes_2020 = pd.merge(total_2020, candidates_2020, on=['county_name', 'state'], how='outer', indicator=False)
+votes_2020['year'] = 2020
+historical_election = historical_election[(historical_election['year'] != 2020) & (historical_election['mode'] == 'total')]
+# now vertically concatenate votes_2020 to the historical election dataframe
+historical_election = pd.concat([historical_election, votes_2020], axis=0, ignore_index=True)
+
+# now reshape wide for candidatevotes BY party
+pivoted_table = historical_election.pivot_table(
+    index=['year', 'state', 'county_name'], 
+    columns='party', 
+    values='candidatevotes', 
+    aggfunc='sum', 
+    fill_value=0  # fills missing values with 0
+).reset_index()
+pivoted_table['other'] = pivoted_table['green'] + pivoted_table['libertarian'] + pivoted_table['other']
+pivoted_table.drop(columns={'green', 'libertarian'}, inplace=True)
+# (Assuming totalvotes is the same across rows for a given county-year, you can take the max or first.)
+total_table = historical_election.groupby(['year', 'state', 'county_name'])['totalvotes'].max().reset_index()
+# Step 4: Merge the pivoted candidate votes with totalvotes.
+historical_election = pd.merge(pivoted_table, total_table, on=['year', 'state', 'county_name'])
+# Step 5: Rename the columns to match your desired names.
+historical_election.rename(columns={
+    'democrat': 'democratic_pres_votes',
+    'republican': 'republican_pres_votes',
+    'other': 'other_pres_votes',
+    'totalvotes': 'total_pres_votes'
+}, inplace=True)
+
+######################################################################################################################################
+# 2024 
+######################################################################################################################################
+# now filter 2024 election data to include only Trump
+election_2024 = election_2024[['state', 'county_name', 'trump', 'harris',
+                            'total vote', 'lsad_trans']]
+election_2024 = election_2024[election_2024['lsad_trans'].isin(['county', 'parish'])]
+# we have to miscellaneously do some renaming 
+for problem, solution in zip(['lasalle', 'st. louis', 'coös'],
+                            ['la salle', 'st. louis county', 'coos']):
+    election_2024.loc[election_2024['county_name'] == problem, 'county_name'] = solution
+election_2024.loc[election_2024['state'] == 'dc', 'state'] = 'district of columbia'
+election_2024 = election_2024.dropna(subset=['county_name']) # drop all rows where 'county_name' is missing
+# now rename all states, which are abbreviations to the lowercase state names
+state_mapping = {
+    'AL': 'alabama', 'AK': 'alaska', 'AZ': 'arizona', 
+    'AR': 'arkansas', 'CA': 'california',
+    'CO': 'colorado', 'CT': 'connecticut', 'DE': 'delaware', 
+    'FL': 'florida', 'GA': 'georgia',
+    'HI': 'hawaii', 'ID': 'idaho', 'IL': 'illinois', 
+    'IN': 'indiana', 'IA': 'iowa',
+    'KS': 'kansas', 'KY': 'kentucky', 'LA': 'louisiana', 
+    'ME': 'maine', 'MD': 'maryland',
+    'MA': 'massachusetts', 'MI': 'michigan', 'MN': 'minnesota', 
+    'MS': 'mississippi', 'MO': 'missouri',
+    'MT': 'montana', 'NE': 'nebraska', 'NV': 'nevada', 
+    'NH': 'new hampshire', 'NJ': 'new jersey',
+    'NM': 'new mexico', 'NY': 'new york', 
+    'NC': 'north carolina', 'ND': 'north dakota',
+    'OH': 'ohio', 'OK': 'oklahoma', 'OR': 'oregon', 
+    'PA': 'pennsylvania', 'RI': 'rhode island',
+    'SC': 'south carolina', 'SD': 'south dakota', 'TN': 'tennessee', 
+    'TX': 'texas', 'UT': 'utah',
+    'VT': 'vermont', 'VA': 'virginia', 'WA': 'washington', 
+    'WV': 'west virginia', 'WI': 'wisconsin', 'WY': 'wyoming'
+}
+state_mapping = {key.lower(): value for key, value in state_mapping.items()}
+election_2024['state'] = election_2024['state'].map(lambda x: state_mapping.get(x, x.lower()))
+election_2024['year'] = 2024 
+election_2024['other_pres_votes'] = election_2024['total vote'] - (election_2024['trump'] - election_2024['harris'])
+election_2024.rename(
+    columns = {
+        'harris': 'democratic_pres_votes',
+        'trump': 'republican_pres_votes',
+        'total vote': 'total_pres_votes'
+    }, inplace=True
+)
+election_2024.drop(columns={'lsad_trans'}, inplace=True)
+
+######################################################################################################################################
+# merge and clean datasets
+######################################################################################################################################
+master = pd.concat([historical_election, election_2024], axis=0, ignore_index=True)
+master.to_csv(f'{election_data}/pres_election_2000_2024_county.csv', index=False)
+
+# now we want to produce a state-level total vote dataset
+# this is very easy; we can just collapse on state
+master.drop(columns={'county_name'}, inplace=True)
+master = master.groupby(['year', 'state']).agg({
+    'democratic_pres_votes': 'sum',
+    'republican_pres_votes': 'sum',
+    'other_pres_votes': 'sum',
+    'total_pres_votes': 'sum'
+}).reset_index()
+master.to_csv(f'{election_data}/pres_election_2000_2024_state.csv', index=False)
+
+# now we want CD-level data, which is a little more complex 
