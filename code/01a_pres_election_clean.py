@@ -6,7 +6,10 @@ work_dir = (home / 'medicaid_project')
 data = (work_dir / 'data')
 raw_data = (data / 'raw')
 clean_data = (data / 'clean')
-election_data = (clean_data / 'election_results')
+state_level = (clean_data / 'state_level')
+state_election_data = (state_level / 'election_results')
+cd_level = (clean_data / 'cd_level')
+cd_election_data = (cd_level / 'election_results')
 output = (work_dir / 'output')
 code = Path.cwd() 
 
@@ -162,7 +165,7 @@ election_2024.drop(columns={'lsad_trans'}, inplace=True)
 # merge and clean datasets
 ######################################################################################################################################
 master = pd.concat([historical_election, election_2024], axis=0, ignore_index=True)
-master.to_csv(f'{election_data}/pres_election_2000_2024_county.csv', index=False)
+master.to_csv(f'{clean_data}/pres_election_2000_2024_county.csv', index=False)
 
 # now we want to produce a state-level total vote dataset
 # this is very easy; we can just collapse on state
@@ -173,6 +176,6 @@ master = master.groupby(['year', 'state']).agg({
     'other_pres_votes': 'sum',
     'total_pres_votes': 'sum'
 }).reset_index()
-master.to_csv(f'{election_data}/pres_election_2000_2024_state.csv', index=False)
+master.to_csv(f'{state_election_data}/pres_election_2000_2024_state.csv', index=False)
 
 # now we want CD-level data, which is a little more complex 
