@@ -5,11 +5,11 @@ warnings.simplefilter(action='ignore', category=pd.errors.SettingWithCopyWarning
 
 # let's create a set of locals referring to our directory and working directory 
 home = Path.home()
-work_dir = (home / 'election_inflation_analysis')
+work_dir = (home / 'medicaid_project')
 data = (work_dir / 'data')
 raw_data = (data / 'raw')
 clean_data = (data / 'clean')
-input = (work_dir / 'input')
+state_level = (clean_data / 'state_level')
 output = (work_dir / 'output')
 code = Path.cwd() 
 
