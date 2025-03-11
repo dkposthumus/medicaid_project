@@ -228,7 +228,7 @@ df2 <- df %>%
 ``` 
 
 ```{r} 
-setwd("~/medicaid_project/data/clean")
+setwd("~/medicaid_project/data/clean/state_level")
 write.csv(df2, "state_trifectas_ballotpedia_scrape.csv")
 
 ```

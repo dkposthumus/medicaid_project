@@ -1,792 +1,792 @@
-"","State","Year","Governor","Senate","House","total_gov"
-"X10","Alabama",2010,"R","D","D","Split"
-"X11","Alabama",2011,"R","R","R","R"
-"X12","Alabama",2012,"R","R","R","R"
-"X13","Alabama",2013,"R","R","R","R"
-"X14","Alabama",2014,"R","R","R","R"
-"X15","Alabama",2015,"R","R","R","R"
-"X16","Alabama",2016,"R","R","R","R"
-"X17","Alabama",2017,"R","R","R","R"
-"X18","Alabama",2018,"R","R","R","R"
-"X19","Alabama",2019,"R","R","R","R"
-"X20","Alabama",2020,"R","R","R","R"
-"X21","Alabama",2021,"R","R","R","R"
-"X22","Alabama",2022,"R","R","R","R"
-"X23","Alabama",2023,"R","R","R","R"
-"X24","Alabama",2024,"R","R","R","R"
-"X25","Alabama",2025,"R","R","R","R"
-"X101","Alaska",2010,"R","D","R","Split"
-"X111","Alaska",2011,"R","D","R","Split"
-"X121","Alaska",2012,"R","D","R","Split"
-"X131","Alaska",2013,"R","R","R","R"
-"X141","Alaska",2014,"R","R","R","R"
-"X151","Alaska",2015,"I","R","R","Split"
-"X161","Alaska",2016,"I","R","R","Split"
-"X171","Alaska",2017,"I","R","D","Split"
-"X181","Alaska",2018,"I","R","D","Split"
-"X191","Alaska",2019,"R","R","S","Split"
-"X201","Alaska",2020,"R","R","S","Split"
-"X211","Alaska",2021,"R","R","S","Split"
-"X221","Alaska",2022,"R","R","S","Split"
-"X231","Alaska",2023,"R","S","S","Split"
-"X241","Alaska",2024,"R","S","S","Split"
-"X251","Alaska",2025,"R","S","S","Split"
-"X102","Arizona",2010,"R","R","R","R"
-"X112","Arizona",2011,"R","R","R","R"
-"X122","Arizona",2012,"R","R","R","R"
-"X132","Arizona",2013,"R","R","R","R"
-"X142","Arizona",2014,"R","R","R","R"
-"X152","Arizona",2015,"R","R","R","R"
-"X162","Arizona",2016,"R","R","R","R"
-"X172","Arizona",2017,"R","R","R","R"
-"X182","Arizona",2018,"R","R","R","R"
-"X192","Arizona",2019,"R","R","R","R"
-"X202","Arizona",2020,"R","R","R","R"
-"X212","Arizona",2021,"R","R","R","R"
-"X222","Arizona",2022,"R","R","R","R"
-"X232","Arizona",2023,"D","R","R","Split"
-"X242","Arizona",2024,"D","R","R","Split"
-"X252","Arizona",2025,"D","R","R","Split"
-"X103","Arkansas",2010,"D","D","D","D"
-"X113","Arkansas",2011,"D","D","D","D"
-"X123","Arkansas",2012,"D","D","D","D"
-"X133","Arkansas",2013,"D","R","R","Split"
-"X143","Arkansas",2014,"D","R","R","Split"
-"X153","Arkansas",2015,"R","R","R","R"
-"X163","Arkansas",2016,"R","R","R","R"
-"X173","Arkansas",2017,"R","R","R","R"
-"X183","Arkansas",2018,"R","R","R","R"
-"X193","Arkansas",2019,"R","R","R","R"
-"X203","Arkansas",2020,"R","R","R","R"
-"X213","Arkansas",2021,"R","R","R","R"
-"X223","Arkansas",2022,"R","R","R","R"
-"X233","Arkansas",2023,"R","R","R","R"
-"X243","Arkansas",2024,"R","R","R","R"
-"X253","Arkansas",2025,"R","R","R","R"
-"X104","California",2010,"R","D","D","Split"
-"X114","California",2011,"D","D","D","D"
-"X124","California",2012,"D","D","D","D"
-"X134","California",2013,"D","D","D","D"
-"X144","California",2014,"D","D","D","D"
-"X154","California",2015,"D","D","D","D"
-"X164","California",2016,"D","D","D","D"
-"X174","California",2017,"D","D","D","D"
-"X184","California",2018,"D","D","D","D"
-"X194","California",2019,"D","D","D","D"
-"X204","California",2020,"D","D","D","D"
-"X214","California",2021,"D","D","D","D"
-"X224","California",2022,"D","D","D","D"
-"X234","California",2023,"D","D","D","D"
-"X244","California",2024,"D","D","D","D"
-"X254","California",2025,"D","D","D","D"
-"X105","Colorado",2010,"D","D","D","D"
-"X115","Colorado",2011,"D","D","R","Split"
-"X125","Colorado",2012,"D","D","R","Split"
-"X135","Colorado",2013,"D","D","D","D"
-"X145","Colorado",2014,"D","D","D","D"
-"X155","Colorado",2015,"D","R","D","Split"
-"X165","Colorado",2016,"D","R","D","Split"
-"X175","Colorado",2017,"D","R","D","Split"
-"X185","Colorado",2018,"D","R","D","Split"
-"X195","Colorado",2019,"D","D","D","D"
-"X205","Colorado",2020,"D","D","D","D"
-"X215","Colorado",2021,"D","D","D","D"
-"X225","Colorado",2022,"D","D","D","D"
-"X235","Colorado",2023,"D","D","D","D"
-"X245","Colorado",2024,"D","D","D","D"
-"X255","Colorado",2025,"D","D","D","D"
-"X106","Connecticut",2010,"R","D","D","Split"
-"X116","Connecticut",2011,"D","D","D","D"
-"X126","Connecticut",2012,"D","D","D","D"
-"X136","Connecticut",2013,"D","D","D","D"
-"X146","Connecticut",2014,"D","D","D","D"
-"X156","Connecticut",2015,"D","D","D","D"
-"X166","Connecticut",2016,"D","D","D","D"
-"X176","Connecticut",2017,"D","D","D","D"
-"X186","Connecticut",2018,"D","D","D","D"
-"X196","Connecticut",2019,"D","D","D","D"
-"X206","Connecticut",2020,"D","D","D","D"
-"X216","Connecticut",2021,"D","D","D","D"
-"X226","Connecticut",2022,"D","D","D","D"
-"X236","Connecticut",2023,"D","D","D","D"
-"X246","Connecticut",2024,"D","D","D","D"
-"X256","Connecticut",2025,"D","D","D","D"
-"X107","Delaware",2010,"D","D","D","D"
-"X117","Delaware",2011,"D","D","D","D"
-"X127","Delaware",2012,"D","D","D","D"
-"X137","Delaware",2013,"D","D","D","D"
-"X147","Delaware",2014,"D","D","D","D"
-"X157","Delaware",2015,"D","D","D","D"
-"X167","Delaware",2016,"D","D","D","D"
-"X177","Delaware",2017,"D","D","D","D"
-"X187","Delaware",2018,"D","D","D","D"
-"X197","Delaware",2019,"D","D","D","D"
-"X207","Delaware",2020,"D","D","D","D"
-"X217","Delaware",2021,"D","D","D","D"
-"X227","Delaware",2022,"D","D","D","D"
-"X237","Delaware",2023,"D","D","D","D"
-"X247","Delaware",2024,"D","D","D","D"
-"X257","Delaware",2025,"D","D","D","D"
-"X108","Florida",2010,"I","R","R","Split"
-"X118","Florida",2011,"R","R","R","R"
-"X128","Florida",2012,"R","R","R","R"
-"X138","Florida",2013,"R","R","R","R"
-"X148","Florida",2014,"R","R","R","R"
-"X158","Florida",2015,"R","R","R","R"
-"X168","Florida",2016,"R","R","R","R"
-"X178","Florida",2017,"R","R","R","R"
-"X188","Florida",2018,"R","R","R","R"
-"X198","Florida",2019,"R","R","R","R"
-"X208","Florida",2020,"R","R","R","R"
-"X218","Florida",2021,"R","R","R","R"
-"X228","Florida",2022,"R","R","R","R"
-"X238","Florida",2023,"R","R","R","R"
-"X248","Florida",2024,"R","R","R","R"
-"X258","Florida",2025,"R","R","R","R"
-"X109","Georgia",2010,"R","R","R","R"
-"X119","Georgia",2011,"R","R","R","R"
-"X129","Georgia",2012,"R","R","R","R"
-"X139","Georgia",2013,"R","R","R","R"
-"X149","Georgia",2014,"R","R","R","R"
-"X159","Georgia",2015,"R","R","R","R"
-"X169","Georgia",2016,"R","R","R","R"
-"X179","Georgia",2017,"R","R","R","R"
-"X189","Georgia",2018,"R","R","R","R"
-"X199","Georgia",2019,"R","R","R","R"
-"X209","Georgia",2020,"R","R","R","R"
-"X219","Georgia",2021,"R","R","R","R"
-"X229","Georgia",2022,"R","R","R","R"
-"X239","Georgia",2023,"R","R","R","R"
-"X249","Georgia",2024,"R","R","R","R"
-"X259","Georgia",2025,"R","R","R","R"
-"X1010","Hawaii",2010,"R","D","D","Split"
-"X1110","Hawaii",2011,"D","D","D","D"
-"X1210","Hawaii",2012,"D","D","D","D"
-"X1310","Hawaii",2013,"D","D","D","D"
-"X1410","Hawaii",2014,"D","D","D","D"
-"X1510","Hawaii",2015,"D","D","D","D"
-"X1610","Hawaii",2016,"D","D","D","D"
-"X1710","Hawaii",2017,"D","D","D","D"
-"X1810","Hawaii",2018,"D","D","D","D"
-"X1910","Hawaii",2019,"D","D","D","D"
-"X2010","Hawaii",2020,"D","D","D","D"
-"X2110","Hawaii",2021,"D","D","D","D"
-"X2210","Hawaii",2022,"D","D","D","D"
-"X2310","Hawaii",2023,"D","D","D","D"
-"X2410","Hawaii",2024,"D","D","D","D"
-"X2510","Hawaii",2025,"D","D","D","D"
-"X1011","Idaho",2010,"R","R","R","R"
-"X1111","Idaho",2011,"R","R","R","R"
-"X1211","Idaho",2012,"R","R","R","R"
-"X1311","Idaho",2013,"R","R","R","R"
-"X1411","Idaho",2014,"R","R","R","R"
-"X1511","Idaho",2015,"R","R","R","R"
-"X1611","Idaho",2016,"R","R","R","R"
-"X1711","Idaho",2017,"R","R","R","R"
-"X1811","Idaho",2018,"R","R","R","R"
-"X1911","Idaho",2019,"R","R","R","R"
-"X2011","Idaho",2020,"R","R","R","R"
-"X2111","Idaho",2021,"R","R","R","R"
-"X2211","Idaho",2022,"R","R","R","R"
-"X2311","Idaho",2023,"R","R","R","R"
-"X2411","Idaho",2024,"R","R","R","R"
-"X2511","Idaho",2025,"R","R","R","R"
-"X1012","Illinois",2010,"D","D","D","D"
-"X1112","Illinois",2011,"D","D","D","D"
-"X1212","Illinois",2012,"D","D","D","D"
-"X1312","Illinois",2013,"D","D","D","D"
-"X1412","Illinois",2014,"D","D","D","D"
-"X1512","Illinois",2015,"R","D","D","Split"
-"X1612","Illinois",2016,"R","D","D","Split"
-"X1712","Illinois",2017,"R","D","D","Split"
-"X1812","Illinois",2018,"R","D","D","Split"
-"X1912","Illinois",2019,"D","D","D","D"
-"X2012","Illinois",2020,"D","D","D","D"
-"X2112","Illinois",2021,"D","D","D","D"
-"X2212","Illinois",2022,"D","D","D","D"
-"X2312","Illinois",2023,"D","D","D","D"
-"X2412","Illinois",2024,"D","D","D","D"
-"X2512","Illinois",2025,"D","D","D","D"
-"X1013","Indiana",2010,"R","R","D","Split"
-"X1113","Indiana",2011,"R","R","R","R"
-"X1213","Indiana",2012,"R","R","R","R"
-"X1313","Indiana",2013,"R","R","R","R"
-"X1413","Indiana",2014,"R","R","R","R"
-"X1513","Indiana",2015,"R","R","R","R"
-"X1613","Indiana",2016,"R","R","R","R"
-"X1713","Indiana",2017,"R","R","R","R"
-"X1813","Indiana",2018,"R","R","R","R"
-"X1913","Indiana",2019,"R","R","R","R"
-"X2013","Indiana",2020,"R","R","R","R"
-"X2113","Indiana",2021,"R","R","R","R"
-"X2213","Indiana",2022,"R","R","R","R"
-"X2313","Indiana",2023,"R","R","R","R"
-"X2413","Indiana",2024,"R","R","R","R"
-"X2513","Indiana",2025,"R","R","R","R"
-"X1014","Iowa",2010,"D","D","D","D"
-"X1114","Iowa",2011,"R","D","R","Split"
-"X1214","Iowa",2012,"R","D","R","Split"
-"X1314","Iowa",2013,"R","D","R","Split"
-"X1414","Iowa",2014,"R","D","R","Split"
-"X1514","Iowa",2015,"R","D","R","Split"
-"X1614","Iowa",2016,"R","D","R","Split"
-"X1714","Iowa",2017,"R","R","R","R"
-"X1814","Iowa",2018,"R","R","R","R"
-"X1914","Iowa",2019,"R","R","R","R"
-"X2014","Iowa",2020,"R","R","R","R"
-"X2114","Iowa",2021,"R","R","R","R"
-"X2214","Iowa",2022,"R","R","R","R"
-"X2314","Iowa",2023,"R","R","R","R"
-"X2414","Iowa",2024,"R","R","R","R"
-"X2514","Iowa",2025,"R","R","R","R"
-"X1015","Kansas",2010,"D","R","R","Split"
-"X1115","Kansas",2011,"R","R","R","R"
-"X1215","Kansas",2012,"R","R","R","R"
-"X1315","Kansas",2013,"R","R","R","R"
-"X1415","Kansas",2014,"R","R","R","R"
-"X1515","Kansas",2015,"R","R","R","R"
-"X1615","Kansas",2016,"R","R","R","R"
-"X1715","Kansas",2017,"R","R","R","R"
-"X1815","Kansas",2018,"R","R","R","R"
-"X1915","Kansas",2019,"D","R","R","Split"
-"X2015","Kansas",2020,"D","R","R","Split"
-"X2115","Kansas",2021,"D","R","R","Split"
-"X2215","Kansas",2022,"D","R","R","Split"
-"X2315","Kansas",2023,"D","R","R","Split"
-"X2415","Kansas",2024,"D","R","R","Split"
-"X2515","Kansas",2025,"D","R","R","Split"
-"X1016","Kentucky",2010,"D","R","D","Split"
-"X1116","Kentucky",2011,"D","R","D","Split"
-"X1216","Kentucky",2012,"D","R","D","Split"
-"X1316","Kentucky",2013,"D","R","D","Split"
-"X1416","Kentucky",2014,"D","R","D","Split"
-"X1516","Kentucky",2015,"D","R","D","Split"
-"X1616","Kentucky",2016,"R","R","D","Split"
-"X1716","Kentucky",2017,"R","R","R","R"
-"X1816","Kentucky",2018,"R","R","R","R"
-"X1916","Kentucky",2019,"R","R","R","R"
-"X2016","Kentucky",2020,"D","R","R","Split"
-"X2116","Kentucky",2021,"D","R","R","Split"
-"X2216","Kentucky",2022,"D","R","R","Split"
-"X2316","Kentucky",2023,"D","R","R","Split"
-"X2416","Kentucky",2024,"D","R","R","Split"
-"X2516","Kentucky",2025,"D","R","R","Split"
-"X1017","Louisiana",2010,"R","D","D","Split"
-"X1117","Louisiana",2011,"R","R","R","R"
-"X1217","Louisiana",2012,"R","R","R","R"
-"X1317","Louisiana",2013,"R","R","R","R"
-"X1417","Louisiana",2014,"R","R","R","R"
-"X1517","Louisiana",2015,"R","R","R","R"
-"X1617","Louisiana",2016,"D","R","R","Split"
-"X1717","Louisiana",2017,"D","R","R","Split"
-"X1817","Louisiana",2018,"D","R","R","Split"
-"X1917","Louisiana",2019,"D","R","R","Split"
-"X2017","Louisiana",2020,"D","R","R","Split"
-"X2117","Louisiana",2021,"D","R","R","Split"
-"X2217","Louisiana",2022,"D","R","R","Split"
-"X2317","Louisiana",2023,"D","R","R","Split"
-"X2417","Louisiana",2024,"R","R","R","R"
-"X2517","Louisiana",2025,"R","R","R","R"
-"X1018","Maine",2010,"D","D","D","D"
-"X1118","Maine",2011,"R","R","R","R"
-"X1218","Maine",2012,"R","R","R","R"
-"X1318","Maine",2013,"R","D","D","Split"
-"X1418","Maine",2014,"R","D","D","Split"
-"X1518","Maine",2015,"R","R","D","Split"
-"X1618","Maine",2016,"R","R","D","Split"
-"X1718","Maine",2017,"R","R","D","Split"
-"X1818","Maine",2018,"R","R","D","Split"
-"X1918","Maine",2019,"D","D","D","D"
-"X2018","Maine",2020,"D","D","D","D"
-"X2118","Maine",2021,"D","D","D","D"
-"X2218","Maine",2022,"D","D","D","D"
-"X2318","Maine",2023,"D","D","D","D"
-"X2418","Maine",2024,"D","D","D","D"
-"X2518","Maine",2025,"D","D","D","D"
-"X1019","Maryland",2010,"D","D","D","D"
-"X1119","Maryland",2011,"D","D","D","D"
-"X1219","Maryland",2012,"D","D","D","D"
-"X1319","Maryland",2013,"D","D","D","D"
-"X1419","Maryland",2014,"D","D","D","D"
-"X1519","Maryland",2015,"R","D","D","Split"
-"X1619","Maryland",2016,"R","D","D","Split"
-"X1719","Maryland",2017,"R","D","D","Split"
-"X1819","Maryland",2018,"R","D","D","Split"
-"X1919","Maryland",2019,"R","D","D","Split"
-"X2019","Maryland",2020,"R","D","D","Split"
-"X2119","Maryland",2021,"R","D","D","Split"
-"X2219","Maryland",2022,"R","D","D","Split"
-"X2319","Maryland",2023,"D","D","D","D"
-"X2419","Maryland",2024,"D","D","D","D"
-"X2519","Maryland",2025,"D","D","D","D"
-"X1020","Massachusetts",2010,"D","D","D","D"
-"X1120","Massachusetts",2011,"D","D","D","D"
-"X1220","Massachusetts",2012,"D","D","D","D"
-"X1320","Massachusetts",2013,"D","D","D","D"
-"X1420","Massachusetts",2014,"D","D","D","D"
-"X1520","Massachusetts",2015,"R","D","D","Split"
-"X1620","Massachusetts",2016,"R","D","D","Split"
-"X1720","Massachusetts",2017,"R","D","D","Split"
-"X1820","Massachusetts",2018,"R","D","D","Split"
-"X1920","Massachusetts",2019,"R","D","D","Split"
-"X2020","Massachusetts",2020,"R","D","D","Split"
-"X2120","Massachusetts",2021,"R","D","D","Split"
-"X2220","Massachusetts",2022,"R","D","D","Split"
-"X2320","Massachusetts",2023,"D","D","D","D"
-"X2420","Massachusetts",2024,"D","D","D","D"
-"X1021","Michigan",2010,"D","R","D","Split"
-"X1121","Michigan",2011,"R","R","R","R"
-"X1221","Michigan",2012,"R","R","R","R"
-"X1321","Michigan",2013,"R","R","R","R"
-"X1421","Michigan",2014,"R","R","R","R"
-"X1521","Michigan",2015,"R","R","R","R"
-"X1621","Michigan",2016,"R","R","R","R"
-"X1721","Michigan",2017,"R","R","R","R"
-"X1821","Michigan",2018,"R","R","R","R"
-"X1921","Michigan",2019,"D","R","R","Split"
-"X2021","Michigan",2020,"D","R","R","Split"
-"X2121","Michigan",2021,"D","R","R","Split"
-"X2221","Michigan",2022,"D","R","R","Split"
-"X2321","Michigan",2023,"D","D","D","D"
-"X2421","Michigan",2024,"D","D","D","D"
-"X2520","Michigan",2025,"D","D","R","Split"
-"X1022","Minnesota",2010,"R","D","D","Split"
-"X1122","Minnesota",2011,"D","R","R","Split"
-"X1222","Minnesota",2012,"D","R","R","Split"
-"X1322","Minnesota",2013,"D","D","D","D"
-"X1422","Minnesota",2014,"D","D","D","D"
-"X1522","Minnesota",2015,"D","D","R","Split"
-"X1622","Minnesota",2016,"D","D","R","Split"
-"X1722","Minnesota",2017,"D","R","R","Split"
-"X1822","Minnesota",2018,"D","R","R","Split"
-"X1922","Minnesota",2019,"D","R","D","Split"
-"X2022","Minnesota",2020,"D","R","D","Split"
-"X2122","Minnesota",2021,"D","R","D","Split"
-"X2222","Minnesota",2022,"D","R","D","Split"
-"X2322","Minnesota",2023,"D","D","D","D"
-"X2422","Minnesota",2024,"D","D","D","D"
-"X1023","Mississippi",2010,"R","D","D","Split"
-"X1123","Mississippi",2011,"R","R","D","Split"
-"X1223","Mississippi",2012,"R","R","R","R"
-"X1323","Mississippi",2013,"R","R","R","R"
-"X1423","Mississippi",2014,"R","R","R","R"
-"X1523","Mississippi",2015,"R","R","R","R"
-"X1623","Mississippi",2016,"R","R","R","R"
-"X1723","Mississippi",2017,"R","R","R","R"
-"X1823","Mississippi",2018,"R","R","R","R"
-"X1923","Mississippi",2019,"R","R","R","R"
-"X2023","Mississippi",2020,"R","R","R","R"
-"X2123","Mississippi",2021,"R","R","R","R"
-"X2223","Mississippi",2022,"R","R","R","R"
-"X2323","Mississippi",2023,"R","R","R","R"
-"X2423","Mississippi",2024,"R","R","R","R"
-"X2521","Mississippi",2025,"R","R","R","R"
-"X1024","Missouri",2010,"D","R","R","Split"
-"X1124","Missouri",2011,"D","R","R","Split"
-"X1224","Missouri",2012,"D","R","R","Split"
-"X1324","Missouri",2013,"D","R","R","Split"
-"X1424","Missouri",2014,"D","R","R","Split"
-"X1524","Missouri",2015,"D","R","R","Split"
-"X1624","Missouri",2016,"D","R","R","Split"
-"X1724","Missouri",2017,"R","R","R","R"
-"X1824","Missouri",2018,"R","R","R","R"
-"X1924","Missouri",2019,"R","R","R","R"
-"X2024","Missouri",2020,"R","R","R","R"
-"X2124","Missouri",2021,"R","R","R","R"
-"X2224","Missouri",2022,"R","R","R","R"
-"X2324","Missouri",2023,"R","R","R","R"
-"X2424","Missouri",2024,"R","R","R","R"
-"X2522","Missouri",2025,"R","R","R","R"
-"X1025","Montana",2010,"D","R","S","Split"
-"X1125","Montana",2011,"D","R","R","Split"
-"X1225","Montana",2012,"D","R","R","Split"
-"X1325","Montana",2013,"D","R","R","Split"
-"X1425","Montana",2014,"D","R","R","Split"
-"X1525","Montana",2015,"D","R","R","Split"
-"X1625","Montana",2016,"D","R","R","Split"
-"X1725","Montana",2017,"D","R","R","Split"
-"X1825","Montana",2018,"D","R","R","Split"
-"X1925","Montana",2019,"D","R","R","Split"
-"X2025","Montana",2020,"D","R","R","Split"
-"X2125","Montana",2021,"R","R","R","R"
-"X2225","Montana",2022,"R","R","R","R"
-"X2325","Montana",2023,"R","R","R","R"
-"X2425","Montana",2024,"R","R","R","R"
-"X2523","Montana",2025,"R","R","R","R"
-"X1026","Nevada",2010,"R","D","D","Split"
-"X1126","Nevada",2011,"R","D","D","Split"
-"X1226","Nevada",2012,"R","D","D","Split"
-"X1326","Nevada",2013,"R","D","D","Split"
-"X1426","Nevada",2014,"R","D","D","Split"
-"X1526","Nevada",2015,"R","R","R","R"
-"X1626","Nevada",2016,"R","R","R","R"
-"X1726","Nevada",2017,"R","D","D","Split"
-"X1826","Nevada",2018,"R","D","D","Split"
-"X1926","Nevada",2019,"D","D","D","D"
-"X2026","Nevada",2020,"D","D","D","D"
-"X2126","Nevada",2021,"D","D","D","D"
-"X2226","Nevada",2022,"D","D","D","D"
-"X2326","Nevada",2023,"R","D","D","Split"
-"X2426","Nevada",2024,"R","D","D","Split"
-"X2524","Nevada",2025,"R","D","D","Split"
-"X1027","New Hampshire",2010,"D","D","D","D"
-"X1127","New Hampshire",2011,"D","R","R","Split"
-"X1227","New Hampshire",2012,"D","R","R","Split"
-"X1327","New Hampshire",2013,"D","R","D","Split"
-"X1427","New Hampshire",2014,"D","R","D","Split"
-"X1527","New Hampshire",2015,"D","R","R","Split"
-"X1627","New Hampshire",2016,"D","R","R","Split"
-"X1727","New Hampshire",2017,"R","R","R","R"
-"X1827","New Hampshire",2018,"R","R","R","R"
-"X1927","New Hampshire",2019,"R","D","D","Split"
-"X2027","New Hampshire",2020,"R","D","D","Split"
-"X2127","New Hampshire",2021,"R","R","R","R"
-"X2227","New Hampshire",2022,"R","R","R","R"
-"X2327","New Hampshire",2023,"R","R","R","R"
-"X2427","New Hampshire",2024,"R","R","R","R"
-"X2525","New Hampshire",2025,"R","R","R","R"
-"X1028","New Jersey",2010,"R","D","D","Split"
-"X1128","New Jersey",2011,"R","D","D","Split"
-"X1228","New Jersey",2012,"R","D","D","Split"
-"X1328","New Jersey",2013,"R","D","D","Split"
-"X1428","New Jersey",2014,"R","D","D","Split"
-"X1528","New Jersey",2015,"R","D","D","Split"
-"X1628","New Jersey",2016,"R","D","D","Split"
-"X1728","New Jersey",2017,"R","D","D","Split"
-"X1828","New Jersey",2018,"D","D","D","D"
-"X1928","New Jersey",2019,"D","D","D","D"
-"X2028","New Jersey",2020,"D","D","D","D"
-"X2128","New Jersey",2021,"D","D","D","D"
-"X2228","New Jersey",2022,"D","D","D","D"
-"X2328","New Jersey",2023,"D","D","D","D"
-"X2428","New Jersey",2024,"D","D","D","D"
-"X2526","New Jersey",2025,"D","D","D","D"
-"X1029","New Mexico",2010,"D","D","D","D"
-"X1129","New Mexico",2011,"R","D","D","Split"
-"X1229","New Mexico",2012,"R","D","D","Split"
-"X1329","New Mexico",2013,"R","D","D","Split"
-"X1429","New Mexico",2014,"R","D","D","Split"
-"X1529","New Mexico",2015,"R","D","R","Split"
-"X1629","New Mexico",2016,"R","D","R","Split"
-"X1729","New Mexico",2017,"R","D","D","Split"
-"X1829","New Mexico",2018,"R","D","D","Split"
-"X1929","New Mexico",2019,"D","D","D","D"
-"X2029","New Mexico",2020,"D","D","D","D"
-"X2129","New Mexico",2021,"D","D","D","D"
-"X2229","New Mexico",2022,"D","D","D","D"
-"X2329","New Mexico",2023,"D","D","D","D"
-"X2429","New Mexico",2024,"D","D","D","D"
-"X2527","New Mexico",2025,"D","D","D","D"
-"X1030","New York",2010,"D","D","D","D"
-"X1130","New York",2011,"D","R","D","Split"
-"X1230","New York",2012,"D","R","D","Split"
-"X1330","New York",2013,"D","R","D","Split"
-"X1430","New York",2014,"D","R","D","Split"
-"X1530","New York",2015,"D","R","D","Split"
-"X1630","New York",2016,"D","R","D","Split"
-"X1730","New York",2017,"D","R","D","Split"
-"X1830","New York",2018,"D","R","D","Split"
-"X1930","New York",2019,"D","D","D","D"
-"X2030","New York",2020,"D","D","D","D"
-"X2130","New York",2021,"D","D","D","D"
-"X2230","New York",2022,"D","D","D","D"
-"X2330","New York",2023,"D","D","D","D"
-"X2430","New York",2024,"D","D","D","D"
-"X2528","New York",2025,"D","D","D","D"
-"X1031","North Carolina",2010,"D","D","D","D"
-"X1131","North Carolina",2011,"D","R","R","Split"
-"X1231","North Carolina",2012,"D","R","R","Split"
-"X1331","North Carolina",2013,"R","R","R","R"
-"X1431","North Carolina",2014,"R","R","R","R"
-"X1531","North Carolina",2015,"R","R","R","R"
-"X1631","North Carolina",2016,"R","R","R","R"
-"X1731","North Carolina",2017,"D","R","R","Split"
-"X1831","North Carolina",2018,"D","R","R","Split"
-"X1931","North Carolina",2019,"D","R","R","Split"
-"X2031","North Carolina",2020,"D","R","R","Split"
-"X2131","North Carolina",2021,"D","R","R","Split"
-"X2231","North Carolina",2022,"D","R","R","Split"
-"X2331","North Carolina",2023,"D","R","R","Split"
-"X2431","North Carolina",2024,"D","R","R","Split"
-"X2529","North Carolina",2025,"D","R","R","Split"
-"X1032","North Dakota",2010,"R","R","R","R"
-"X1132","North Dakota",2011,"R","R","R","R"
-"X1232","North Dakota",2012,"R","R","R","R"
-"X1332","North Dakota",2013,"R","R","R","R"
-"X1432","North Dakota",2014,"R","R","R","R"
-"X1532","North Dakota",2015,"R","R","R","R"
-"X1632","North Dakota",2016,"R","R","R","R"
-"X1732","North Dakota",2017,"R","R","R","R"
-"X1832","North Dakota",2018,"R","R","R","R"
-"X1932","North Dakota",2019,"R","R","R","R"
-"X2032","North Dakota",2020,"R","R","R","R"
-"X2132","North Dakota",2021,"R","R","R","R"
-"X2232","North Dakota",2022,"R","R","R","R"
-"X2332","North Dakota",2023,"R","R","R","R"
-"X2432","North Dakota",2024,"R","R","R","R"
-"X2530","North Dakota",2025,"R","R","R","R"
-"X1033","Ohio",2010,"D","R","D","Split"
-"X1133","Ohio",2011,"R","R","R","R"
-"X1233","Ohio",2012,"R","R","R","R"
-"X1333","Ohio",2013,"R","R","R","R"
-"X1433","Ohio",2014,"R","R","R","R"
-"X1533","Ohio",2015,"R","R","R","R"
-"X1633","Ohio",2016,"R","R","R","R"
-"X1733","Ohio",2017,"R","R","R","R"
-"X1833","Ohio",2018,"R","R","R","R"
-"X1933","Ohio",2019,"R","R","R","R"
-"X2033","Ohio",2020,"R","R","R","R"
-"X2133","Ohio",2021,"R","R","R","R"
-"X2233","Ohio",2022,"R","R","R","R"
-"X2333","Ohio",2023,"R","R","R","R"
-"X2433","Ohio",2024,"R","R","R","R"
-"X1034","Oklahoma",2010,"D","R","R","Split"
-"X1134","Oklahoma",2011,"R","R","R","R"
-"X1234","Oklahoma",2012,"R","R","R","R"
-"X1334","Oklahoma",2013,"R","R","R","R"
-"X1434","Oklahoma",2014,"R","R","R","R"
-"X1534","Oklahoma",2015,"R","R","R","R"
-"X1634","Oklahoma",2016,"R","R","R","R"
-"X1734","Oklahoma",2017,"R","R","R","R"
-"X1834","Oklahoma",2018,"R","R","R","R"
-"X1934","Oklahoma",2019,"R","R","R","R"
-"X2034","Oklahoma",2020,"R","R","R","R"
-"X2134","Oklahoma",2021,"R","R","R","R"
-"X2234","Oklahoma",2022,"R","R","R","R"
-"X2334","Oklahoma",2023,"R","R","R","R"
-"X2434","Oklahoma",2024,"R","R","R","R"
-"X1035","Oregon",2010,"D","D","D","D"
-"X1135","Oregon",2011,"D","D","S","Split"
-"X1235","Oregon",2012,"D","D","S","Split"
-"X1335","Oregon",2013,"D","D","D","D"
-"X1435","Oregon",2014,"D","D","D","D"
-"X1535","Oregon",2015,"D","D","D","D"
-"X1635","Oregon",2016,"D","D","D","D"
-"X1735","Oregon",2017,"D","D","D","D"
-"X1835","Oregon",2018,"D","D","D","D"
-"X1935","Oregon",2019,"D","D","D","D"
-"X2035","Oregon",2020,"D","D","D","D"
-"X2135","Oregon",2021,"D","D","D","D"
-"X2235","Oregon",2022,"D","D","D","D"
-"X2335","Oregon",2023,"D","D","D","D"
-"X2435","Oregon",2024,"D","D","D","D"
-"X2531","Oregon",2025,"D","D","D","D"
-"X1036","Pennsylvania",2010,"D","R","D","Split"
-"X1136","Pennsylvania",2011,"R","R","R","R"
-"X1236","Pennsylvania",2012,"R","R","R","R"
-"X1336","Pennsylvania",2013,"R","R","R","R"
-"X1436","Pennsylvania",2014,"R","R","R","R"
-"X1536","Pennsylvania",2015,"D","R","R","Split"
-"X1636","Pennsylvania",2016,"D","R","R","Split"
-"X1736","Pennsylvania",2017,"D","R","R","Split"
-"X1836","Pennsylvania",2018,"D","R","R","Split"
-"X1936","Pennsylvania",2019,"D","R","R","Split"
-"X2036","Pennsylvania",2020,"D","R","R","Split"
-"X2136","Pennsylvania",2021,"D","R","R","Split"
-"X2236","Pennsylvania",2022,"D","R","R","Split"
-"X2336","Pennsylvania",2023,"D","R","D","Split"
-"X2436","Pennsylvania",2024,"D","R","D","Split"
-"X2532","Pennsylvania",2025,"D","R","_",NA
-"X1037","Rhode Island",2010,"R","D","D","Split"
-"X1137","Rhode Island",2011,"I","D","D","Split"
-"X1237","Rhode Island",2012,"I","D","D","Split"
-"X1337","Rhode Island",2013,"D","D","D","D"
-"X1437","Rhode Island",2014,"D","D","D","D"
-"X1537","Rhode Island",2015,"D","D","D","D"
-"X1637","Rhode Island",2016,"D","D","D","D"
-"X1737","Rhode Island",2017,"D","D","D","D"
-"X1837","Rhode Island",2018,"D","D","D","D"
-"X1937","Rhode Island",2019,"D","D","D","D"
-"X2037","Rhode Island",2020,"D","D","D","D"
-"X2137","Rhode Island",2021,"D","D","D","D"
-"X2237","Rhode Island",2022,"D","D","D","D"
-"X2337","Rhode Island",2023,"D","D","D","D"
-"X2437","Rhode Island",2024,"D","D","D","D"
-"X2533","Rhode Island",2025,"D","D","D","D"
-"X1038","South Carolina",2010,"R","R","R","R"
-"X1138","South Carolina",2011,"R","R","R","R"
-"X1238","South Carolina",2012,"R","R","R","R"
-"X1338","South Carolina",2013,"R","R","R","R"
-"X1438","South Carolina",2014,"R","R","R","R"
-"X1538","South Carolina",2015,"R","R","R","R"
-"X1638","South Carolina",2016,"R","R","R","R"
-"X1738","South Carolina",2017,"R","R","R","R"
-"X1838","South Carolina",2018,"R","R","R","R"
-"X1938","South Carolina",2019,"R","R","R","R"
-"X2038","South Carolina",2020,"R","R","R","R"
-"X2138","South Carolina",2021,"R","R","R","R"
-"X2238","South Carolina",2022,"R","R","R","R"
-"X2338","South Carolina",2023,"R","R","R","R"
-"X2438","South Carolina",2024,"R","R","R","R"
-"X2534","South Carolina",2025,"R","R","R","R"
-"X1039","South Dakota",2010,"R","R","R","R"
-"X1139","South Dakota",2011,"R","R","R","R"
-"X1239","South Dakota",2012,"R","R","R","R"
-"X1339","South Dakota",2013,"R","R","R","R"
-"X1439","South Dakota",2014,"R","R","R","R"
-"X1539","South Dakota",2015,"R","R","R","R"
-"X1639","South Dakota",2016,"R","R","R","R"
-"X1739","South Dakota",2017,"R","R","R","R"
-"X1839","South Dakota",2018,"R","R","R","R"
-"X1939","South Dakota",2019,"R","R","R","R"
-"X2039","South Dakota",2020,"R","R","R","R"
-"X2139","South Dakota",2021,"R","R","R","R"
-"X2239","South Dakota",2022,"R","R","R","R"
-"X2339","South Dakota",2023,"R","R","R","R"
-"X2439","South Dakota",2024,"R","R","R","R"
-"X2535","South Dakota",2025,"R","R","R","R"
-"X1040","Tennessee",2010,"D","R","R","Split"
-"X1140","Tennessee",2011,"R","R","R","R"
-"X1240","Tennessee",2012,"R","R","R","R"
-"X1340","Tennessee",2013,"R","R","R","R"
-"X1440","Tennessee",2014,"R","R","R","R"
-"X1540","Tennessee",2015,"R","R","R","R"
-"X1640","Tennessee",2016,"R","R","R","R"
-"X1740","Tennessee",2017,"R","R","R","R"
-"X1840","Tennessee",2018,"R","R","R","R"
-"X1940","Tennessee",2019,"R","R","R","R"
-"X2040","Tennessee",2020,"R","R","R","R"
-"X2140","Tennessee",2021,"R","R","R","R"
-"X2240","Tennessee",2022,"R","R","R","R"
-"X2340","Tennessee",2023,"R","R","R","R"
-"X2440","Tennessee",2024,"R","R","R","R"
-"X2536","Tennessee",2025,"R","R","R","R"
-"X1041","Texas",2010,"R","R","R","R"
-"X1141","Texas",2011,"R","R","R","R"
-"X1241","Texas",2012,"R","R","R","R"
-"X1341","Texas",2013,"R","R","R","R"
-"X1441","Texas",2014,"R","R","R","R"
-"X1541","Texas",2015,"R","R","R","R"
-"X1641","Texas",2016,"R","R","R","R"
-"X1741","Texas",2017,"R","R","R","R"
-"X1841","Texas",2018,"R","R","R","R"
-"X1941","Texas",2019,"R","R","R","R"
-"X2041","Texas",2020,"R","R","R","R"
-"X2141","Texas",2021,"R","R","R","R"
-"X2241","Texas",2022,"R","R","R","R"
-"X2341","Texas",2023,"R","R","R","R"
-"X2441","Texas",2024,"R","R","R","R"
-"X2537","Texas",2025,"R","R","R","R"
-"X1042","Utah",2010,"R","R","R","R"
-"X1142","Utah",2011,"R","R","R","R"
-"X1242","Utah",2012,"R","R","R","R"
-"X1342","Utah",2013,"R","R","R","R"
-"X1442","Utah",2014,"R","R","R","R"
-"X1542","Utah",2015,"R","R","R","R"
-"X1642","Utah",2016,"R","R","R","R"
-"X1742","Utah",2017,"R","R","R","R"
-"X1842","Utah",2018,"R","R","R","R"
-"X1942","Utah",2019,"R","R","R","R"
-"X2042","Utah",2020,"R","R","R","R"
-"X2142","Utah",2021,"R","R","R","R"
-"X2242","Utah",2022,"R","R","R","R"
-"X2342","Utah",2023,"R","R","R","R"
-"X2442","Utah",2024,"R","R","R","R"
-"X1043","Vermont",2010,"R","D","D","Split"
-"X1143","Vermont",2011,"D","D","D","D"
-"X1243","Vermont",2012,"D","D","D","D"
-"X1343","Vermont",2013,"D","D","D","D"
-"X1443","Vermont",2014,"D","D","D","D"
-"X1543","Vermont",2015,"D","D","D","D"
-"X1643","Vermont",2016,"D","D","D","D"
-"X1743","Vermont",2017,"R","D","D","Split"
-"X1843","Vermont",2018,"R","D","D","Split"
-"X1943","Vermont",2019,"R","D","D","Split"
-"X2043","Vermont",2020,"R","D","D","Split"
-"X2143","Vermont",2021,"R","D","D","Split"
-"X2243","Vermont",2022,"R","D","D","Split"
-"X2343","Vermont",2023,"R","D","D","Split"
-"X2443","Vermont",2024,"R","D","D","Split"
-"X1044","Virginia",2010,"R","D","R","Split"
-"X1144","Virginia",2011,"R","D","R","Split"
-"X1244","Virginia",2012,"R","R","R","R"
-"X1344","Virginia",2013,"R","R","R","R"
-"X1444","Virginia",2014,"D","D","R","Split"
-"X1544","Virginia",2015,"D","R","R","Split"
-"X1644","Virginia",2016,"D","R","R","Split"
-"X1744","Virginia",2017,"D","R","R","Split"
-"X1844","Virginia",2018,"D","R","R","Split"
-"X1944","Virginia",2019,"D","R","R","Split"
-"X2044","Virginia",2020,"D","D","D","D"
-"X2144","Virginia",2021,"D","D","D","D"
-"X2244","Virginia",2022,"R","D","R","Split"
-"X2344","Virginia",2023,"R","D","R","Split"
-"X2444","Virginia",2024,"R","D","D","Split"
-"X2538","Virginia",2025,"R","D","D","Split"
-"X1045","Washington",2010,"D","D","D","D"
-"X1145","Washington",2011,"D","D","D","D"
-"X1245","Washington",2012,"D","D","D","D"
-"X1345","Washington",2013,"D","R","D","Split"
-"X1445","Washington",2014,"D","R","D","Split"
-"X1545","Washington",2015,"D","R","D","Split"
-"X1645","Washington",2016,"D","R","D","Split"
-"X1745","Washington",2017,"D","R","D","Split"
-"X1845","Washington",2018,"D","D","D","D"
-"X1945","Washington",2019,"D","D","D","D"
-"X2045","Washington",2020,"D","D","D","D"
-"X2145","Washington",2021,"D","D","D","D"
-"X2245","Washington",2022,"D","D","D","D"
-"X2345","Washington",2023,"D","D","D","D"
-"X2445","Washington",2024,"D","D","D","D"
-"X1046","West Virginia",2010,"D","D","D","D"
-"X1146","West Virginia",2011,"D","D","D","D"
-"X1246","West Virginia",2012,"D","D","D","D"
-"X1346","West Virginia",2013,"D","D","D","D"
-"X1446","West Virginia",2014,"D","D","D","D"
-"X1546","West Virginia",2015,"D","R","R","Split"
-"X1646","West Virginia",2016,"D","R","R","Split"
-"X1746","West Virginia",2017,"D","R","R","Split"
-"X1846","West Virginia",2018,"R","R","R","R"
-"X1946","West Virginia",2019,"R","R","R","R"
-"X2046","West Virginia",2020,"R","R","R","R"
-"X2146","West Virginia",2021,"R","R","R","R"
-"X2246","West Virginia",2022,"R","R","R","R"
-"X2346","West Virginia",2023,"R","R","R","R"
-"X2446","West Virginia",2024,"R","R","R","R"
-"X1047","Wisconsin",2010,"D","D","D","D"
-"X1147","Wisconsin",2011,"R","R","R","R"
-"X1247","Wisconsin",2012,"R","R","R","R"
-"X1347","Wisconsin",2013,"R","R","R","R"
-"X1447","Wisconsin",2014,"R","R","R","R"
-"X1547","Wisconsin",2015,"R","R","R","R"
-"X1647","Wisconsin",2016,"R","R","R","R"
-"X1747","Wisconsin",2017,"R","R","R","R"
-"X1847","Wisconsin",2018,"R","R","R","R"
-"X1947","Wisconsin",2019,"D","R","R","Split"
-"X2047","Wisconsin",2020,"D","R","R","Split"
-"X2147","Wisconsin",2021,"D","R","R","Split"
-"X2247","Wisconsin",2022,"D","R","R","Split"
-"X2347","Wisconsin",2023,"D","R","R","Split"
-"X2447","Wisconsin",2024,"D","R","R","Split"
-"X2539","Wisconsin",2025,"D","R","R","Split"
-"X1048","Wyoming",2010,"D","R","R","Split"
-"X1148","Wyoming",2011,"R","R","R","R"
-"X1248","Wyoming",2012,"R","R","R","R"
-"X1348","Wyoming",2013,"R","R","R","R"
-"X1448","Wyoming",2014,"R","R","R","R"
-"X1548","Wyoming",2015,"R","R","R","R"
-"X1648","Wyoming",2016,"R","R","R","R"
-"X1748","Wyoming",2017,"R","R","R","R"
-"X1848","Wyoming",2018,"R","R","R","R"
-"X1948","Wyoming",2019,"R","R","R","R"
-"X2048","Wyoming",2020,"R","R","R","R"
-"X2148","Wyoming",2021,"R","R","R","R"
-"X2248","Wyoming",2022,"R","R","R","R"
-"X2348","Wyoming",2023,"R","R","R","R"
-"X2448","Wyoming",2024,"R","R","R","R"
-"X1049","Nebraska",2010,"R","-","-","-"
-"X1149","Nebraska",2011,"R","-","-","-"
-"X1249","Nebraska",2012,"R","-","-","-"
-"X1349","Nebraska",2013,"R","-","-","-"
-"X1449","Nebraska",2014,"R","-","-","-"
-"X1549","Nebraska",2015,"R","-","-","-"
-"X1649","Nebraska",2016,"R","-","-","-"
-"X1749","Nebraska",2017,"R","-","-","-"
-"X1849","Nebraska",2018,"R","-","-","-"
-"X1949","Nebraska",2019,"R","-","-","-"
-"X2049","Nebraska",2020,"R","-","-","-"
-"X2149","Nebraska",2021,"R","-","-","-"
-"X2249","Nebraska",2022,"R","-","-","-"
-"X2349","Nebraska",2023,"R","-","-","-"
-"X2449","Nebraska",2024,"R","-","-","-"
-"X2540","Nebraska",2025,"R","-","-","-"
+state,year,governor,senate,house,total_gov
+alabama,2010,r,d,d,split
+alabama,2011,r,r,r,r
+alabama,2012,r,r,r,r
+alabama,2013,r,r,r,r
+alabama,2014,r,r,r,r
+alabama,2015,r,r,r,r
+alabama,2016,r,r,r,r
+alabama,2017,r,r,r,r
+alabama,2018,r,r,r,r
+alabama,2019,r,r,r,r
+alabama,2020,r,r,r,r
+alabama,2021,r,r,r,r
+alabama,2022,r,r,r,r
+alabama,2023,r,r,r,r
+alabama,2024,r,r,r,r
+alabama,2025,r,r,r,r
+alaska,2010,r,d,r,split
+alaska,2011,r,d,r,split
+alaska,2012,r,d,r,split
+alaska,2013,r,r,r,r
+alaska,2014,r,r,r,r
+alaska,2015,i,r,r,split
+alaska,2016,i,r,r,split
+alaska,2017,i,r,d,split
+alaska,2018,i,r,d,split
+alaska,2019,r,r,s,split
+alaska,2020,r,r,s,split
+alaska,2021,r,r,s,split
+alaska,2022,r,r,s,split
+alaska,2023,r,s,s,split
+alaska,2024,r,s,s,split
+alaska,2025,r,s,s,split
+arizona,2010,r,r,r,r
+arizona,2011,r,r,r,r
+arizona,2012,r,r,r,r
+arizona,2013,r,r,r,r
+arizona,2014,r,r,r,r
+arizona,2015,r,r,r,r
+arizona,2016,r,r,r,r
+arizona,2017,r,r,r,r
+arizona,2018,r,r,r,r
+arizona,2019,r,r,r,r
+arizona,2020,r,r,r,r
+arizona,2021,r,r,r,r
+arizona,2022,r,r,r,r
+arizona,2023,d,r,r,split
+arizona,2024,d,r,r,split
+arizona,2025,d,r,r,split
+arkansas,2010,d,d,d,d
+arkansas,2011,d,d,d,d
+arkansas,2012,d,d,d,d
+arkansas,2013,d,r,r,split
+arkansas,2014,d,r,r,split
+arkansas,2015,r,r,r,r
+arkansas,2016,r,r,r,r
+arkansas,2017,r,r,r,r
+arkansas,2018,r,r,r,r
+arkansas,2019,r,r,r,r
+arkansas,2020,r,r,r,r
+arkansas,2021,r,r,r,r
+arkansas,2022,r,r,r,r
+arkansas,2023,r,r,r,r
+arkansas,2024,r,r,r,r
+arkansas,2025,r,r,r,r
+california,2010,r,d,d,split
+california,2011,d,d,d,d
+california,2012,d,d,d,d
+california,2013,d,d,d,d
+california,2014,d,d,d,d
+california,2015,d,d,d,d
+california,2016,d,d,d,d
+california,2017,d,d,d,d
+california,2018,d,d,d,d
+california,2019,d,d,d,d
+california,2020,d,d,d,d
+california,2021,d,d,d,d
+california,2022,d,d,d,d
+california,2023,d,d,d,d
+california,2024,d,d,d,d
+california,2025,d,d,d,d
+colorado,2010,d,d,d,d
+colorado,2011,d,d,r,split
+colorado,2012,d,d,r,split
+colorado,2013,d,d,d,d
+colorado,2014,d,d,d,d
+colorado,2015,d,r,d,split
+colorado,2016,d,r,d,split
+colorado,2017,d,r,d,split
+colorado,2018,d,r,d,split
+colorado,2019,d,d,d,d
+colorado,2020,d,d,d,d
+colorado,2021,d,d,d,d
+colorado,2022,d,d,d,d
+colorado,2023,d,d,d,d
+colorado,2024,d,d,d,d
+colorado,2025,d,d,d,d
+connecticut,2010,r,d,d,split
+connecticut,2011,d,d,d,d
+connecticut,2012,d,d,d,d
+connecticut,2013,d,d,d,d
+connecticut,2014,d,d,d,d
+connecticut,2015,d,d,d,d
+connecticut,2016,d,d,d,d
+connecticut,2017,d,d,d,d
+connecticut,2018,d,d,d,d
+connecticut,2019,d,d,d,d
+connecticut,2020,d,d,d,d
+connecticut,2021,d,d,d,d
+connecticut,2022,d,d,d,d
+connecticut,2023,d,d,d,d
+connecticut,2024,d,d,d,d
+connecticut,2025,d,d,d,d
+delaware,2010,d,d,d,d
+delaware,2011,d,d,d,d
+delaware,2012,d,d,d,d
+delaware,2013,d,d,d,d
+delaware,2014,d,d,d,d
+delaware,2015,d,d,d,d
+delaware,2016,d,d,d,d
+delaware,2017,d,d,d,d
+delaware,2018,d,d,d,d
+delaware,2019,d,d,d,d
+delaware,2020,d,d,d,d
+delaware,2021,d,d,d,d
+delaware,2022,d,d,d,d
+delaware,2023,d,d,d,d
+delaware,2024,d,d,d,d
+delaware,2025,d,d,d,d
+florida,2010,i,r,r,split
+florida,2011,r,r,r,r
+florida,2012,r,r,r,r
+florida,2013,r,r,r,r
+florida,2014,r,r,r,r
+florida,2015,r,r,r,r
+florida,2016,r,r,r,r
+florida,2017,r,r,r,r
+florida,2018,r,r,r,r
+florida,2019,r,r,r,r
+florida,2020,r,r,r,r
+florida,2021,r,r,r,r
+florida,2022,r,r,r,r
+florida,2023,r,r,r,r
+florida,2024,r,r,r,r
+florida,2025,r,r,r,r
+georgia,2010,r,r,r,r
+georgia,2011,r,r,r,r
+georgia,2012,r,r,r,r
+georgia,2013,r,r,r,r
+georgia,2014,r,r,r,r
+georgia,2015,r,r,r,r
+georgia,2016,r,r,r,r
+georgia,2017,r,r,r,r
+georgia,2018,r,r,r,r
+georgia,2019,r,r,r,r
+georgia,2020,r,r,r,r
+georgia,2021,r,r,r,r
+georgia,2022,r,r,r,r
+georgia,2023,r,r,r,r
+georgia,2024,r,r,r,r
+georgia,2025,r,r,r,r
+hawaii,2010,r,d,d,split
+hawaii,2011,d,d,d,d
+hawaii,2012,d,d,d,d
+hawaii,2013,d,d,d,d
+hawaii,2014,d,d,d,d
+hawaii,2015,d,d,d,d
+hawaii,2016,d,d,d,d
+hawaii,2017,d,d,d,d
+hawaii,2018,d,d,d,d
+hawaii,2019,d,d,d,d
+hawaii,2020,d,d,d,d
+hawaii,2021,d,d,d,d
+hawaii,2022,d,d,d,d
+hawaii,2023,d,d,d,d
+hawaii,2024,d,d,d,d
+hawaii,2025,d,d,d,d
+idaho,2010,r,r,r,r
+idaho,2011,r,r,r,r
+idaho,2012,r,r,r,r
+idaho,2013,r,r,r,r
+idaho,2014,r,r,r,r
+idaho,2015,r,r,r,r
+idaho,2016,r,r,r,r
+idaho,2017,r,r,r,r
+idaho,2018,r,r,r,r
+idaho,2019,r,r,r,r
+idaho,2020,r,r,r,r
+idaho,2021,r,r,r,r
+idaho,2022,r,r,r,r
+idaho,2023,r,r,r,r
+idaho,2024,r,r,r,r
+idaho,2025,r,r,r,r
+illinois,2010,d,d,d,d
+illinois,2011,d,d,d,d
+illinois,2012,d,d,d,d
+illinois,2013,d,d,d,d
+illinois,2014,d,d,d,d
+illinois,2015,r,d,d,split
+illinois,2016,r,d,d,split
+illinois,2017,r,d,d,split
+illinois,2018,r,d,d,split
+illinois,2019,d,d,d,d
+illinois,2020,d,d,d,d
+illinois,2021,d,d,d,d
+illinois,2022,d,d,d,d
+illinois,2023,d,d,d,d
+illinois,2024,d,d,d,d
+illinois,2025,d,d,d,d
+indiana,2010,r,r,d,split
+indiana,2011,r,r,r,r
+indiana,2012,r,r,r,r
+indiana,2013,r,r,r,r
+indiana,2014,r,r,r,r
+indiana,2015,r,r,r,r
+indiana,2016,r,r,r,r
+indiana,2017,r,r,r,r
+indiana,2018,r,r,r,r
+indiana,2019,r,r,r,r
+indiana,2020,r,r,r,r
+indiana,2021,r,r,r,r
+indiana,2022,r,r,r,r
+indiana,2023,r,r,r,r
+indiana,2024,r,r,r,r
+indiana,2025,r,r,r,r
+iowa,2010,d,d,d,d
+iowa,2011,r,d,r,split
+iowa,2012,r,d,r,split
+iowa,2013,r,d,r,split
+iowa,2014,r,d,r,split
+iowa,2015,r,d,r,split
+iowa,2016,r,d,r,split
+iowa,2017,r,r,r,r
+iowa,2018,r,r,r,r
+iowa,2019,r,r,r,r
+iowa,2020,r,r,r,r
+iowa,2021,r,r,r,r
+iowa,2022,r,r,r,r
+iowa,2023,r,r,r,r
+iowa,2024,r,r,r,r
+iowa,2025,r,r,r,r
+kansas,2010,d,r,r,split
+kansas,2011,r,r,r,r
+kansas,2012,r,r,r,r
+kansas,2013,r,r,r,r
+kansas,2014,r,r,r,r
+kansas,2015,r,r,r,r
+kansas,2016,r,r,r,r
+kansas,2017,r,r,r,r
+kansas,2018,r,r,r,r
+kansas,2019,d,r,r,split
+kansas,2020,d,r,r,split
+kansas,2021,d,r,r,split
+kansas,2022,d,r,r,split
+kansas,2023,d,r,r,split
+kansas,2024,d,r,r,split
+kansas,2025,d,r,r,split
+kentucky,2010,d,r,d,split
+kentucky,2011,d,r,d,split
+kentucky,2012,d,r,d,split
+kentucky,2013,d,r,d,split
+kentucky,2014,d,r,d,split
+kentucky,2015,d,r,d,split
+kentucky,2016,r,r,d,split
+kentucky,2017,r,r,r,r
+kentucky,2018,r,r,r,r
+kentucky,2019,r,r,r,r
+kentucky,2020,d,r,r,split
+kentucky,2021,d,r,r,split
+kentucky,2022,d,r,r,split
+kentucky,2023,d,r,r,split
+kentucky,2024,d,r,r,split
+kentucky,2025,d,r,r,split
+louisiana,2010,r,d,d,split
+louisiana,2011,r,r,r,r
+louisiana,2012,r,r,r,r
+louisiana,2013,r,r,r,r
+louisiana,2014,r,r,r,r
+louisiana,2015,r,r,r,r
+louisiana,2016,d,r,r,split
+louisiana,2017,d,r,r,split
+louisiana,2018,d,r,r,split
+louisiana,2019,d,r,r,split
+louisiana,2020,d,r,r,split
+louisiana,2021,d,r,r,split
+louisiana,2022,d,r,r,split
+louisiana,2023,d,r,r,split
+louisiana,2024,r,r,r,r
+louisiana,2025,r,r,r,r
+maine,2010,d,d,d,d
+maine,2011,r,r,r,r
+maine,2012,r,r,r,r
+maine,2013,r,d,d,split
+maine,2014,r,d,d,split
+maine,2015,r,r,d,split
+maine,2016,r,r,d,split
+maine,2017,r,r,d,split
+maine,2018,r,r,d,split
+maine,2019,d,d,d,d
+maine,2020,d,d,d,d
+maine,2021,d,d,d,d
+maine,2022,d,d,d,d
+maine,2023,d,d,d,d
+maine,2024,d,d,d,d
+maine,2025,d,d,d,d
+maryland,2010,d,d,d,d
+maryland,2011,d,d,d,d
+maryland,2012,d,d,d,d
+maryland,2013,d,d,d,d
+maryland,2014,d,d,d,d
+maryland,2015,r,d,d,split
+maryland,2016,r,d,d,split
+maryland,2017,r,d,d,split
+maryland,2018,r,d,d,split
+maryland,2019,r,d,d,split
+maryland,2020,r,d,d,split
+maryland,2021,r,d,d,split
+maryland,2022,r,d,d,split
+maryland,2023,d,d,d,d
+maryland,2024,d,d,d,d
+maryland,2025,d,d,d,d
+massachusetts,2010,d,d,d,d
+massachusetts,2011,d,d,d,d
+massachusetts,2012,d,d,d,d
+massachusetts,2013,d,d,d,d
+massachusetts,2014,d,d,d,d
+massachusetts,2015,r,d,d,split
+massachusetts,2016,r,d,d,split
+massachusetts,2017,r,d,d,split
+massachusetts,2018,r,d,d,split
+massachusetts,2019,r,d,d,split
+massachusetts,2020,r,d,d,split
+massachusetts,2021,r,d,d,split
+massachusetts,2022,r,d,d,split
+massachusetts,2023,d,d,d,d
+massachusetts,2024,d,d,d,d
+michigan,2010,d,r,d,split
+michigan,2011,r,r,r,r
+michigan,2012,r,r,r,r
+michigan,2013,r,r,r,r
+michigan,2014,r,r,r,r
+michigan,2015,r,r,r,r
+michigan,2016,r,r,r,r
+michigan,2017,r,r,r,r
+michigan,2018,r,r,r,r
+michigan,2019,d,r,r,split
+michigan,2020,d,r,r,split
+michigan,2021,d,r,r,split
+michigan,2022,d,r,r,split
+michigan,2023,d,d,d,d
+michigan,2024,d,d,d,d
+michigan,2025,d,d,r,split
+minnesota,2010,r,d,d,split
+minnesota,2011,d,r,r,split
+minnesota,2012,d,r,r,split
+minnesota,2013,d,d,d,d
+minnesota,2014,d,d,d,d
+minnesota,2015,d,d,r,split
+minnesota,2016,d,d,r,split
+minnesota,2017,d,r,r,split
+minnesota,2018,d,r,r,split
+minnesota,2019,d,r,d,split
+minnesota,2020,d,r,d,split
+minnesota,2021,d,r,d,split
+minnesota,2022,d,r,d,split
+minnesota,2023,d,d,d,d
+minnesota,2024,d,d,d,d
+mississippi,2010,r,d,d,split
+mississippi,2011,r,r,d,split
+mississippi,2012,r,r,r,r
+mississippi,2013,r,r,r,r
+mississippi,2014,r,r,r,r
+mississippi,2015,r,r,r,r
+mississippi,2016,r,r,r,r
+mississippi,2017,r,r,r,r
+mississippi,2018,r,r,r,r
+mississippi,2019,r,r,r,r
+mississippi,2020,r,r,r,r
+mississippi,2021,r,r,r,r
+mississippi,2022,r,r,r,r
+mississippi,2023,r,r,r,r
+mississippi,2024,r,r,r,r
+mississippi,2025,r,r,r,r
+missouri,2010,d,r,r,split
+missouri,2011,d,r,r,split
+missouri,2012,d,r,r,split
+missouri,2013,d,r,r,split
+missouri,2014,d,r,r,split
+missouri,2015,d,r,r,split
+missouri,2016,d,r,r,split
+missouri,2017,r,r,r,r
+missouri,2018,r,r,r,r
+missouri,2019,r,r,r,r
+missouri,2020,r,r,r,r
+missouri,2021,r,r,r,r
+missouri,2022,r,r,r,r
+missouri,2023,r,r,r,r
+missouri,2024,r,r,r,r
+missouri,2025,r,r,r,r
+montana,2010,d,r,s,split
+montana,2011,d,r,r,split
+montana,2012,d,r,r,split
+montana,2013,d,r,r,split
+montana,2014,d,r,r,split
+montana,2015,d,r,r,split
+montana,2016,d,r,r,split
+montana,2017,d,r,r,split
+montana,2018,d,r,r,split
+montana,2019,d,r,r,split
+montana,2020,d,r,r,split
+montana,2021,r,r,r,r
+montana,2022,r,r,r,r
+montana,2023,r,r,r,r
+montana,2024,r,r,r,r
+montana,2025,r,r,r,r
+nevada,2010,r,d,d,split
+nevada,2011,r,d,d,split
+nevada,2012,r,d,d,split
+nevada,2013,r,d,d,split
+nevada,2014,r,d,d,split
+nevada,2015,r,r,r,r
+nevada,2016,r,r,r,r
+nevada,2017,r,d,d,split
+nevada,2018,r,d,d,split
+nevada,2019,d,d,d,d
+nevada,2020,d,d,d,d
+nevada,2021,d,d,d,d
+nevada,2022,d,d,d,d
+nevada,2023,r,d,d,split
+nevada,2024,r,d,d,split
+nevada,2025,r,d,d,split
+new hampshire,2010,d,d,d,d
+new hampshire,2011,d,r,r,split
+new hampshire,2012,d,r,r,split
+new hampshire,2013,d,r,d,split
+new hampshire,2014,d,r,d,split
+new hampshire,2015,d,r,r,split
+new hampshire,2016,d,r,r,split
+new hampshire,2017,r,r,r,r
+new hampshire,2018,r,r,r,r
+new hampshire,2019,r,d,d,split
+new hampshire,2020,r,d,d,split
+new hampshire,2021,r,r,r,r
+new hampshire,2022,r,r,r,r
+new hampshire,2023,r,r,r,r
+new hampshire,2024,r,r,r,r
+new hampshire,2025,r,r,r,r
+new jersey,2010,r,d,d,split
+new jersey,2011,r,d,d,split
+new jersey,2012,r,d,d,split
+new jersey,2013,r,d,d,split
+new jersey,2014,r,d,d,split
+new jersey,2015,r,d,d,split
+new jersey,2016,r,d,d,split
+new jersey,2017,r,d,d,split
+new jersey,2018,d,d,d,d
+new jersey,2019,d,d,d,d
+new jersey,2020,d,d,d,d
+new jersey,2021,d,d,d,d
+new jersey,2022,d,d,d,d
+new jersey,2023,d,d,d,d
+new jersey,2024,d,d,d,d
+new jersey,2025,d,d,d,d
+new mexico,2010,d,d,d,d
+new mexico,2011,r,d,d,split
+new mexico,2012,r,d,d,split
+new mexico,2013,r,d,d,split
+new mexico,2014,r,d,d,split
+new mexico,2015,r,d,r,split
+new mexico,2016,r,d,r,split
+new mexico,2017,r,d,d,split
+new mexico,2018,r,d,d,split
+new mexico,2019,d,d,d,d
+new mexico,2020,d,d,d,d
+new mexico,2021,d,d,d,d
+new mexico,2022,d,d,d,d
+new mexico,2023,d,d,d,d
+new mexico,2024,d,d,d,d
+new mexico,2025,d,d,d,d
+new york,2010,d,d,d,d
+new york,2011,d,r,d,split
+new york,2012,d,r,d,split
+new york,2013,d,r,d,split
+new york,2014,d,r,d,split
+new york,2015,d,r,d,split
+new york,2016,d,r,d,split
+new york,2017,d,r,d,split
+new york,2018,d,r,d,split
+new york,2019,d,d,d,d
+new york,2020,d,d,d,d
+new york,2021,d,d,d,d
+new york,2022,d,d,d,d
+new york,2023,d,d,d,d
+new york,2024,d,d,d,d
+new york,2025,d,d,d,d
+north carolina,2010,d,d,d,d
+north carolina,2011,d,r,r,split
+north carolina,2012,d,r,r,split
+north carolina,2013,r,r,r,r
+north carolina,2014,r,r,r,r
+north carolina,2015,r,r,r,r
+north carolina,2016,r,r,r,r
+north carolina,2017,d,r,r,split
+north carolina,2018,d,r,r,split
+north carolina,2019,d,r,r,split
+north carolina,2020,d,r,r,split
+north carolina,2021,d,r,r,split
+north carolina,2022,d,r,r,split
+north carolina,2023,d,r,r,split
+north carolina,2024,d,r,r,split
+north carolina,2025,d,r,r,split
+north dakota,2010,r,r,r,r
+north dakota,2011,r,r,r,r
+north dakota,2012,r,r,r,r
+north dakota,2013,r,r,r,r
+north dakota,2014,r,r,r,r
+north dakota,2015,r,r,r,r
+north dakota,2016,r,r,r,r
+north dakota,2017,r,r,r,r
+north dakota,2018,r,r,r,r
+north dakota,2019,r,r,r,r
+north dakota,2020,r,r,r,r
+north dakota,2021,r,r,r,r
+north dakota,2022,r,r,r,r
+north dakota,2023,r,r,r,r
+north dakota,2024,r,r,r,r
+north dakota,2025,r,r,r,r
+ohio,2010,d,r,d,split
+ohio,2011,r,r,r,r
+ohio,2012,r,r,r,r
+ohio,2013,r,r,r,r
+ohio,2014,r,r,r,r
+ohio,2015,r,r,r,r
+ohio,2016,r,r,r,r
+ohio,2017,r,r,r,r
+ohio,2018,r,r,r,r
+ohio,2019,r,r,r,r
+ohio,2020,r,r,r,r
+ohio,2021,r,r,r,r
+ohio,2022,r,r,r,r
+ohio,2023,r,r,r,r
+ohio,2024,r,r,r,r
+oklahoma,2010,d,r,r,split
+oklahoma,2011,r,r,r,r
+oklahoma,2012,r,r,r,r
+oklahoma,2013,r,r,r,r
+oklahoma,2014,r,r,r,r
+oklahoma,2015,r,r,r,r
+oklahoma,2016,r,r,r,r
+oklahoma,2017,r,r,r,r
+oklahoma,2018,r,r,r,r
+oklahoma,2019,r,r,r,r
+oklahoma,2020,r,r,r,r
+oklahoma,2021,r,r,r,r
+oklahoma,2022,r,r,r,r
+oklahoma,2023,r,r,r,r
+oklahoma,2024,r,r,r,r
+oregon,2010,d,d,d,d
+oregon,2011,d,d,s,split
+oregon,2012,d,d,s,split
+oregon,2013,d,d,d,d
+oregon,2014,d,d,d,d
+oregon,2015,d,d,d,d
+oregon,2016,d,d,d,d
+oregon,2017,d,d,d,d
+oregon,2018,d,d,d,d
+oregon,2019,d,d,d,d
+oregon,2020,d,d,d,d
+oregon,2021,d,d,d,d
+oregon,2022,d,d,d,d
+oregon,2023,d,d,d,d
+oregon,2024,d,d,d,d
+oregon,2025,d,d,d,d
+pennsylvania,2010,d,r,d,split
+pennsylvania,2011,r,r,r,r
+pennsylvania,2012,r,r,r,r
+pennsylvania,2013,r,r,r,r
+pennsylvania,2014,r,r,r,r
+pennsylvania,2015,d,r,r,split
+pennsylvania,2016,d,r,r,split
+pennsylvania,2017,d,r,r,split
+pennsylvania,2018,d,r,r,split
+pennsylvania,2019,d,r,r,split
+pennsylvania,2020,d,r,r,split
+pennsylvania,2021,d,r,r,split
+pennsylvania,2022,d,r,r,split
+pennsylvania,2023,d,r,d,split
+pennsylvania,2024,d,r,d,split
+pennsylvania,2025,d,r,_,
+rhode island,2010,r,d,d,split
+rhode island,2011,i,d,d,split
+rhode island,2012,i,d,d,split
+rhode island,2013,d,d,d,d
+rhode island,2014,d,d,d,d
+rhode island,2015,d,d,d,d
+rhode island,2016,d,d,d,d
+rhode island,2017,d,d,d,d
+rhode island,2018,d,d,d,d
+rhode island,2019,d,d,d,d
+rhode island,2020,d,d,d,d
+rhode island,2021,d,d,d,d
+rhode island,2022,d,d,d,d
+rhode island,2023,d,d,d,d
+rhode island,2024,d,d,d,d
+rhode island,2025,d,d,d,d
+south carolina,2010,r,r,r,r
+south carolina,2011,r,r,r,r
+south carolina,2012,r,r,r,r
+south carolina,2013,r,r,r,r
+south carolina,2014,r,r,r,r
+south carolina,2015,r,r,r,r
+south carolina,2016,r,r,r,r
+south carolina,2017,r,r,r,r
+south carolina,2018,r,r,r,r
+south carolina,2019,r,r,r,r
+south carolina,2020,r,r,r,r
+south carolina,2021,r,r,r,r
+south carolina,2022,r,r,r,r
+south carolina,2023,r,r,r,r
+south carolina,2024,r,r,r,r
+south carolina,2025,r,r,r,r
+south dakota,2010,r,r,r,r
+south dakota,2011,r,r,r,r
+south dakota,2012,r,r,r,r
+south dakota,2013,r,r,r,r
+south dakota,2014,r,r,r,r
+south dakota,2015,r,r,r,r
+south dakota,2016,r,r,r,r
+south dakota,2017,r,r,r,r
+south dakota,2018,r,r,r,r
+south dakota,2019,r,r,r,r
+south dakota,2020,r,r,r,r
+south dakota,2021,r,r,r,r
+south dakota,2022,r,r,r,r
+south dakota,2023,r,r,r,r
+south dakota,2024,r,r,r,r
+south dakota,2025,r,r,r,r
+tennessee,2010,d,r,r,split
+tennessee,2011,r,r,r,r
+tennessee,2012,r,r,r,r
+tennessee,2013,r,r,r,r
+tennessee,2014,r,r,r,r
+tennessee,2015,r,r,r,r
+tennessee,2016,r,r,r,r
+tennessee,2017,r,r,r,r
+tennessee,2018,r,r,r,r
+tennessee,2019,r,r,r,r
+tennessee,2020,r,r,r,r
+tennessee,2021,r,r,r,r
+tennessee,2022,r,r,r,r
+tennessee,2023,r,r,r,r
+tennessee,2024,r,r,r,r
+tennessee,2025,r,r,r,r
+texas,2010,r,r,r,r
+texas,2011,r,r,r,r
+texas,2012,r,r,r,r
+texas,2013,r,r,r,r
+texas,2014,r,r,r,r
+texas,2015,r,r,r,r
+texas,2016,r,r,r,r
+texas,2017,r,r,r,r
+texas,2018,r,r,r,r
+texas,2019,r,r,r,r
+texas,2020,r,r,r,r
+texas,2021,r,r,r,r
+texas,2022,r,r,r,r
+texas,2023,r,r,r,r
+texas,2024,r,r,r,r
+texas,2025,r,r,r,r
+utah,2010,r,r,r,r
+utah,2011,r,r,r,r
+utah,2012,r,r,r,r
+utah,2013,r,r,r,r
+utah,2014,r,r,r,r
+utah,2015,r,r,r,r
+utah,2016,r,r,r,r
+utah,2017,r,r,r,r
+utah,2018,r,r,r,r
+utah,2019,r,r,r,r
+utah,2020,r,r,r,r
+utah,2021,r,r,r,r
+utah,2022,r,r,r,r
+utah,2023,r,r,r,r
+utah,2024,r,r,r,r
+vermont,2010,r,d,d,split
+vermont,2011,d,d,d,d
+vermont,2012,d,d,d,d
+vermont,2013,d,d,d,d
+vermont,2014,d,d,d,d
+vermont,2015,d,d,d,d
+vermont,2016,d,d,d,d
+vermont,2017,r,d,d,split
+vermont,2018,r,d,d,split
+vermont,2019,r,d,d,split
+vermont,2020,r,d,d,split
+vermont,2021,r,d,d,split
+vermont,2022,r,d,d,split
+vermont,2023,r,d,d,split
+vermont,2024,r,d,d,split
+virginia,2010,r,d,r,split
+virginia,2011,r,d,r,split
+virginia,2012,r,r,r,r
+virginia,2013,r,r,r,r
+virginia,2014,d,d,r,split
+virginia,2015,d,r,r,split
+virginia,2016,d,r,r,split
+virginia,2017,d,r,r,split
+virginia,2018,d,r,r,split
+virginia,2019,d,r,r,split
+virginia,2020,d,d,d,d
+virginia,2021,d,d,d,d
+virginia,2022,r,d,r,split
+virginia,2023,r,d,r,split
+virginia,2024,r,d,d,split
+virginia,2025,r,d,d,split
+washington,2010,d,d,d,d
+washington,2011,d,d,d,d
+washington,2012,d,d,d,d
+washington,2013,d,r,d,split
+washington,2014,d,r,d,split
+washington,2015,d,r,d,split
+washington,2016,d,r,d,split
+washington,2017,d,r,d,split
+washington,2018,d,d,d,d
+washington,2019,d,d,d,d
+washington,2020,d,d,d,d
+washington,2021,d,d,d,d
+washington,2022,d,d,d,d
+washington,2023,d,d,d,d
+washington,2024,d,d,d,d
+west virginia,2010,d,d,d,d
+west virginia,2011,d,d,d,d
+west virginia,2012,d,d,d,d
+west virginia,2013,d,d,d,d
+west virginia,2014,d,d,d,d
+west virginia,2015,d,r,r,split
+west virginia,2016,d,r,r,split
+west virginia,2017,d,r,r,split
+west virginia,2018,r,r,r,r
+west virginia,2019,r,r,r,r
+west virginia,2020,r,r,r,r
+west virginia,2021,r,r,r,r
+west virginia,2022,r,r,r,r
+west virginia,2023,r,r,r,r
+west virginia,2024,r,r,r,r
+wisconsin,2010,d,d,d,d
+wisconsin,2011,r,r,r,r
+wisconsin,2012,r,r,r,r
+wisconsin,2013,r,r,r,r
+wisconsin,2014,r,r,r,r
+wisconsin,2015,r,r,r,r
+wisconsin,2016,r,r,r,r
+wisconsin,2017,r,r,r,r
+wisconsin,2018,r,r,r,r
+wisconsin,2019,d,r,r,split
+wisconsin,2020,d,r,r,split
+wisconsin,2021,d,r,r,split
+wisconsin,2022,d,r,r,split
+wisconsin,2023,d,r,r,split
+wisconsin,2024,d,r,r,split
+wisconsin,2025,d,r,r,split
+wyoming,2010,d,r,r,split
+wyoming,2011,r,r,r,r
+wyoming,2012,r,r,r,r
+wyoming,2013,r,r,r,r
+wyoming,2014,r,r,r,r
+wyoming,2015,r,r,r,r
+wyoming,2016,r,r,r,r
+wyoming,2017,r,r,r,r
+wyoming,2018,r,r,r,r
+wyoming,2019,r,r,r,r
+wyoming,2020,r,r,r,r
+wyoming,2021,r,r,r,r
+wyoming,2022,r,r,r,r
+wyoming,2023,r,r,r,r
+wyoming,2024,r,r,r,r
+nebraska,2010,r,-,-,-
+nebraska,2011,r,-,-,-
+nebraska,2012,r,-,-,-
+nebraska,2013,r,-,-,-
+nebraska,2014,r,-,-,-
+nebraska,2015,r,-,-,-
+nebraska,2016,r,-,-,-
+nebraska,2017,r,-,-,-
+nebraska,2018,r,-,-,-
+nebraska,2019,r,-,-,-
+nebraska,2020,r,-,-,-
+nebraska,2021,r,-,-,-
+nebraska,2022,r,-,-,-
+nebraska,2023,r,-,-,-
+nebraska,2024,r,-,-,-
+nebraska,2025,r,-,-,-
