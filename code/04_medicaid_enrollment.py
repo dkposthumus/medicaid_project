@@ -24,15 +24,16 @@ oct_2024 = oct_2024.applymap(lambda x: x.lower() if isinstance(x, str) else x)
 oct_2024.rename(
     columns = {
         'unnamed: 0': 'state',
-        'number of participants': 'num_enrollment',
-        'participation as a share of total population': 'pct_enrollment',
-        'number under age 19': 'num_under_19',
-        'percent under age 19': 'pct_under_19',
-        'percent ages 19-64': 'pct_19_64',
-        'percent ages 65 and older': 'pct_over_65'
+        'number of participants': 'num_enrollment_medicaid',
+        'participation as a share of total population': 'pct_enrollment_medicaid',
+        'number under age 19': 'num_under_19_medicaid',
+        'percent under age 19': 'pct_enrollment_under_19_medicaid',
+        'percent ages 19-64': 'pct_enrollment_19_to_64_medicaid',
+        'percent ages 65 and older': 'pct_enrollment_over_65_medicaid'
         }, inplace=True
 )
-num_cols = ['num_enrollment', 'pct_enrollment', 'num_under_19', 'pct_under_19', 'pct_19_64', 'pct_over_65']
+num_cols = ['num_enrollment_medicaid', 'pct_enrollment_medicaid', 'num_under_19_medicaid', 
+            'pct_enrollment_under_19_medicaid', 'pct_enrollment_19_to_64_medicaid', 'pct_enrollment_over_65_medicaid']
 for col in num_cols:
     oct_2024[col] = pd.to_numeric(oct_2024[col], errors='coerce')
 oct_2024 = oct_2024.dropna(subset=num_cols)

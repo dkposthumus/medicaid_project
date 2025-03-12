@@ -1,4 +1,4 @@
-state,num_enrollment,pct_enrollment,num_under_19,pct_under_19,pct_19_64,pct_over_65,year
+state,num_enrollment_medicaid,pct_enrollment_medicaid,num_under_19_medicaid,pct_enrollment_under_19_medicaid,pct_enrollment_19_to_64_medicaid,pct_enrollment_over_65_medicaid,year
 alabama,952073.0,0.1896,676170.0,0.5224,0.3519,0.1257,2024
 alaska,250131.0,0.3562,98400.0,0.4325,0.4625,0.105,2024
 arizona,1963200.0,0.2681,833327.0,0.4078,0.4682,0.124,2024

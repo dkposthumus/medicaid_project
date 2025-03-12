@@ -81,7 +81,7 @@ for year in years:
 final_df = pd.concat(all_years_data, ignore_index=True)
 
 # Save to CSV
-output_path = f"{county_level}/acs1_c27007_medicaid_all_counties_2009_2023.csv"
+output_path = f"{clean_data}/acs1_county.csv"
 final_df.to_csv(output_path, index=False)
 
 print(f"Data saved as '{output_path}'")
@@ -94,6 +94,31 @@ No Medicaid data before 2012.
 BASE_URL_TEMPLATE = "https://api.census.gov/data/{year}/acs/acs5"
 
 # Define variables
+'''variables = {
+    "B01003_001E": "Total_Population_Census_Tract",
+    "C27007_001E": "Total_Population",
+    "C27007_002E": "Male_Total",
+    "C27007_003E": "Male_Under_19",
+    "C27007_004E": "Male_Under_19_With_Medicaid",
+    "C27007_005E": "Male_Under_19_No_Medicaid",
+    "C27007_006E": "Male_19_to_64",
+    "C27007_007E": "Male_19_to_64_With_Medicaid",
+    "C27007_008E": "Male_19_to_64_No_Medicaid",
+    "C27007_009E": "Male_65_and_Over",
+    "C27007_010E": "Male_65_and_Over_With_Medicaid",
+    "C27007_011E": "Male_65_and_Over_No_Medicaid",
+    "C27007_012E": "Female_Total",
+    "C27007_013E": "Female_Under_19",
+    "C27007_014E": "Female_Under_19_With_Medicaid",
+    "C27007_015E": "Female_Under_19_No_Medicaid",
+    "C27007_016E": "Female_19_to_64",
+    "C27007_017E": "Female_19_to_64_With_Medicaid",
+    "C27007_018E": "Female_19_to_64_No_Medicaid",
+    "C27007_019E": "Female_65_and_Over",
+    "C27007_020E": "Female_65_and_Over_With_Medicaid",
+    "C27007_021E": "Female_65_and_Over_No_Medicaid",
+}'''
+
 variables = {
     "B01003_001E": "Total_Population_Census_Tract",
     "C27007_001E": "Total_Population",
@@ -224,7 +249,7 @@ if all_data:
     final_df = pd.concat(all_data, ignore_index=True)
 
     # Save as a single CSV file
-    output_path = f"{county_level}/acs5_medicaid_enrollment_all_years.csv"
+    output_path = f"{clean_data}/acs5_county.csv"
     final_df.to_csv(output_path, index=False)
 
     print(f"All years' data saved as '{output_path}'")

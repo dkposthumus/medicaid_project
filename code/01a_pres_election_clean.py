@@ -69,27 +69,43 @@ missing_total = total_present[~total_present]
 #print('County-Year groups missing "total":')
 #print(missing_total.index.tolist())
 
-# so it appears that for 2020 there are quite a few counties missing 'total'; for these observations we have to manually sum up to get the total
 votes_2020 = historical_election[historical_election['year'] == 2020]
-# collapse on year-state-county_name for averages of 'totalvotes'
-votes_2020 = votes_2020[votes_2020['mode'] != 'total']
-total_2020 = votes_2020.groupby(['county_name', 'state', 'mode']).agg(
-    {'totalvotes': 'mean'}).reset_index()
-# now total by county_name and state
-total_2020 = total_2020.groupby(['county_name', 'state']).agg(
-    {'totalvotes': 'sum'}).reset_index()
-total_2020 = total_2020[['county_name', 'state', 'totalvotes']]
-# now aggregate candidates_2020 totalvotes 
-candidates_2020 = votes_2020.groupby(['county_name', 'state', 'party']).agg(
-    {'candidatevotes': 'sum'}).reset_index()
-candidates_2020 = candidates_2020[['county_name', 'state', 'party', 'candidatevotes']]
-# merge to create master 2020 dataframe
-votes_2020 = pd.merge(total_2020, candidates_2020, on=['county_name', 'state'], how='outer', indicator=False)
-votes_2020['year'] = 2020
-historical_election = historical_election[(historical_election['year'] != 2020) & (historical_election['mode'] == 'total')]
-# now vertically concatenate votes_2020 to the historical election dataframe
-historical_election = pd.concat([historical_election, votes_2020], axis=0, ignore_index=True)
-
+# --- Step 1: Identify counties with an existing 'total' entry ---
+existing_totals = votes_2020[votes_2020['mode'] == 'total'].copy()
+# Create a set of county/state pairs that have a 'total' row
+existing_ids = set(existing_totals[['county_name', 'state']].apply(tuple, axis=1))
+# --- Step 2: For counties missing a 'total' entry, compute manual totals ---
+# Get all county/state pairs in 2020 and then identify those without a 'total' row
+all_ids = set(votes_2020[['county_name', 'state']].apply(tuple, axis=1))
+missing_ids = all_ids - existing_ids
+# Subset votes_2020 to only those counties missing a 'total'
+manual_votes = votes_2020[votes_2020[['county_name', 'state']].apply(tuple, axis=1).isin(missing_ids)]
+# (We assume here that manual_votes contains no row with mode=='total'.)
+# Compute the "total" votes by first collapsing by mode, then summing across modes.
+# For example, if for each mode the 'totalvotes' should be averaged and then added up:
+total_manual = (manual_votes
+                .groupby(['county_name', 'state', 'mode'])
+                .agg({'totalvotes': 'mean'})
+                .reset_index()
+                .groupby(['county_name', 'state'])
+                .agg({'totalvotes': 'sum'})
+                .reset_index())
+# Aggregate candidate votes by summing by party
+candidates_manual = (manual_votes
+                     .groupby(['county_name', 'state', 'party'])
+                     .agg({'candidatevotes': 'sum'})
+                     .reset_index())
+# Merge the total and candidate-level aggregates for manual counties
+manual_totals = pd.merge(total_manual, candidates_manual, on=['county_name', 'state'], how='outer')
+manual_totals['year'] = 2020
+# --- Step 3: Combine the results ---
+# Here, final_votes_2020 includes both counties with existing totals and those computed manually
+final_votes_2020 = pd.concat([existing_totals, manual_totals], axis=0, ignore_index=True)
+# --- Step 4: Replace the 2020 data in the full historical_election DataFrame ---
+# Remove all 2020 rows from the original DataFrame (or those not needed) and append our final 2020 data.
+historical_election_no2020 = historical_election[historical_election['year'] != 2020]
+final_historical_election = pd.concat([historical_election_no2020, final_votes_2020], 
+                                      axis=0, ignore_index=True)
 # now reshape wide for candidatevotes BY party
 pivoted_table = historical_election.pivot_table(
     index=['year', 'state', 'county_name'], 
