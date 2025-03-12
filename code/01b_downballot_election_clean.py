@@ -109,3 +109,6 @@ house_2020_2024.to_csv(f'{clean_data}/house_2020_2024.csv', index=False)
 senate_2020 = clean_2020_data(states, state_full, 'senate')
 senate_2020_2024 = pd.merge(senate_2020, senate_2024, on=['county_name', 'state'], how='outer')
 senate_2020_2024.to_csv(f'{clean_data}/senate_2020_2024.csv', index=False)
+
+####################################################################################
+# next, let's extract / clean the 2020 data
