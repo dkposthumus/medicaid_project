@@ -38,12 +38,12 @@ def data_2024_cleaning(df, office):
 
 ####################################################################################
 # let's start with cleaning the house election data 
-house_2024 = pd.read_excel(f'{raw_data}/House_Election_Data_2024_0.3.xlsx', sheet_name='County')
+house_2024 = pd.read_excel(f'{raw_data}/county_house_2024.xlsx', sheet_name='County')
 house_2024 = data_2024_cleaning(house_2024, 'house')
 
 ####################################################################################
 # next, let's clean the senate election data
-senate_2024 = pd.read_excel(f'{raw_data}/Sen_Election_Data_2024_0.4.xlsx', sheet_name='County')
+senate_2024 = pd.read_excel(f'{raw_data}/county_senate_2024.xlsx', sheet_name='County')
 senate_2024 = data_2024_cleaning(senate_2024, 'senate')
 
 ####################################################################################

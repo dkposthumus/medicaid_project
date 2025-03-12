@@ -67,8 +67,11 @@ states = pd.Series([
 ])
 
 medicaid_spending = pd.DataFrame()
-for year in range(2019, 2024):
-    df = pd.read_excel(f'{spending}/{year}_medicaid_spending.xlsx', header=3)
+for year in range(2010, 2024):
+    if year in range(2019, 2024):
+        df = pd.read_excel(f'{spending}/{year}_medicaid_spending.xlsx', header=3)
+    else:
+        df = pd.read_csv(f'{spending}/{year}_medicaid_spending.csv', header=1)
     df.rename(
         columns = {
             'Unnamed: 0': 'state',
@@ -83,7 +86,9 @@ for year in range(2019, 2024):
             'State.2': 'medicaid_state'
         }, inplace=True
     )
-    df.drop(columns={'Unnamed: 8', 'Unnamed: 10'}, inplace=True)
+    if year in range(2019, 2024):
+        df.drop(columns={'Unnamed: 8', 'Unnamed: 10'}, inplace=True)
+    df.columns = df.columns.str.lower()
     df['year'] = year 
     df = df.applymap(lambda x: x.lower() if isinstance(x, str) else x)
     df = df[df['state'].isin(states)]
@@ -91,7 +96,8 @@ for year in range(2019, 2024):
     cols = df.columns.drop('state').tolist()
     for col in cols:
         if pd.api.types.is_string_dtype(df[col]):
-            df[col] = df[col].str.replace('$', '').astype(float)
+            df[col] = df[col].str.replace('$', '')
+            df[col] = df[col].str.replace(',', '').astype(float)
     medicaid_spending = pd.concat([medicaid_spending, df], axis=0, ignore_index=True)
 
 medicaid_spending.to_csv(f'{state_level}/medicaid_spending_state.csv', index=False)
