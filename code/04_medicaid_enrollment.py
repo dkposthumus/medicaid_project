@@ -29,11 +29,12 @@ oct_2024.rename(
         'number under age 19': 'num_under_19_medicaid',
         'percent under age 19': 'pct_enrollment_under_19_medicaid',
         'percent ages 19-64': 'pct_enrollment_19_to_64_medicaid',
-        'percent ages 65 and older': 'pct_enrollment_over_65_medicaid'
+        'percent ages 65 and older': 'pct_enrollment_65_and_over_medicaid'
         }, inplace=True
 )
 num_cols = ['num_enrollment_medicaid', 'pct_enrollment_medicaid', 'num_under_19_medicaid', 
-            'pct_enrollment_under_19_medicaid', 'pct_enrollment_19_to_64_medicaid', 'pct_enrollment_over_65_medicaid']
+            'pct_enrollment_under_19_medicaid', 'pct_enrollment_19_to_64_medicaid', 
+            'pct_enrollment_65_and_over_medicaid']
 for col in num_cols:
     oct_2024[col] = pd.to_numeric(oct_2024[col], errors='coerce')
 oct_2024 = oct_2024.dropna(subset=num_cols)

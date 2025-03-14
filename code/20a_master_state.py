@@ -21,7 +21,7 @@ medicaid_births = pd.read_csv(f'{state_level}/kff_births_2016_2023.csv')
 # medicaid enrollment (ONLY 2024)
 oct_2024_medicaid_chips_enrollment = pd.read_csv(f'{state_level}/oct_2024_enrollment_state.csv')
 # medicaid enrollment (full time-series)
-medicaid_enrollment = pd.read_csv(f'{state_level}/medicaid_enrollment_state.csv')
+medicaid_enrollment = pd.read_csv(f'{state_level}/medicaid_education_state.csv')
 # let's concatenate our two medicaid_enrollment datasets
 medicaid_enrollment = pd.concat([oct_2024_medicaid_chips_enrollment, medicaid_enrollment], axis=0, ignore_index=True)
 # state government partisan control

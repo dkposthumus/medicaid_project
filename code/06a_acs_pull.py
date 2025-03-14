@@ -23,7 +23,6 @@ years_1yr = list(range(2009, 2025))
 
 # Define the variables from Table C27007 (Medicaid by Sex and Age) with Medicaid explicitly in names
 medicaid_vars = {
-    "C27007_001E": "Total_Population_Medicaid",
     "C27007_002E": "Male_Total_Medicaid",
     "C27007_003E": "Male_Under_19_Medicaid",
     "C27007_004E": "Male_Under_19_With_Medicaid",
