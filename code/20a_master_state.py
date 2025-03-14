@@ -33,12 +33,71 @@ fmap = pd.read_csv(f'{state_level}/fmap_state.csv')
 # medicaid spending
 medicaid_spending = pd.read_csv(f'{state_level}/medicaid_spending_state.csv')
 
+for df in [medicaid_births, medicaid_enrollment, 
+           state_govt_ctrl, pres_election_results, fmap, medicaid_spending]:
+    df.loc[df['state'] == "hawai'i", 'state'] = 'hawaii'
+
 # merge all state-level datasets pulled in
 master = pd.merge(medicaid_births, medicaid_enrollment, on=['state', 'year'], how='outer')
 master = pd.merge(master, state_govt_ctrl, on=['year', 'state'], how='outer')
 master = pd.merge(master, pres_election_results, on=['year', 'state'], how='outer')
 master = pd.merge(master, fmap, on=['year', 'state'], how='outer')
 master = pd.merge(master, medicaid_spending, on=['year', 'state'], how='outer')
+
+# create dummy if a usa state, as opposed to a territory
+states = pd.Series([
+    "alabama",
+    "alaska",
+    "arizona",
+    "arkansas",
+    "california",
+    "colorado",
+    "connecticut",
+    "delaware",
+    "florida",
+    "georgia",
+    "hawaii",
+    "idaho",
+    "illinois",
+    "indiana",
+    "iowa",
+    "kansas",
+    "kentucky",
+    "louisiana",
+    "maine",
+    "maryland",
+    "massachusetts",
+    "michigan",
+    "minnesota",
+    "mississippi",
+    "missouri",
+    "montana",
+    "nebraska",
+    "nevada",
+    "new hampshire",
+    "new jersey",
+    "new mexico",
+    "new york",
+    "north carolina",
+    "north dakota",
+    "ohio",
+    "oklahoma",
+    "oregon",
+    "pennsylvania",
+    "rhode island",
+    "south carolina",
+    "south dakota",
+    "tennessee",
+    "texas",
+    "utah",
+    "vermont",
+    "virginia",
+    "washington",
+    "west virginia",
+    "wisconsin",
+    "wyoming"
+])
+master['usa_state_dummy'] = (master['state'].isin(states)).astype(int)
 
 # save master dataset
 master.to_csv(f'{clean_data}/master_state_level.csv', index=False)
