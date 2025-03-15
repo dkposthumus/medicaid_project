@@ -25,12 +25,12 @@ r_states = state_level[state_level['year'].isin([2016, 2020, 2024])].groupby('st
 print(r_states)
 df_r_states = state_level[state_level['state'].isin(r_states)]
 # fill missing observations of pct_enrollment with 0
-df_r_states['pct_enrollment_medicaid'] = df_r_states['pct_enrollment_medicaid'].fillna(0)
-df_r_states = df_r_states[(df_r_states['year'] >= 2012) & (df_r_states['year'] <= 2024)]
+df_r_states['pct_enrollment_medicaid_chip'] = df_r_states['pct_enrollment_medicaid_chip'].fillna(0)
+df_r_states = df_r_states[(df_r_states['year'] >= 2017) & (df_r_states['year'] <= 2023)]
 
 df_r_states_grouped = df_r_states.groupby('year').agg({
-    'num_enrollment_medicaid': 'sum',  # Total number of enrollments
-    'pct_enrollment_medicaid': 'mean'  # Average percentage enrollment
+    'num_enrollment_medicaid_chip': 'sum',  # Total number of enrollments
+    'pct_enrollment_medicaid_chip': 'mean'  # Average percentage enrollment
 }).reset_index()
 
 fig, ax1 = plt.subplots(figsize=(10, 6))
@@ -39,16 +39,16 @@ fig, ax1 = plt.subplots(figsize=(10, 6))
 color1 = 'tab:blue'
 ax1.set_xlabel("Year")
 ax1.set_ylabel("Total Medicaid Enrollment (millions)", color=color1)
-ax1.plot(df_r_states_grouped['year'], df_r_states_grouped['num_enrollment_medicaid'] / 1e6, 
-         marker='o', linestyle='-', color=color1, label="Medicaid Enrollment (millions)")
+ax1.plot(df_r_states_grouped['year'], df_r_states_grouped['num_enrollment_medicaid_chip'] / 1e6, 
+         marker='o', linestyle='-', color=color1, label="Medicaid and CHIP Enrollment (millions)")
 ax1.tick_params(axis='y', labelcolor=color1)
 
 # Create second y-axis (percentage of Medicaid enrollment)
 ax2 = ax1.twinx()
 color2 = 'tab:red'
 ax2.set_ylabel("Percentage of Medicaid Enrollment (%)", color=color2)
-ax2.plot(df_r_states_grouped['year'], df_r_states_grouped['pct_enrollment_medicaid'], 
-         marker='s', linestyle='--', color=color2, label="Medicaid Enrollment (%)")
+ax2.plot(df_r_states_grouped['year'], df_r_states_grouped['pct_enrollment_medicaid_chip'], 
+         marker='s', linestyle='--', color=color2, label="Medicaid and CHIP Enrollment (%/of population)")
 ax2.tick_params(axis='y', labelcolor=color2)
 
 # Title and grid
@@ -61,6 +61,45 @@ leg2 = ax2.legend(loc='upper left', bbox_to_anchor=(0, 0.88))
 
 plt.show()
 
+
+# now reproduce the same visual, with a different definition of 'r' (as defined by partisan control)
+df_r_states = state_level[state_level['total_gov'] == 'r']
+# fill missing observations of pct_enrollment with 0
+df_r_states['pct_enrollment_medicaid_chip'] = df_r_states['pct_enrollment_medicaid_chip'].fillna(0)
+df_r_states = df_r_states[(df_r_states['year'] >= 2017) & (df_r_states['year'] <= 2023)]
+
+for year in range(2017, 2024):
+    year_df = df_r_states[df_r_states['year'] == year]
+    print(year_df['state'].unique())
+
+df_r_states_grouped = df_r_states.groupby('year').agg({
+    'num_enrollment_medicaid_chip': 'sum',  # Total number of enrollments
+    'pct_enrollment_medicaid_chip': 'mean'  # Average percentage enrollment
+}).reset_index()
+
+fig, ax1 = plt.subplots(figsize=(10, 6))
+# Left y-axis (Medicaid enrollment numbers)
+color1 = 'tab:blue'
+ax1.set_xlabel("Year")
+ax1.set_ylabel("Total Medicaid Enrollment (millions)", color=color1)
+ax1.plot(df_r_states_grouped['year'], df_r_states_grouped['num_enrollment_medicaid_chip'] / 1e6, 
+         marker='o', linestyle='-', color=color1, label="Medicaid and CHIP Enrollment (millions)")
+ax1.tick_params(axis='y', labelcolor=color1)
+# Create second y-axis (percentage of Medicaid enrollment)
+ax2 = ax1.twinx()
+color2 = 'tab:red'
+ax2.set_ylabel("Percentage of Medicaid Enrollment (%)", color=color2)
+ax2.plot(df_r_states_grouped['year'], df_r_states_grouped['pct_enrollment_medicaid_chip'], 
+         marker='s', linestyle='--', color=color2, label="Medicaid and CHIP Enrollment (%/of population)")
+ax2.tick_params(axis='y', labelcolor=color2)
+# Title and grid
+plt.title("Medicaid Enrollment Trends in Republican States (2016-2024)")
+ax1.grid(True, which='both', linestyle='--', linewidth=0.5)
+# Add legends
+leg1 = ax1.legend(loc='upper left', bbox_to_anchor=(0, 1)) 
+leg2 = ax2.legend(loc='upper left', bbox_to_anchor=(0, 0.88))  
+plt.show()
+
 ######################################################################################################################################
-# Change in medicaid enrollment against change in turmp vote share 
+# Change in medicaid enrollment against change in turmp vote share on county level
 ######################################################################################################################################

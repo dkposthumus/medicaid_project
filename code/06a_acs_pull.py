@@ -13,7 +13,7 @@ output = (work_dir / 'output')
 code = Path.cwd() 
 
 """
-Pull Medicaid data from ACS 1-Year Data (Table C27007) for all counties in the US from 2009 to 2023.
+Pull Medicaid data from ACS 1-Year Data (Table C27007) for all counties in the US from 2009 to 2024.
 No data in 2020.
 No Medicaid data before 2009.
 """
@@ -23,26 +23,12 @@ years_1yr = list(range(2009, 2025))
 
 # Define the variables from Table C27007 (Medicaid by Sex and Age) with Medicaid explicitly in names
 medicaid_vars = {
-    "C27007_002E": "Male_Total_Medicaid",
-    "C27007_003E": "Male_Under_19_Medicaid",
     "C27007_004E": "Male_Under_19_With_Medicaid",
-    "C27007_005E": "Male_Under_19_No_Medicaid",
-    "C27007_006E": "Male_19_to_64_Medicaid",
     "C27007_007E": "Male_19_to_64_With_Medicaid",
-    "C27007_008E": "Male_19_to_64_No_Medicaid",
-    "C27007_009E": "Male_65_and_Over_Medicaid",
     "C27007_010E": "Male_65_and_Over_With_Medicaid",
-    "C27007_011E": "Male_65_and_Over_No_Medicaid",
-    "C27007_012E": "Female_Total_Medicaid",
-    "C27007_013E": "Female_Under_19_Medicaid",
     "C27007_014E": "Female_Under_19_With_Medicaid",
-    "C27007_015E": "Female_Under_19_No_Medicaid",
-    "C27007_016E": "Female_19_to_64_Medicaid",
     "C27007_017E": "Female_19_to_64_With_Medicaid",
-    "C27007_018E": "Female_19_to_64_No_Medicaid",
-    "C27007_019E": "Female_65_and_Over_Medicaid",
     "C27007_020E": "Female_65_and_Over_With_Medicaid",
-    "C27007_021E": "Female_65_and_Over_No_Medicaid",
 }
 
 edu_vars = {
@@ -65,11 +51,7 @@ edu_vars = {
     "B15003_017E": "Doctorate",
 }
 
-pop_var = {
-    "B01003_001E": "Total_Population_County"
-}
-
-variables_1yr = {**pop_var, **medicaid_vars, **edu_vars}
+variables_1yr = {**medicaid_vars, **edu_vars}
 variable_keys_1yr = ",".join(variables_1yr.keys())
 
 # Initialize an empty DataFrame to store all years of data

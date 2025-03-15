@@ -72,13 +72,22 @@ wide = wide.groupby(['year', 'state'])[enrollment_cols].mean().reset_index()
 # merge 
 master = pd.merge(enrollment, wide, on=['year', 'state'], how='outer')
 
-master['check'] = master[enrollment_cols].sum(axis=1)
+master['check'] = (
+    master['num_enrollment_19_to_64_medicaid']
+    + master['num_enrollment_expansion_adult_medicaid']
+    + master['num_enrollment_65_and_over_medicaid']
+    + master['num_enrollment_covid_medicaid']
+    + master['num_enrollment_under_18_medicaid']
+    + master['num_enrollment_disabled_medicaid']
+    + master['num_enrollment_unknown_medicaid']
+)
 
 master.to_csv(f'{clean_data}/medicaid_enrollment.csv', index=False)
 
 graphing = master[master['check'] != 0]
-plt.scatter(graphing['check'], graphing['num_enrollment_medicaid_chip'])
+plt.scatter(graphing['check'], graphing['num_enrollment_medicaid_chip'], alpha=0.6)
+x_values = np.linspace(min(graphing['check']), max(graphing['check']), 100)
+plt.plot(x_values, x_values, color='red', linestyle='--', label='y = x')
 plt.xlabel('Manually Summed')
 plt.ylabel('Summed by Medicaid.gov')
-plt.close()
-
+plt.close

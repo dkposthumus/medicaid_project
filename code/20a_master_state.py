@@ -23,7 +23,7 @@ oct_2024_medicaid_chips_enrollment = pd.read_csv(f'{state_level}/oct_2024_enroll
 # medicaid enrollment (full time-series)
 medicaid_enrollment = pd.read_csv(f'{state_level}/medicaid_education_state.csv')
 # let's concatenate our two medicaid_enrollment datasets
-medicaid_enrollment = pd.concat([oct_2024_medicaid_chips_enrollment, medicaid_enrollment], axis=0, ignore_index=True)
+#medicaid_enrollment = pd.concat([oct_2024_medicaid_chips_enrollment, medicaid_enrollment], axis=0, ignore_index=True)
 # state government partisan control
 state_govt_ctrl = pd.read_csv(f'{state_level}/state_trifectas_ballotpedia_scrape.csv')
 # presidential election results (2000-2024)
