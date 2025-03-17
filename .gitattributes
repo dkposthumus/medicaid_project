@@ -5,3 +5,4 @@ data/clean/cd_level/acs5_medicaid_enrollment_all_years.csv filter=lfs diff=lfs m
 data/raw/**.csv filter=lfs diff=lfs merge=lfs -text
 data/clean/**.csv filter=lfs diff=lfs merge=lfs -text
 data/clean/county_level/**.csv filter=lfs diff=lfs merge=lfs -text
+data/crosswalks/**.csv filter=lfs diff=lfs merge=lfs -text
