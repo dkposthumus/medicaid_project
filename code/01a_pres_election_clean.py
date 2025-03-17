@@ -16,6 +16,9 @@ code = Path.cwd()
 historical_election = pd.read_csv(f'{raw_data}/county_pres_2000_2020.csv')
 election_2024 = pd.read_excel(f'{raw_data}/county_pres_2024.xlsx', sheet_name='County')
 
+historical_election.rename(columns={'state': 'state_name'}, inplace=True)
+election_2024.rename(columns={'state': 'state_name'}, inplace=True)
+
 for df in [historical_election, election_2024]:
     df.columns = df.columns.str.lower()
 # now make everything lowercase in both datasets
@@ -64,7 +67,7 @@ Here are the relevant columns:
 # first, let's check how many counties have mode == 'TOTAL'
 # test with 'party' == 'DEMOCRATIC'
 dem_historical = historical_election[historical_election['party'] == 'democrat']
-total_present = dem_historical.groupby(['county_name', 'state', 'year'])['mode'].apply(lambda x: 'total' in x.unique())
+total_present = dem_historical.groupby(['county_name', 'state_name', 'year'])['mode'].apply(lambda x: 'total' in x.unique())
 missing_total = total_present[~total_present]
 #print('County-Year groups missing "total":')
 #print(missing_total.index.tolist())
@@ -73,30 +76,30 @@ votes_2020 = historical_election[historical_election['year'] == 2020]
 # --- Step 1: Identify counties with an existing 'total' entry ---
 existing_totals = votes_2020[votes_2020['mode'] == 'total'].copy()
 # Create a set of county/state pairs that have a 'total' row
-existing_ids = set(existing_totals[['county_name', 'state']].apply(tuple, axis=1))
+existing_ids = set(existing_totals[['county_name', 'state_name']].apply(tuple, axis=1))
 # --- Step 2: For counties missing a 'total' entry, compute manual totals ---
 # Get all county/state pairs in 2020 and then identify those without a 'total' row
-all_ids = set(votes_2020[['county_name', 'state']].apply(tuple, axis=1))
+all_ids = set(votes_2020[['county_name', 'state_name']].apply(tuple, axis=1))
 missing_ids = all_ids - existing_ids
 # Subset votes_2020 to only those counties missing a 'total'
-manual_votes = votes_2020[votes_2020[['county_name', 'state']].apply(tuple, axis=1).isin(missing_ids)]
+manual_votes = votes_2020[votes_2020[['county_name', 'state_name']].apply(tuple, axis=1).isin(missing_ids)]
 # (We assume here that manual_votes contains no row with mode=='total'.)
 # Compute the "total" votes by first collapsing by mode, then summing across modes.
 # For example, if for each mode the 'totalvotes' should be averaged and then added up:
 total_manual = (manual_votes
-                .groupby(['county_name', 'state', 'mode'])
+                .groupby(['county_name', 'state_name', 'mode'])
                 .agg({'totalvotes': 'mean'})
                 .reset_index()
-                .groupby(['county_name', 'state'])
+                .groupby(['county_name', 'state_name'])
                 .agg({'totalvotes': 'sum'})
                 .reset_index())
 # Aggregate candidate votes by summing by party
 candidates_manual = (manual_votes
-                     .groupby(['county_name', 'state', 'party'])
+                     .groupby(['county_name', 'state_name', 'party'])
                      .agg({'candidatevotes': 'sum'})
                      .reset_index())
 # Merge the total and candidate-level aggregates for manual counties
-manual_totals = pd.merge(total_manual, candidates_manual, on=['county_name', 'state'], how='outer')
+manual_totals = pd.merge(total_manual, candidates_manual, on=['county_name', 'state_name'], how='outer')
 manual_totals['year'] = 2020
 # --- Step 3: Combine the results ---
 # Here, final_votes_2020 includes both counties with existing totals and those computed manually
@@ -108,7 +111,7 @@ final_historical_election = pd.concat([historical_election_no2020, final_votes_2
                                       axis=0, ignore_index=True)
 # now reshape wide for candidatevotes BY party
 pivoted_table = historical_election.pivot_table(
-    index=['year', 'state', 'county_name'], 
+    index=['year', 'state_name', 'county_name'], 
     columns='party', 
     values='candidatevotes', 
     aggfunc='sum', 
@@ -117,9 +120,9 @@ pivoted_table = historical_election.pivot_table(
 pivoted_table['other'] = pivoted_table['green'] + pivoted_table['libertarian'] + pivoted_table['other']
 pivoted_table.drop(columns={'green', 'libertarian'}, inplace=True)
 # (Assuming totalvotes is the same across rows for a given county-year, you can take the max or first.)
-total_table = historical_election.groupby(['year', 'state', 'county_name'])['totalvotes'].max().reset_index()
+total_table = historical_election.groupby(['year', 'state_name', 'county_name'])['totalvotes'].max().reset_index()
 # Step 4: Merge the pivoted candidate votes with totalvotes.
-historical_election = pd.merge(pivoted_table, total_table, on=['year', 'state', 'county_name'])
+historical_election = pd.merge(pivoted_table, total_table, on=['year', 'state_name', 'county_name'])
 # Step 5: Rename the columns to match your desired names.
 historical_election.rename(columns={
     'democrat': 'democratic_pres_votes',
@@ -132,14 +135,14 @@ historical_election.rename(columns={
 # 2024 
 ######################################################################################################################################
 # now filter 2024 election data to include only Trump
-election_2024 = election_2024[['state', 'county_name', 'trump', 'harris',
+election_2024 = election_2024[['state_name', 'county_name', 'trump', 'harris',
                             'total vote', 'lsad_trans']]
 election_2024 = election_2024[election_2024['lsad_trans'].isin(['county', 'parish'])]
 # we have to miscellaneously do some renaming 
 for problem, solution in zip(['lasalle', 'st. louis', 'coös'],
                             ['la salle', 'st. louis county', 'coos']):
     election_2024.loc[election_2024['county_name'] == problem, 'county_name'] = solution
-election_2024.loc[election_2024['state'] == 'dc', 'state'] = 'district of columbia'
+election_2024.loc[election_2024['state_name'] == 'dc', 'state_name'] = 'district of columbia'
 election_2024 = election_2024.dropna(subset=['county_name']) # drop all rows where 'county_name' is missing
 # now rename all states, which are abbreviations to the lowercase state names
 state_mapping = {
@@ -165,7 +168,7 @@ state_mapping = {
     'WV': 'west virginia', 'WI': 'wisconsin', 'WY': 'wyoming'
 }
 state_mapping = {key.lower(): value for key, value in state_mapping.items()}
-election_2024['state'] = election_2024['state'].map(lambda x: state_mapping.get(x, x.lower()))
+election_2024['state_name'] = election_2024['state_name'].map(lambda x: state_mapping.get(x, x.lower()))
 election_2024['year'] = 2024 
 election_2024['other_pres_votes'] = election_2024['total vote'] - (election_2024['trump'] - election_2024['harris'])
 election_2024.rename(
@@ -186,12 +189,10 @@ master.to_csv(f'{clean_data}/pres_election_2000_2024_county.csv', index=False)
 # now we want to produce a state-level total vote dataset
 # this is very easy; we can just collapse on state
 master.drop(columns={'county_name'}, inplace=True)
-master = master.groupby(['year', 'state']).agg({
+master = master.groupby(['year', 'state_name']).agg({
     'democratic_pres_votes': 'sum',
     'republican_pres_votes': 'sum',
     'other_pres_votes': 'sum',
     'total_pres_votes': 'sum'
 }).reset_index()
 master.to_csv(f'{state_election_data}/pres_election_2000_2024_state.csv', index=False)
-
-# now we want CD-level data, which is a little more complex 

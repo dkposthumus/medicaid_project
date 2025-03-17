@@ -61,7 +61,7 @@ for year in years:
         df["Year"] = year
 
         # Extract 'county_name' and 'state' from 'County' column
-        df[["county_name", "state"]] = df["County"].apply(lambda x: pd.Series(parse_county_state(x)))
+        df[["county_name", "state_name"]] = df["County"].apply(lambda x: pd.Series(parse_county_state(x)))
 
         # Drop original 'County' column (optional)
         df.drop(columns=["County"], inplace=True)

@@ -22,7 +22,7 @@ county_acs5 = pd.read_csv(f'{clean_data}/acs5_county.csv')
 county_acs5.columns = county_acs5.columns.str.lower()  # Make all column names lowercase
 county_acs5 = county_acs5.applymap(lambda x: x.lower() if isinstance(x, str) else x)  # Convert strings
 
-county_acs5[['county', 'state']] = county_acs5['census_tract'].apply(
+county_acs5[['county_name', 'state_name']] = county_acs5['census_tract'].apply(
     lambda x: pd.Series(parse_tract_name(x))
 )
 
@@ -37,12 +37,12 @@ for col in medicaid_cols:
     county_acs5[share_col] = county_acs5[col] / county_acs5['total_medicaid_enrollees_acs']
 
 # now we want the share of statewide total medicaid enrollees residing in that county for that year 
-state_totals = county_acs5.groupby(['state', 'year'])['total_medicaid_enrollees_acs'].sum().reset_index()
+state_totals = county_acs5.groupby(['state_name', 'state', 'year'])['total_medicaid_enrollees_acs'].sum().reset_index()
 state_totals.rename(columns={'total_medicaid_enrollees_acs': 'state_total_medicaid_enrollees_acs'}, 
                     inplace=True)
 
 # Step 4: Merge state totals back into the main DataFrame
-county_acs5 = county_acs5.merge(state_totals, on=['state', 'year'], how='left')
+county_acs5 = county_acs5.merge(state_totals, on=['state', 'state_name', 'year'], how='left')
 # Step 5: Compute share of state Medicaid enrollees in each county
 county_acs5['county_share_of_state_medicaid'] = (county_acs5['total_medicaid_enrollees_acs'] 
                                                  / county_acs5['state_total_medicaid_enrollees_acs'])
@@ -73,7 +73,7 @@ county_acs5.drop(
     }, inplace=True
 )
 
-state_acs5 = data_copy.groupby(['state', 'year']).sum().reset_index()
+state_acs5 = data_copy.groupby(['state', 'state_name', 'year']).sum().reset_index()
 # Compute total population 25+ years old (already exists, just a safeguard)
 state_acs5['pop_25_over'] = state_acs5['pop_25_over'].replace({0: None})  # Avoid division by zero
 # Compute education percentages
@@ -113,10 +113,8 @@ state_acs5.drop(
 county_pop = pd.read_csv(f'{clean_data}/acs5_county_population.csv')
 county_pop.columns = county_pop.columns.str.lower()  # Make all column names lowercase
 county_pop = county_pop.applymap(lambda x: x.lower() if isinstance(x, str) else x)  # Convert strings 
-county_pop.drop(columns={'county'}, inplace=True)
-county_pop.rename(columns={'total_population_county': 'population',
-                           'county_name': 'county'}, inplace=True)
-state_pop = county_pop.groupby(['year', 'state'])['population'].sum().reset_index() 
+county_pop.rename(columns={'total_population_county': 'population'}, inplace=True)
+state_pop = county_pop.groupby(['year', 'state_name', 'state'])['population'].sum().reset_index() 
 
 # -----------------------------------------------------------------------------
 # 3. Load Medicaid.gov enrollment data
@@ -129,8 +127,8 @@ medicaid_enrollment = medicaid_enrollment.applymap(lambda x: x.lower() if isinst
 # -----------------------------------------------------------------------------
 # 4. Merge/Prep State-Level Dataset
 # -----------------------------------------------------------------------------
-master_state = pd.merge(state_acs5, state_pop, on=['state', 'year'], how='outer')
-master_state = pd.merge(master_state, medicaid_enrollment, on=['state', 'year'], how='outer')
+master_state = pd.merge(state_acs5, state_pop, on=['state', 'state_name', 'year'], how='outer')
+master_state = pd.merge(master_state, medicaid_enrollment, on=['state_name', 'year'], how='outer')
 
 # compute state-wide enrollment:
 master_state['pct_enrollment_medicaid_chip_gov'] = (master_state['num_enrollment_medicaid_chip'] 
@@ -143,8 +141,8 @@ master_state.to_csv(f'{state_level}/medicaid_education_state.csv', index=False)
 # -----------------------------------------------------------------------------
 # 5. Merge/Prep County-Level Dataset
 # -----------------------------------------------------------------------------
-master_county = pd.merge(county_acs5, county_pop, on=['county', 'state', 'year'], how='outer')
-master_county = pd.merge(master_county, medicaid_enrollment, on=['state', 'year'], how='outer')
+master_county = pd.merge(county_acs5, county_pop, on=['county', 'county_name', 'state', 'state_name', 'year'], how='outer')
+master_county = pd.merge(master_county, medicaid_enrollment, on=['state_name', 'year'], how='outer')
 
 # first, estimate the number of medicaid/chip enrollees on county-level
 for var in ['', '_chip']:

@@ -20,7 +20,7 @@ enrollment.rename(
     columns = {
         'total medicaid and chip enrollment': 'num_enrollment_medicaid_chip',
         'total medicaid enrollment': 'num_enrollment_medicaid',
-        'state name': 'state'
+        'state name': 'state_name'
     }, inplace=True
 )
 enrollment['reporting period'] = enrollment['reporting period'].astype(str)  
@@ -28,14 +28,15 @@ enrollment['reporting period'] = enrollment['reporting period'].astype(str)
 enrollment['year'] = enrollment['reporting period'].str[:4].astype(int)   # First 4 digits → Year
 enrollment['month'] = enrollment['reporting period'].str[4:].astype(int)  # Last 2 digits → Month
 
-enrollment = enrollment[['state', 'year', 'month', 'num_enrollment_medicaid_chip', 'num_enrollment_medicaid']]
+enrollment = enrollment[['state_name', 'year', 'month', 'num_enrollment_medicaid_chip', 'num_enrollment_medicaid']]
 # collapse on averages based on the month 
-enrollment = enrollment.groupby(['year', 'state'])[['num_enrollment_medicaid_chip', 
+enrollment = enrollment.groupby(['year', 'state_name'])[['num_enrollment_medicaid_chip', 
                                                     'num_enrollment_medicaid']].mean().reset_index()
 
 # now we want to pull in a better dataset for asessing enrollment by age:
 enrollment_granular = pd.read_csv(f'{raw_data}/medicaid_eligibility_group.csv')
 enrollment_granular.columns = enrollment_granular.columns.str.lower()
+enrollment_granular.rename(columns={'state': 'state_name'}, inplace=True)
 enrollment_granular["countenrolled"] = enrollment_granular["countenrolled"].replace("DS", np.nan)
 # Remove commas and convert to numeric (handles NaN safely)
 enrollment_granular["num_enrollment_medicaid_chip_alt"] = (
@@ -47,7 +48,7 @@ enrollment_granular['year'] = enrollment_granular['month'].str[:4].astype(int)
 enrollment_granular['month'] = enrollment_granular['month'].str[4:].astype(int)
 
 # now we want to pivot wide 
-wide = enrollment_granular.pivot(index=['state', 'month', 'year'], 
+wide = enrollment_granular.pivot(index=['state_name', 'month', 'year'], 
     columns='majoreligibilitygroup', values='num_enrollment_medicaid_chip_alt').reset_index()
 
 wide.columns = wide.columns.str.lower()
@@ -66,10 +67,10 @@ wide.rename(
 enrollment_cols = ['num_19_to_64_medi_chip_gov', 'num_expansion_medi_chip_gov', 'num_65_medi_chip_gov',
 'num_covid_medi_chip_gov', 'num_18_medi_chip_gov', 'num_disabled_medi_chip_gov', 
 'num_unknown_med_chip_gov']
-wide = wide.groupby(['year', 'state'])[enrollment_cols].mean().reset_index()
+wide = wide.groupby(['year', 'state_name'])[enrollment_cols].mean().reset_index()
 
 # merge 
-master = pd.merge(enrollment, wide, on=['year', 'state'], how='outer')
+master = pd.merge(enrollment, wide, on=['year', 'state_name'], how='outer')
 
 master['check'] = (
     master['num_19_to_64_medi_chip_gov']

@@ -1,4 +1,4 @@
-year,state,democratic_pres_votes,republican_pres_votes,other_pres_votes,total_pres_votes
+year,state_name,democratic_pres_votes,republican_pres_votes,other_pres_votes,total_pres_votes
 2000,alabama,695602.0,944409.0,32540.0,1672551.0
 2000,alaska,79004.0,167398.0,39128.0,285530.0
 2000,arizona,685341.0,781652.0,67120.0,1534113.0

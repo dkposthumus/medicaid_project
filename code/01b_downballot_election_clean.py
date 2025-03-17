@@ -15,9 +15,9 @@ code = Path.cwd()
 
 # define function that automatically and quite nicely cleans 2024 election data for us
 def data_2024_cleaning(df, office):
-    df.rename(columns={'Unnamed: 0': 'county_name', 'Unnamed: 1': 'state'}, inplace=True)
+    df.rename(columns={'Unnamed: 0': 'county_name', 'Unnamed: 1': 'state_name'}, inplace=True)
     df.dropna(subset=['county_name'], inplace=True)
-    df.dropna(subset=['state'], inplace=True)
+    df.dropna(subset=['state_name'], inplace=True)
     # rename columns to be more descriptive:
     df.rename(
         columns= {'Total Vote': f'{office} totalvotes, 2024',
@@ -28,8 +28,8 @@ def data_2024_cleaning(df, office):
     # now keep only observations for which LSAD
     df = df[df['LSAD_TRANS'].isin(['County', 'Parish'])]
     # exclude rows referencing state totals
-    df = df[df['state'] != 'T']
-    cols_interest = ['county_name', 'state', f'{office} totalvotes, 2024', 
+    df = df[df['state_name'] != 'T']
+    cols_interest = ['county_name', 'state_name', f'{office} totalvotes, 2024', 
                      f'{office} dem votecount, 2024', f'{office} rep votecount, 2024']
     df = df[cols_interest]
     # now make all variable values lowercase
@@ -74,7 +74,7 @@ def clean_2020_data(states, full_states, office):
             df = pd.merge(df, party_data['rep'], on='county_name', how='outer')
             for label in ['dem', 'rep']:
                 df[f'{label}_pct_{office}_2020'] = df[f'{office} {label} votecount, 2020'] / df[f'{office} totalvotes, 2020']
-            df['state'] = full_name
+            df['state_name'] = full_name
             states_data[state] = df 
         else:
             print(f'{state} has no county-level data')
@@ -100,15 +100,12 @@ state_full = [
 
 state_map = dict(zip(states, state_full))
 for df in [house_2024, senate_2024]:
-    df['state'] = df['state'].map(lambda x: state_map.get(x, x))
+    df['state_name'] = df['state_name'].map(lambda x: state_map.get(x, x))
 
 house_2020 = clean_2020_data(states, state_full, 'house')
-house_2020_2024 = pd.merge(house_2020, house_2024, on=['county_name', 'state'], how='outer')
+house_2020_2024 = pd.merge(house_2020, house_2024, on=['county_name', 'state_name'], how='outer')
 house_2020_2024.to_csv(f'{clean_data}/house_2020_2024.csv', index=False)
 
 senate_2020 = clean_2020_data(states, state_full, 'senate')
-senate_2020_2024 = pd.merge(senate_2020, senate_2024, on=['county_name', 'state'], how='outer')
+senate_2020_2024 = pd.merge(senate_2020, senate_2024, on=['county_name', 'state_name'], how='outer')
 senate_2020_2024.to_csv(f'{clean_data}/senate_2020_2024.csv', index=False)
-
-####################################################################################
-# next, let's extract / clean the 2020 data
