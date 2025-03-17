@@ -21,7 +21,7 @@ county_cd_crosswalk['state'] = county_cd_crosswalk['geoid_county_20'].str[:2]
 county_cd_crosswalk['county'] = county_cd_crosswalk['geoid_county_20'].str[2:5]
 
 # now we want to clean the congressional district variable
-county_cd_crosswalk['congressional district'] = county_cd_crosswalk['geoid_cd119_20'].str[3:4]
+county_cd_crosswalk['congressional district'] = county_cd_crosswalk['geoid_cd119_20'].str[2:4]
 
 # keep only necessary columns
 county_cd_crosswalk = county_cd_crosswalk[['state', 'county', 'congressional district',

@@ -35,6 +35,10 @@ states_gdf = states_gdf[~states_gdf['NAME'].isin([
     'puerto rico',
 ])]
 
+path = f'{shapefiles}/Census Congressional Districts Shapefile_20250317/geo_export_a08041e5-feff-46c1-ba64-215dba9f7d3d.shp'
+cd_gdf = gpd.read_file(path)
+
+
 doc = Document()
 doc.add_heading('Medicaid Enrollment Maps', level=1)
 

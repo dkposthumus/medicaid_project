@@ -57,6 +57,21 @@ data_copy.drop(
     }, inplace=True
 )
 
+county_levels = county_acs5[[
+    'state', 'state_name', 'county_name', 'county', 'year', 'male_under_19_medicaid', 
+    'male_19_to_64_medicaid',
+       'male_65_and_over_medicaid', 'female_under_19_medicaid',
+       'female_19_to_64_medicaid', 'female_65_and_over_medicaid',
+       'num_male_19_medicaid_acs', 'num_male_19_64_medicaid_acs',
+       'num_male_65_medicaid_acs', 'num_female_19_medicaid_acs',
+       'num_female_19_64_medicaid_acs', 'num_female_65_medicaid_acs',
+       'pop_25_over', 'no_schooling', 'nursery_4th', 'gr5_6', 'gr7_8', 'gr9',
+       'gr10', 'gr11', 'gr12_no_diploma', 'highschool_grad',
+       'somecollege_lt1yr', 'somecollege_1plus', 'associates', 'bachelors',
+       'masters', 'profschool', 'doctorate', 
+]]
+county_levels.to_csv(f'{county_level}/county_levels_enrollees_educ.csv', index=False)
+
 # drop unnecessary columns for each of these datasets
 county_acs5.drop(
     columns = {
