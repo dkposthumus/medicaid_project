@@ -53,33 +53,32 @@ wide = enrollment_granular.pivot(index=['state', 'month', 'year'],
 wide.columns = wide.columns.str.lower()
 wide.rename(
     columns = {
-        'adult': 'num_enrollment_19_to_64_medicaid',
-        'adult expansion group': 'num_enrollment_expansion_adult_medicaid',
-        'aged': 'num_enrollment_65_and_over_medicaid',
-        'covid newly-eligible': 'num_enrollment_covid_medicaid',
-        'children': 'num_enrollment_under_18_medicaid',
-        'persons with disabilities': 'num_enrollment_disabled_medicaid',
-        'unknown': 'num_enrollment_unknown_medicaid'
+        'adult': 'num_19_to_64_medi_chip_gov',
+        'adult expansion group': 'num_expansion_medi_chip_gov',
+        'aged': 'num_65_medi_chip_gov',
+        'covid newly-eligible': 'num_covid_medi_chip_gov',
+        'children': 'num_18_medi_chip_gov',
+        'persons with disabilities': 'num_disabled_medi_chip_gov',
+        'unknown': 'num_unknown_med_chip_gov'
     }, inplace=True
 )
 
-enrollment_cols = ['num_enrollment_19_to_64_medicaid', 'num_enrollment_expansion_adult_medicaid',
-        'num_enrollment_65_and_over_medicaid', 'num_enrollment_covid_medicaid', 
-        'num_enrollment_under_18_medicaid', 'num_enrollment_disabled_medicaid',
-        'num_enrollment_unknown_medicaid']
+enrollment_cols = ['num_19_to_64_medi_chip_gov', 'num_expansion_medi_chip_gov', 'num_65_medi_chip_gov',
+'num_covid_medi_chip_gov', 'num_18_medi_chip_gov', 'num_disabled_medi_chip_gov', 
+'num_unknown_med_chip_gov']
 wide = wide.groupby(['year', 'state'])[enrollment_cols].mean().reset_index()
 
 # merge 
 master = pd.merge(enrollment, wide, on=['year', 'state'], how='outer')
 
 master['check'] = (
-    master['num_enrollment_19_to_64_medicaid']
-    + master['num_enrollment_expansion_adult_medicaid']
-    + master['num_enrollment_65_and_over_medicaid']
-    + master['num_enrollment_covid_medicaid']
-    + master['num_enrollment_under_18_medicaid']
-    + master['num_enrollment_disabled_medicaid']
-    + master['num_enrollment_unknown_medicaid']
+    master['num_19_to_64_medi_chip_gov']
+    + master['num_expansion_medi_chip_gov']
+    + master['num_65_medi_chip_gov']
+    + master['num_covid_medi_chip_gov']
+    + master['num_18_medi_chip_gov']
+    + master['num_disabled_medi_chip_gov']
+    + master['num_unknown_med_chip_gov']
 )
 
 master.to_csv(f'{clean_data}/medicaid_enrollment.csv', index=False)
@@ -90,4 +89,4 @@ x_values = np.linspace(min(graphing['check']), max(graphing['check']), 100)
 plt.plot(x_values, x_values, color='red', linestyle='--', label='y = x')
 plt.xlabel('Manually Summed')
 plt.ylabel('Summed by Medicaid.gov')
-plt.close
+plt.show()
