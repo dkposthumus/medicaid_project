@@ -23,11 +23,4 @@ master = pd.merge(enrollment_education, house_2020_2024, on=['county_name', 'sta
 master = pd.merge(master, pres, on=['year', 'state_name', 'county_name'], how='outer')
 master = pd.merge(master, senate_2020_2024, on=['state_name', 'county_name'], how='outer')
 
-for var in ['', '_chip']:
-    master[f'pct_enrollment_medicaid{var}_gov'] = (master[f'num_enrollment_medicaid{var}']
-                                                   / master['population'])
-
-master['pct_enrollment_medicaid_acs'] = (master['total_medicaid_enrollees_acs']
-                                         / master['population'])
-
 master.to_csv(f'{clean_data}/master_county.csv', index=False)

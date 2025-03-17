@@ -26,6 +26,36 @@ county_acs5[['county_name', 'state_name']] = county_acs5['census_tract'].apply(
     lambda x: pd.Series(parse_tract_name(x))
 )
 
+county_acs5.drop(columns={'pct_college_plus', 'pct_hs_only', 'pct_hs_or_less'}, inplace=True)
+county_acs5.groupby(['year', 'county', 'state', 'county_name', 'state_name']).sum().reset_index()
+
+def educ_var_create(df):
+    df['pop_25_over'] = df['pop_25_over'].replace({0: None})  # Avoid division by zero
+# Compute education percentages
+    df['pct_college_plus'] = (
+        (df['bachelors'] + df['masters'] + df['profschool'] 
+        + df['doctorate'])
+        / df['pop_25_over'] 
+    )
+    df['pct_hs_only'] = df['highschool_grad'] / df['pop_25_over']
+    df['pct_hs_or_less'] = (
+        (
+            df['no_schooling']
+            + df['nursery_4th']
+            + df['gr5_6']
+            + df['gr7_8']
+            + df['gr9']
+            + df['gr10']
+            + df['gr11']
+            + df['gr12_no_diploma']
+            + df['highschool_grad']
+        )
+        / df['pop_25_over']
+    )
+    return df
+
+county_acs5 = educ_var_create(county_acs5)
+
 # now we want to produce, on the county-level, 
 # the shares of ALL medicaid enrollees belonging to each 'group' 
 medicaid_cols = [col for col in county_acs5.columns if col.endswith('medicaid_acs')]
@@ -90,28 +120,7 @@ county_acs5.drop(
 
 state_acs5 = data_copy.groupby(['state', 'state_name', 'year']).sum().reset_index()
 # Compute total population 25+ years old (already exists, just a safeguard)
-state_acs5['pop_25_over'] = state_acs5['pop_25_over'].replace({0: None})  # Avoid division by zero
-# Compute education percentages
-state_acs5['pct_college_plus'] = (
-    (state_acs5['bachelors'] + state_acs5['masters'] + state_acs5['profschool'] 
-     + state_acs5['doctorate'])
-    / state_acs5['pop_25_over']
-)
-state_acs5['pct_hs_only'] = state_acs5['highschool_grad'] / state_acs5['pop_25_over']
-state_acs5['pct_hs_or_less'] = (
-    (
-        state_acs5['no_schooling']
-        + state_acs5['nursery_4th']
-        + state_acs5['gr5_6']
-        + state_acs5['gr7_8']
-        + state_acs5['gr9']
-        + state_acs5['gr10']
-        + state_acs5['gr11']
-        + state_acs5['gr12_no_diploma']
-        + state_acs5['highschool_grad']
-    )
-    / state_acs5['pop_25_over']
-)
+state_acs5 = educ_var_create(state_acs5)
 
 state_acs5.drop(
     columns = {
@@ -146,12 +155,11 @@ master_state = pd.merge(state_acs5, state_pop, on=['state', 'state_name', 'year'
 master_state = pd.merge(master_state, medicaid_enrollment, on=['state_name', 'year'], how='outer')
 
 # compute state-wide enrollment:
-master_state['pct_enrollment_medicaid_chip_gov'] = (master_state['num_enrollment_medicaid_chip'] 
+master_state['pct_enrollment_medicaid_chip_gov'] = (master_state['num_medicaid_chip_gov'] 
                                           / master_state['population'])
-master_state['pct_enrollment_medicaid_gov'] = (master_state['num_enrollment_medicaid']
+master_state['pct_enrollment_medicaid_gov'] = (master_state['num_medicaid_gov']
                                           / master_state['population'])
 master_state.to_csv(f'{state_level}/medicaid_education_state.csv', index=False)
-
 
 # -----------------------------------------------------------------------------
 # 5. Merge/Prep County-Level Dataset
@@ -161,12 +169,12 @@ master_county = pd.merge(master_county, medicaid_enrollment, on=['state_name', '
 
 # first, estimate the number of medicaid/chip enrollees on county-level
 for var in ['', '_chip']:
-    master_county[f'num_county_medicaid{var}'] = (master_county[f'num_enrollment_medicaid{var}']
+    master_county[f'num_county_medicaid{var}_gov'] = (master_county[f'num_medicaid{var}_gov']
                                                  * master_county['county_share_of_state_medicaid'])
-    master_county[f'pct_enrollment_medicaid{var}_gov'] = (master_county[f'num_county_medicaid{var}'] 
+    master_county[f'pct_enrollment_medicaid{var}_gov'] = (master_county[f'num_county_medicaid{var}_gov'] 
                                           / master_county['population'])
     
-master_county['pct_enrollment_medicaid_acs'] = (master_county[f'total_medicaid_enrollees_acs']
+master_county['pct_enrollment_medicaid_acs'] = (master_county['total_medicaid_enrollees_acs']
                                         / master_county['population'])
 
 master_county.to_csv(f'{county_level}/medicaid_education_county.csv', index=False)

@@ -18,8 +18,8 @@ enrollment = pd.read_csv(f'{raw_data}/medicaid_gov_data.csv')
 enrollment.columns = enrollment.columns.str.lower()
 enrollment.rename(
     columns = {
-        'total medicaid and chip enrollment': 'num_enrollment_medicaid_chip',
-        'total medicaid enrollment': 'num_enrollment_medicaid',
+        'total medicaid and chip enrollment': 'num_medicaid_chip_gov',
+        'total medicaid enrollment': 'num_medicaid_gov',
         'state name': 'state_name'
     }, inplace=True
 )
@@ -28,10 +28,10 @@ enrollment['reporting period'] = enrollment['reporting period'].astype(str)
 enrollment['year'] = enrollment['reporting period'].str[:4].astype(int)   # First 4 digits → Year
 enrollment['month'] = enrollment['reporting period'].str[4:].astype(int)  # Last 2 digits → Month
 
-enrollment = enrollment[['state_name', 'year', 'month', 'num_enrollment_medicaid_chip', 'num_enrollment_medicaid']]
+enrollment = enrollment[['state_name', 'year', 'month', 'num_medicaid_chip_gov', 'num_medicaid_gov']]
 # collapse on averages based on the month 
-enrollment = enrollment.groupby(['year', 'state_name'])[['num_enrollment_medicaid_chip', 
-                                                    'num_enrollment_medicaid']].mean().reset_index()
+enrollment = enrollment.groupby(['year', 'state_name'])[['num_medicaid_chip_gov', 
+                                                    'num_medicaid_gov']].mean().reset_index()
 
 # now we want to pull in a better dataset for asessing enrollment by age:
 enrollment_granular = pd.read_csv(f'{raw_data}/medicaid_eligibility_group.csv')
@@ -85,7 +85,7 @@ master['check'] = (
 master.to_csv(f'{clean_data}/medicaid_enrollment.csv', index=False)
 
 graphing = master[master['check'] != 0]
-plt.scatter(graphing['check'], graphing['num_enrollment_medicaid_chip'], alpha=0.6)
+plt.scatter(graphing['check'], graphing['num_medicaid_chip_gov'], alpha=0.6)
 x_values = np.linspace(min(graphing['check']), max(graphing['check']), 100)
 plt.plot(x_values, x_values, color='red', linestyle='--', label='y = x')
 plt.xlabel('Manually Summed')

@@ -41,7 +41,8 @@ master.drop(
 # now merge the crosswalk on
 master = pd.merge(master, county_cd, on=['county', 'state'], how='outer')
 master = master.groupby(['year', 'geoid_cd119_20', 'congressional district', 'state', 'state_name'])[[
-    'total_medicaid_enrollees_acs', 'population', 'num_enrollment_medicaid_chip', 'num_enrollment_medicaid',
+    'total_medicaid_enrollees_acs', 'population', 'num_medicaid_chip_gov', 
+    'num_medicaid_gov',
     'num_19_to_64_medi_chip_gov', 'num_expansion_medi_chip_gov', 'num_65_medi_chip_gov', 
     'num_covid_medi_chip_gov', 'num_18_medi_chip_gov', 'house totalvotes, 2020', 'house totalvotes, 2024',
     'house dem votecount, 2024', 'house rep votecount, 2024', 'democratic_pres_votes',
@@ -49,7 +50,6 @@ master = master.groupby(['year', 'geoid_cd119_20', 'congressional district', 'st
     'senate totalvotes, 2020', 'senate dem votecount, 2020', 'senate rep votecount, 2020', 
     'senate totalvotes, 2024', 'senate dem votecount, 2024', 'senate rep votecount, 2024'
 ]].sum().reset_index()
-
 
 # bring in county_levels data
 cd_levels = pd.merge(county_levels, county_cd, on=['county', 'state'], how='outer')
@@ -89,10 +89,11 @@ cd_levels.drop(
     }, inplace=True
 )
 
-master = pd.merge(master, cd_levels, on=['state', 'state_name', 'year', 'geoid_cd119_20', 'congressional district'], how='outer')
+master = pd.merge(master, cd_levels, on=['state', 'state_name', 'year', 
+                                         'geoid_cd119_20', 'congressional district'], how='outer')
 
 for var in ['', '_chip']:
-    master[f'pct_enrollment_medicaid{var}_gov'] = (master[f'num_enrollment_medicaid{var}']
+    master[f'pct_enrollment_medicaid{var}_gov'] = (master[f'num_medicaid{var}_gov']
                                                    / master['population'])
 
 master['pct_enrollment_medicaid_acs'] = (master['total_medicaid_enrollees_acs']

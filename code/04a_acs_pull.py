@@ -158,7 +158,7 @@ for year in years_5yr:
 if all_data_5yr:
     final_df_5yr = pd.concat(all_data_5yr, ignore_index=True)
     # Save as a single CSV file
-    output_path_5yr = f"{clean_data}/acs5_county.csv"
+    output_path_5yr = f"{clean_data}/acs5_tract.csv"
     final_df_5yr.to_csv(output_path_5yr, index=False)
     print(f"5-year data saved to '{output_path_5yr}'")
 else:
