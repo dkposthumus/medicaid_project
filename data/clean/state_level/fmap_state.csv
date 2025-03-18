@@ -1,4 +1,4 @@
-state,enhanced_fmap_pct,year,fmap_pct,fmap_multiplier
+state_name,enhanced_fmap_pct,year,fmap_pct,fmap_multiplier
 alabama,0.7942,2003,,
 alaska,0.7079,2003,,
 american samoa,0.65,2003,,

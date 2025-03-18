@@ -35,14 +35,14 @@ medicaid_spending = pd.read_csv(f'{state_level}/medicaid_spending_state.csv')
 
 for df in [medicaid_births, medicaid_enrollment, 
            state_govt_ctrl, pres_election_results, fmap, medicaid_spending]:
-    df.loc[df['state'] == "hawai'i", 'state'] = 'hawaii'
+    df.loc[df['state_name'] == "hawai'i", 'state_name'] = 'hawaii'
 
 # merge all state-level datasets pulled in
-master = pd.merge(medicaid_births, medicaid_enrollment, on=['state', 'year'], how='outer')
-master = pd.merge(master, state_govt_ctrl, on=['year', 'state'], how='outer')
-master = pd.merge(master, pres_election_results, on=['year', 'state'], how='outer')
-master = pd.merge(master, fmap, on=['year', 'state'], how='outer')
-master = pd.merge(master, medicaid_spending, on=['year', 'state'], how='outer')
+master = pd.merge(medicaid_births, medicaid_enrollment, on=['state_name', 'year'], how='outer')
+master = pd.merge(master, state_govt_ctrl, on=['year', 'state_name'], how='outer')
+master = pd.merge(master, pres_election_results, on=['year', 'state_name'], how='outer')
+master = pd.merge(master, fmap, on=['year', 'state_name'], how='outer')
+master = pd.merge(master, medicaid_spending, on=['year', 'state_name'], how='outer')
 
 # create dummy if a usa state, as opposed to a territory
 states = pd.Series([
@@ -97,8 +97,7 @@ states = pd.Series([
     "wisconsin",
     "wyoming"
 ])
-master['usa_state_dummy'] = (master['state'].isin(states)).astype(int)
+master['usa_state_dummy'] = (master['state_name'].isin(states)).astype(int)
 
 # save master dataset
 master.to_csv(f'{clean_data}/master_state_level.csv', index=False)
-

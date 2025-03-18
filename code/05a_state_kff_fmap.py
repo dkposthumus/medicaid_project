@@ -33,14 +33,14 @@ for year in range(2004, 2027):
     fmap_cleaned = pd.concat([fmap_cleaned, df], axis=0, ignore_index=True)
 fmap_cleaned.rename(
     columns = {
-        'Location': 'state',
+        'Location': 'state_name',
         'FMAP Percentage': 'fmap_pct',
         'Multiplier': 'fmap_multiplier'
     }, inplace=True
 )
 # now replace everything with lowercase values for 'state' column 
 fmap_cleaned = fmap_cleaned.applymap(lambda x: x.lower() if isinstance(x, str) else x)
-fmap_cleaned = fmap_cleaned[fmap_cleaned['state'] != 'united states']
+fmap_cleaned = fmap_cleaned[fmap_cleaned['state_name'] != 'united states']
 
 ######################################################################################################################################
 # Enhanced FMAP state-level data
@@ -64,15 +64,15 @@ for year in range(2003, 2027):
     enhanced_cleaned = pd.concat([enhanced_cleaned, df], axis=0, ignore_index=True)
 enhanced_cleaned.rename(
     columns = {
-        'Location': 'state',
+        'Location': 'state_name',
         'Enhanced FMAP': 'enhanced_fmap_pct'
     }, inplace=True
 )
 # now replace everything with lowercase values for 'state' column 
 enhanced_cleaned = enhanced_cleaned.applymap(lambda x: x.lower() if isinstance(x, str) else x)
-enhanced_cleaned = enhanced_cleaned[enhanced_cleaned['state'] != 'united states']
+enhanced_cleaned = enhanced_cleaned[enhanced_cleaned['state_name'] != 'united states']
 
 # now merge two fmap datasets together
-fmap_master = pd.merge(enhanced_cleaned, fmap_cleaned, on=['year', 'state'], how='outer')
+fmap_master = pd.merge(enhanced_cleaned, fmap_cleaned, on=['year', 'state_name'], how='outer')
 
 fmap_master.to_csv(f'{state_level}/fmap_state.csv', index=False)

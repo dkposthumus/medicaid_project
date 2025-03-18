@@ -10,93 +10,73 @@ crosswalks = (data / 'crosswalks')
 state_level = (clean_data / 'state_level')
 election_results = (state_level / 'election_results')
 county_level = (clean_data / 'county_level')
+tract_level = (clean_data / 'tract_level')
 output = (work_dir / 'output')
 code = Path.cwd() 
 
-master = pd.read_csv(f'{clean_data}/master_county.csv')
-for var in ['state', 'county']:
-    master[var] = master[var].astype(str)
-    master[var] = master[var].str.replace('.0', '', regex=True)
-county_cd = pd.read_csv(f'{crosswalks}/county_cd.csv')
-for var in ['state', 'county', 'geoid_cd119_20']:
-    county_cd[var] = county_cd[var].astype(str)
-county_levels = pd.read_csv(f'{county_level}/county_levels_enrollees_educ.csv')
-for var in ['state', 'county']:
-    county_levels[var] = county_levels[var].astype(str)
+tract_cd = pd.read_csv(f'{crosswalks}/tract_cd.csv')
+for var in ['state', 'county', 'tract_number']:
+    tract_cd[var] = tract_cd[var].astype(str)
 
-# now keep only level variables because we're going to sum on congressional district level
-master.drop(
+enroll_educ_tract = pd.read_csv(f'{tract_level}/medicaid_education_tract.csv')
+
+enroll_educ_tract.drop(
     columns = {
-    'share_male_19_medicaid_acs',
+        'census_tract', 'tract_x', 'pct_college_plus', 'pct_hs_only', 'pct_hs_or_less',
+        'share_male_19_medicaid_acs',
        'share_male_19_64_medicaid_acs', 'share_male_65_medicaid_acs',
        'share_female_19_medicaid_acs', 'share_female_19_64_medicaid_acs',
        'share_female_65_medicaid_acs', 'state_total_medicaid_enrollees_acs',
-       'county_share_of_state_medicaid', 'pct_college_plus', 'pct_hs_only', 'pct_hs_or_less',
-        'share_male_19_medicaid_acs', 'share_male_19_64_medicaid_acs',
-        'check', 'pct_enrollment_medicaid_gov', 'pct_enrollment_medicaid_chip_gov',
-        'pct_enrollment_medicaid_chip_gov', 'pct_enrollment_medicaid_acs',
-        'dem_pct_house_2020', 'rep_pct_house_2020', 'dem_pct_senate_2020', 'rep_pct_senate_2020'
+       'tract_share_of_state_medicaid', 'name', 'tract_y',
+       'pct_enrollment_medicaid_chip_gov', 'pct_enrollment_medicaid_acs',
+       'pct_enrollment_medicaid_gov', 'check'
     }, inplace=True
 )
-# now merge the crosswalk on
-master = pd.merge(master, county_cd, on=['county', 'state'], how='outer')
-master = master.groupby(['year', 'geoid_cd119_20', 'congressional district', 'state', 'state_name'])[[
-    'total_medicaid_enrollees_acs', 'population', 'num_medicaid_chip_gov', 
-    'num_medicaid_gov',
-    'num_19_to_64_medi_chip_gov', 'num_expansion_medi_chip_gov', 'num_65_medi_chip_gov', 
-    'num_covid_medi_chip_gov', 'num_18_medi_chip_gov', 'house totalvotes, 2020', 'house totalvotes, 2024',
-    'house dem votecount, 2024', 'house rep votecount, 2024', 'democratic_pres_votes',
-    'other_pres_votes', 'republican_pres_votes', 'total_pres_votes',
-    'senate totalvotes, 2020', 'senate dem votecount, 2020', 'senate rep votecount, 2020', 
-    'senate totalvotes, 2024', 'senate dem votecount, 2024', 'senate rep votecount, 2024'
-]].sum().reset_index()
+
+for var in ['tract_number', 'county', 'state']:
+    for df in [enroll_educ_tract, tract_cd]:
+        df[var] = df[var].astype(str)
+        # replace '.0' with ''
+        df[var] = df[var].str.replace('.0', '')
+
+master_tract = pd.merge(tract_cd, enroll_educ_tract, on=['tract_number', 'county', 'state'], how='outer')
 
 # bring in county_levels data
-cd_levels = pd.merge(county_levels, county_cd, on=['county', 'state'], how='outer')
-cd_levels = cd_levels.groupby(['year', 'geoid_cd119_20', 'congressional district', 
-                               'state', 'state_name']).sum().reset_index()
+master_cd = master_tract.groupby(['year', 'cd119', 'state', 'state_name']).sum().reset_index()
 
 # create education variables
-cd_levels['pop_25_over'] = cd_levels['pop_25_over'].replace({0: None})  # Avoid division by zero
+def educ_var_create(df):
+    df['pop_25_over'] = df['pop_25_over'].replace({0: None})  # Avoid division by zero
 # Compute education percentages
-cd_levels['pct_college_plus'] = (
-    (cd_levels['bachelors'] + cd_levels['masters'] + cd_levels['profschool'] 
-     + cd_levels['doctorate'])
-    / cd_levels['pop_25_over']
-)
-cd_levels['pct_hs_only'] = cd_levels['highschool_grad'] / cd_levels['pop_25_over']
-cd_levels['pct_hs_or_less'] = (
-    (
-        cd_levels['no_schooling']
-        + cd_levels['nursery_4th']
-        + cd_levels['gr5_6']
-        + cd_levels['gr7_8']
-        + cd_levels['gr9']
-        + cd_levels['gr10']
-        + cd_levels['gr11']
-        + cd_levels['gr12_no_diploma']
-        + cd_levels['highschool_grad']
+    df['pct_college_plus'] = (
+        (df['bachelors'] + df['masters'] + df['profschool'] 
+        + df['doctorate'])
+        / df['pop_25_over'] 
     )
-    / cd_levels['pop_25_over']
-)
+    df['pct_hs_only'] = df['highschool_grad'] / df['pop_25_over']
+    df['pct_hs_or_less'] = (
+        (
+            df['no_schooling']
+            + df['nursery_4th']
+            + df['gr5_6']
+            + df['gr7_8']
+            + df['gr9']
+            + df['gr10']
+            + df['gr11']
+            + df['gr12_no_diploma']
+            + df['highschool_grad']
+        )
+        / df['pop_25_over']
+    )
+    return df
 
-cd_levels.drop(
-    columns = {
-    'pop_25_over', 'no_schooling', 'nursery_4th', 'gr5_6', 'gr7_8', 'gr9',
-       'gr10', 'gr11', 'gr12_no_diploma', 'highschool_grad',
-       'somecollege_lt1yr', 'somecollege_1plus', 'associates', 'bachelors',
-       'masters', 'profschool', 'doctorate'
-    }, inplace=True
-)
-
-master = pd.merge(master, cd_levels, on=['state', 'state_name', 'year', 
-                                         'geoid_cd119_20', 'congressional district'], how='outer')
+master_cd = educ_var_create(master_cd)
 
 for var in ['', '_chip']:
-    master[f'pct_enrollment_medicaid{var}_gov'] = (master[f'num_medicaid{var}_gov']
-                                                   / master['population'])
+    master_cd[f'pct_enrollment_medicaid{var}_gov'] = (master_cd[f'num_tract_medicaid{var}_gov']
+                                                   / master_cd['population'])
 
-master['pct_enrollment_medicaid_acs'] = (master['total_medicaid_enrollees_acs']
-                                         / master['population'])
+master_cd['pct_enrollment_medicaid_acs'] = (master_cd['total_medicaid_enrollees_acs']
+                                         / master_cd['population'])
 
-master.to_csv(f'{clean_data}/master_cd.csv', index=False)
+master_cd.to_csv(f'{clean_data}/master_cd.csv', index=False)

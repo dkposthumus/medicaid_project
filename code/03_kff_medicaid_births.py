@@ -27,12 +27,12 @@ for year in range(2016, 2024):
 
 kff_cleaned.rename(
     columns = {
-        'Location': 'state',
+        'Location': 'state_name',
         'Number of Births Financed by Medicaid': 'medicaid_births',
         'Percent of Births Financed by Medicaid': 'pct_medicaid_births'
     }, inplace=True
 )
-kff_cleaned = kff_cleaned[kff_cleaned['state'] != 'United States'] # make sure we only have states, NOT the national total
+kff_cleaned = kff_cleaned[kff_cleaned['state_name'] != 'United States'] # make sure we only have states, NOT the national total
 kff_cleaned = kff_cleaned.applymap(lambda x: x.lower() if isinstance(x, str) else x) # make all values (really just states) lowercase
 # now drop all observations where medicaid_births is missing
 kff_cleaned = kff_cleaned.dropna(subset=['medicaid_births'])

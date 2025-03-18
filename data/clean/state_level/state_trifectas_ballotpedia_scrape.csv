@@ -1,4 +1,4 @@
-state,year,governor,senate,house,total_gov
+state_name,year,governor,senate,house,total_gov
 alabama,2010,r,d,d,split
 alabama,2011,r,r,r,r
 alabama,2012,r,r,r,r

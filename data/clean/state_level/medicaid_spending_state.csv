@@ -1,4 +1,4 @@
-state,benefits_total,benefits_federal,benefits_state,administration_total,administration_federal,administration_state,medicaid_total,medicaid_federal,medicaid_state,year,unnamed: 10
+state_name,benefits_total,benefits_federal,benefits_state,administration_total,administration_federal,administration_state,medicaid_total,medicaid_federal,medicaid_state,year,unnamed: 10
 alabama,4836.0,3715.0,1121.0,158.0,88.0,70.0,4994.0,3803.0,1191.0,2010,
 alaska,1208.0,821.0,387.0,96.0,53.0,43.0,1303.0,874.0,429.0,2010,
 arizona,9380.0,7217.0,2164.0,150.0,80.0,69.0,9530.0,7297.0,2233.0,2010,

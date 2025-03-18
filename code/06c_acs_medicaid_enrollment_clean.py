@@ -7,27 +7,55 @@ data = work_dir / 'data'
 clean_data = data / 'clean'
 state_level = clean_data / 'state_level'
 county_level = clean_data / 'county_level'
+tract_level = clean_data / 'tract_level'
 
 def parse_tract_name(name):
-    # This regex assumes the pattern "Census Tract ..., County Name, State Name"
-    match = re.search(r"census tract .+?, (.+), (.+)", str(name))
+    # This regex now accepts either a comma or semicolon as the separator:
+    # It assumes the pattern "Census Tract <tract_number> [,;] <County Name> [,;] <State Name>"
+    match = re.search(r"census tract ([\d\.]+)[,;]\s*(.+)[,;]\s*(.+)", str(name), re.IGNORECASE)
     if match:
-        return match.group(1), match.group(2)
-    return None, None
+        # match.group(1) is the tract number, group(2) is the county, group(3) is the state
+        return match.group(1), match.group(2), match.group(3)
+    return None, None, None
 
 # -----------------------------------------------------------------------------
 # 1. Load/clean ACS 5-Year Data -- creating 1) county-level and 2) state-level datasets
 # -----------------------------------------------------------------------------
-county_acs5 = pd.read_csv(f'{clean_data}/acs5_county.csv')
-county_acs5.columns = county_acs5.columns.str.lower()  # Make all column names lowercase
-county_acs5 = county_acs5.applymap(lambda x: x.lower() if isinstance(x, str) else x)  # Convert strings
+tract_acs5 = pd.read_csv(f'{tract_level}/acs5_tract.csv')
+tract_acs5.columns = tract_acs5.columns.str.lower()  # Make all column names lowercase
+tract_acs5 = tract_acs5.applymap(lambda x: x.lower() if isinstance(x, str) else x)  # Convert strings
 
-county_acs5[['county_name', 'state_name']] = county_acs5['census_tract'].apply(
+tract_acs5[['tract_number', 'county_name', 'state_name']] = tract_acs5['census_tract'].apply(
     lambda x: pd.Series(parse_tract_name(x))
 )
 
-county_acs5.drop(columns={'pct_college_plus', 'pct_hs_only', 'pct_hs_or_less'}, inplace=True)
-county_acs5.groupby(['year', 'county', 'state', 'county_name', 'state_name']).sum().reset_index()
+county_acs5 = tract_acs5.copy()
+
+# now we want to produce, on the tract-level, 
+# the shares of ALL medicaid enrollees belonging to each 'group' 
+medicaid_cols = [col for col in tract_acs5.columns if col.endswith('medicaid_acs')]
+# Step 2: Compute total Medicaid enrollment
+tract_acs5['total_medicaid_enrollees_acs'] = tract_acs5[medicaid_cols].sum(axis=1)
+# Step 3: Compute share of each group
+for col in medicaid_cols:
+    share_col = col.replace('num', 'share')
+    tract_acs5[share_col] = tract_acs5[col] / tract_acs5['total_medicaid_enrollees_acs']
+
+# now we want the share of statewide total medicaid enrollees residing in that county for that year 
+state_totals = tract_acs5.groupby(['state_name', 'state', 'year'])['total_medicaid_enrollees_acs'].sum().reset_index()
+state_totals.rename(columns={'total_medicaid_enrollees_acs': 'state_total_medicaid_enrollees_acs'}, 
+                    inplace=True)
+
+# Step 4: Merge state totals back into the main DataFrame
+tract_acs5 = tract_acs5.merge(state_totals, on=['state', 'state_name', 'year'], how='left')
+# Step 5: Compute share of state Medicaid enrollees in each county
+tract_acs5['tract_share_of_state_medicaid'] = (tract_acs5['total_medicaid_enrollees_acs'] 
+                                                 / tract_acs5['state_total_medicaid_enrollees_acs'])
+
+county_acs5.drop(columns={'pct_college_plus', 'pct_hs_only', 'pct_hs_or_less', 
+                          'census_tract', 'tract', 'tract_number'}, inplace=True)
+
+county_acs5 = county_acs5.groupby(['year', 'county', 'state', 'county_name', 'state_name']).sum().reset_index()
 
 def educ_var_create(df):
     df['pop_25_over'] = df['pop_25_over'].replace({0: None})  # Avoid division by zero
@@ -68,6 +96,7 @@ for col in medicaid_cols:
 
 # now we want the share of statewide total medicaid enrollees residing in that county for that year 
 state_totals = county_acs5.groupby(['state_name', 'state', 'year'])['total_medicaid_enrollees_acs'].sum().reset_index()
+
 state_totals.rename(columns={'total_medicaid_enrollees_acs': 'state_total_medicaid_enrollees_acs'}, 
                     inplace=True)
 
@@ -80,10 +109,11 @@ county_acs5['county_share_of_state_medicaid'] = (county_acs5['total_medicaid_enr
 data_copy = county_acs5.copy()
 data_copy.drop(
     columns = {
-        'census_tract', 'tract', 'pct_college_plus', 'pct_hs_only', 'pct_hs_or_less',
+        'pct_college_plus', 'pct_hs_only', 'pct_hs_or_less',
         'share_male_19_medicaid_acs', 'share_male_19_64_medicaid_acs', 'share_male_65_medicaid_acs',
         'share_female_19_medicaid_acs', 'share_female_19_64_medicaid_acs', 'share_female_65_medicaid_acs',
-        'county_share_of_state_medicaid', 'state_total_medicaid_enrollees_acs'
+        'county_share_of_state_medicaid', 'state_total_medicaid_enrollees_acs', 'county',
+        'county_name'
     }, inplace=True
 )
 
@@ -105,7 +135,7 @@ county_levels.to_csv(f'{county_level}/county_levels_enrollees_educ.csv', index=F
 # drop unnecessary columns for each of these datasets
 county_acs5.drop(
     columns = {
-    'census_tract', 'male_under_19_medicaid', 'male_19_to_64_medicaid',
+    'male_under_19_medicaid', 'male_19_to_64_medicaid',
        'male_65_and_over_medicaid', 'female_under_19_medicaid',
        'female_19_to_64_medicaid', 'female_65_and_over_medicaid',
        'num_male_19_medicaid_acs', 'num_male_19_64_medicaid_acs',
@@ -114,7 +144,7 @@ county_acs5.drop(
        'pop_25_over', 'no_schooling', 'nursery_4th', 'gr5_6', 'gr7_8', 'gr9',
        'gr10', 'gr11', 'gr12_no_diploma', 'highschool_grad',
        'somecollege_lt1yr', 'somecollege_1plus', 'associates', 'bachelors',
-       'masters', 'profschool', 'doctorate', 'tract'
+       'masters', 'profschool', 'doctorate'
     }, inplace=True
 )
 
@@ -134,11 +164,27 @@ state_acs5.drop(
 # -----------------------------------------------------------------------------
 # 2. Load Population Data
 # -----------------------------------------------------------------------------
-county_pop = pd.read_csv(f'{clean_data}/acs5_county_population.csv')
-county_pop.columns = county_pop.columns.str.lower()  # Make all column names lowercase
-county_pop = county_pop.applymap(lambda x: x.lower() if isinstance(x, str) else x)  # Convert strings 
-county_pop.rename(columns={'total_population_county': 'population'}, inplace=True)
-state_pop = county_pop.groupby(['year', 'state_name', 'state'])['population'].sum().reset_index() 
+tract_pop = pd.read_csv(f'{tract_level}/acs5_tract_population.csv')
+tract_pop.columns = tract_pop.columns.str.lower()  # Make all column names lowercase
+tract_pop = tract_pop.applymap(lambda x: x.lower() if isinstance(x, str) else x)  # Convert strings 
+tract_pop[['tract_number', 'county_name', 'state_name']] = tract_pop['name'].apply(
+    lambda x: pd.Series(parse_tract_name(x))
+)
+tract_pop.rename(columns={'total_population_tract': 'population'}, inplace=True)
+
+county_pop = tract_pop.copy()
+county_pop.drop(
+    columns = {'tract', 'tract_number'}, inplace=True
+)
+county_pop = county_pop.groupby(['year', 'state_name', 'state', 'county', 
+                                 'county_name'])['population'].sum().reset_index()
+
+state_pop = county_pop.copy()
+state_pop.drop(
+    columns = {'county', 'county_name'}, inplace=True
+)
+state_pop = state_pop.groupby(['year', 'state_name', 
+                               'state'])['population'].sum().reset_index() 
 
 # -----------------------------------------------------------------------------
 # 3. Load Medicaid.gov enrollment data
@@ -159,6 +205,10 @@ master_state['pct_enrollment_medicaid_chip_gov'] = (master_state['num_medicaid_c
                                           / master_state['population'])
 master_state['pct_enrollment_medicaid_gov'] = (master_state['num_medicaid_gov']
                                           / master_state['population'])
+
+master_state['pct_enrollment_medicaid_acs'] = (master_state['total_medicaid_enrollees_acs']
+                                               / master_state['population'])
+
 master_state.to_csv(f'{state_level}/medicaid_education_state.csv', index=False)
 
 # -----------------------------------------------------------------------------
@@ -178,3 +228,23 @@ master_county['pct_enrollment_medicaid_acs'] = (master_county['total_medicaid_en
                                         / master_county['population'])
 
 master_county.to_csv(f'{county_level}/medicaid_education_county.csv', index=False)
+
+# -----------------------------------------------------------------------------
+# 5. Merge/Prep Tract-Level Dataset
+# -----------------------------------------------------------------------------
+tract_acs5['tract_number'] = tract_acs5['tract_number'].astype(str)
+tract_pop['tract_number'] = tract_pop['tract_number'].astype(str)
+
+master_tract = pd.merge(tract_acs5, tract_pop, on=['tract_number', 'county', 'county_name', 'state', 'state_name', 'year'], how='outer')
+master_tract = pd.merge(master_tract, medicaid_enrollment, on=['state_name', 'year'], how='outer')
+
+for var in ['', '_chip']:
+    master_tract[f'num_tract_medicaid{var}_gov'] = (master_tract[f'num_medicaid{var}_gov']
+                                                 * master_tract['tract_share_of_state_medicaid'])
+    master_tract[f'pct_enrollment_medicaid{var}_gov'] = (master_tract[f'num_tract_medicaid{var}_gov'] 
+                                          / master_tract['population'])
+    
+master_tract['pct_enrollment_medicaid_acs'] = (master_tract['total_medicaid_enrollees_acs']
+                                        / master_tract['population'])
+
+master_tract.to_csv(f'{tract_level}/medicaid_education_tract.csv', index=False)

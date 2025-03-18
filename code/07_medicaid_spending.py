@@ -74,7 +74,7 @@ for year in range(2010, 2024):
         df = pd.read_csv(f'{spending}/{year}_medicaid_spending.csv', header=1)
     df.rename(
         columns = {
-            'Unnamed: 0': 'state',
+            'Unnamed: 0': 'state_name',
             'Total': 'benefits_total',
             'Federal': 'benefits_federal',
             'State': 'benefits_state',
@@ -91,9 +91,9 @@ for year in range(2010, 2024):
     df.columns = df.columns.str.lower()
     df['year'] = year 
     df = df.applymap(lambda x: x.lower() if isinstance(x, str) else x)
-    df = df[df['state'].isin(states)]
+    df = df[df['state_name'].isin(states)]
     # create list of all columns in df except for 'state':
-    cols = df.columns.drop('state').tolist()
+    cols = df.columns.drop('state_name').tolist()
     for col in cols:
         if pd.api.types.is_string_dtype(df[col]):
             df[col] = df[col].str.replace('$', '')

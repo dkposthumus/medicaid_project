@@ -1,4 +1,4 @@
-state,medicaid_births,pct_medicaid_births,year
+state_name,medicaid_births,pct_medicaid_births,year
 alabama,"29,856",0.5047421007,2016
 alaska,"4,418",0.39414756,2016
 arizona,"44,242",0.523450071,2016

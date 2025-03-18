@@ -34,4 +34,8 @@ state_trifectas.columns = state_trifectas.columns.str.lower() # make all column 
 # make all string columns' vaulues entirely lowercase 
 state_trifectas = state_trifectas.applymap(lambda x: x.lower() if isinstance(x, str) else x)
 
+state_trifectas.rename(
+    columns = {'state': 'state_name'}, inplace=True
+)
+
 state_trifectas.to_csv(f'{state_level}/state_trifectas_ballotpedia_scrape.csv', index=False)

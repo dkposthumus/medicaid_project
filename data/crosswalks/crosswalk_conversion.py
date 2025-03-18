@@ -28,3 +28,17 @@ county_cd_crosswalk = county_cd_crosswalk[['state', 'county', 'congressional dis
 county_cd_crosswalk.to_csv(f'{crosswalks}/county_cd.csv', index=False)
 
 # now pull tract-level data
+tract_cd_crosswalk = pd.read_csv(f'{crosswalks}/tract_cd_raw.csv', encoding='latin1',
+                           dtype = {
+                               'county': str,
+                               'tract': str,
+                               'state': str
+                           })
+tract_cd_crosswalk['county'] = tract_cd_crosswalk['county'].astype(str)
+tract_cd_crosswalk['county'] = tract_cd_crosswalk['county'].str[2:5]
+
+tract_cd_crosswalk.rename(columns={'pop20': 'pop_crosswalk', 'tract': 'tract_number'}, inplace=True)
+
+tract_cd_crosswalk = tract_cd_crosswalk[['county', 'tract_number', 'state', 'cd119', 'pop_crosswalk']]
+
+tract_cd_crosswalk.to_csv(f'{crosswalks}/tract_cd.csv', index=False)
