@@ -40,7 +40,7 @@ for df, label, geovar, ct_var, ct_var_chip in zip([state_level, county_level],
                               ['num_medicaid_gov', 'num_county_medicaid_gov'],
                               ['num_medicaid_chip_gov', 'num_county_medicaid_chip_gov']):
     # Create a mapping of state-year to 'r' classification based on presidential vote
-    
+    df['r_state_check'] = (df['republican_pres_votes'] > df['democratic_pres_votes']).astype(int)
     df = df[df['year'].between(2012, 2024)]
     df['r_state'] = np.nan  # Initialize a new column
     for election_year, affected_years in election_years.items():
@@ -72,8 +72,9 @@ for df, label, geovar, ct_var, ct_var_chip in zip([state_level, county_level],
 
         df_r_states_grouped = df_r_states.groupby('year').agg({
             count_var: 'sum',  # Total number of enrollments
-            pct_var: 'mean'  # Average percentage enrollment
+            'population': 'sum'  # Total population
         }).reset_index()
+        df_r_states_grouped[pct_var] = df_r_states_grouped[count_var] / df_r_states_grouped['population']
 
         fig, ax1 = plt.subplots(figsize=(10, 6))
         color1 = 'tab:blue'
@@ -90,7 +91,7 @@ for df, label, geovar, ct_var, ct_var_chip in zip([state_level, county_level],
              marker='o', linestyle='-', color=color2, label=f"{title} Enrollment (% of population)")
         ax2.tick_params(axis='y', labelcolor=color2)
     
-        plt.title(f"{title} Enrollment Trends in Republican States ({min_year}-2024)")
+        plt.title(f"{title} Enrollment Trends in Republican {label} ({min_year}-2024)")
         ax1.grid(True, which='both', linestyle='--', linewidth=0.5)
     
         handles1, labels1 = ax1.get_legend_handles_labels()
@@ -107,10 +108,11 @@ for df, label, geovar, ct_var, ct_var_chip in zip([state_level, county_level],
     
         # Group by year for the fixed composition data:
         df_fixed_grouped = df_fixed.groupby('year').agg({
-            count_var: 'sum',   # Sum enrollment for fixed states
-            pct_var: 'mean'     # Mean percentage enrollment for fixed states
+            count_var: 'sum',  # Total number of enrollments
+            'population': 'sum'  # Total population
         }).reset_index()
-    
+        df_fixed_grouped[pct_var] = df_fixed_grouped[count_var] / df_fixed_grouped['population']
+
         # Now compute the "actual" aggregated values using your current definition of r states.
         # (This is the same as before but using state_level where total_gov == 'r'.)
         df_actual = df[df['r_state'] == 'r'].copy()
@@ -118,8 +120,9 @@ for df, label, geovar, ct_var, ct_var_chip in zip([state_level, county_level],
         df_actual = df_actual[(df_actual['year'] >= min_year) & (df_actual['year'] <= 2024)]
         df_actual_grouped = df_actual.groupby('year').agg({
             count_var: 'sum',
-            pct_var: 'mean'
+            'population': 'sum'
         }).reset_index()
+        df_actual_grouped[pct_var] = df_actual_grouped[count_var] / df_actual_grouped['population']
     
         # Merge the two aggregated datasets on year:
         df_compare = df_actual_grouped.merge(df_fixed_grouped, on='year', suffixes=('_actual', '_fixed'))
@@ -171,18 +174,18 @@ for df, label, geovar, ct_var, ct_var_chip in zip([state_level, county_level],
     color1 = 'tab:blue'
     ax2 = ax1.twinx()
     color2 = 'tab:red'
-    for count_var, pct_var, title, min_year in zip([ct_var_chip, ct_var, 
+    for count_var, pct_var, title, min_year, max_year in zip([ct_var_chip, ct_var, 
                                'total_medicaid_enrollees_acs'],
                               ['pct_enrollment_medicaid_chip_gov', 'pct_enrollment_medicaid_gov', 
                                'pct_enrollment_medicaid_acs'],
                                ['Medicaid and Chip (Medicaid.gov)',
                                 'Medicaid (Medicaid.gov)', 'Medicaid (ACS 5-Year)'],
-                                [2017, 2012, 2012]):
+                                [2017, 2012, 2012], [2024, 2024, 2023]):
         # now reproduce the same visual, with a different definition of 'r' (as defined by partisan control)
         df_r_states = df[df['r_state'] == 'r']
         # fill missing observations of pct_enrollment with 0
         df_r_states[pct_var] = df_r_states[pct_var].fillna(np.nan)
-        df_r_states = df_r_states[(df_r_states['year'] >= min_year) & (df_r_states['year'] <= 2024)]
+        df_r_states = df_r_states[(df_r_states['year'] >= min_year) & (df_r_states['year'] <= max_year)]
         for year in range(min_year, 2025):
             year_df = df_r_states[df_r_states['year'] == year]
         #print(year_df['state'].unique())

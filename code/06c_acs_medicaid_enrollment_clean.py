@@ -182,10 +182,6 @@ county_pop.drop(
 )
 county_pop = county_pop.groupby(['year', 'state_name', 'state', 'county', 
                                  'county_name'])['population'].sum().reset_index()
-county_pop_2023 = county_pop[county_pop['year'] == 2023].copy()
-county_pop_2024 = county_pop_2023.copy()
-county_pop_2024['year'] = 2024
-county_pop = pd.concat([county_pop, county_pop_2024], ignore_index=True)
 
 state_pop = county_pop.copy()
 state_pop.drop(

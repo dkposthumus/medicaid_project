@@ -28,7 +28,37 @@ enrollment['reporting period'] = enrollment['reporting period'].astype(str)
 enrollment['year'] = enrollment['reporting period'].str[:4].astype(int)   # First 4 digits → Year
 enrollment['month'] = enrollment['reporting period'].str[4:].astype(int)  # Last 2 digits → Month
 
+# restrict enrollment data to when 'final report' == 'Y' EXCEPT for when 'year' == 2024 and 'month' == 10
+enrollment = enrollment[(enrollment['final report'] == 'Y') | ((enrollment['year'] == 2024) & (enrollment['month'] == 10))]
 enrollment = enrollment[['state_name', 'year', 'month', 'num_medicaid_chip_gov', 'num_medicaid_gov']]
+
+# quick check that 'state_name', 'year', and 'month' are unique identifiers
+duplicates = enrollment.duplicated(subset=['state_name', 'year', 'month'], keep=False)
+# Print rows that are duplicated
+if duplicates.any():
+    print("⚠️ Duplicate rows found for ('state_name', 'year', 'month')!")
+    #display(enrollment[duplicates].sort_values(['state_name', 'year', 'month']))
+else:
+    print("✅ 'state_name', 'year', and 'month' uniquely identify each row.")
+
+# before averaging; let's note that we're missing november/december for 2024 data; let's plot the average by month to make sure these months don't tend to be lower
+enrollment_filtered = enrollment[enrollment['year'].between(2021, 2023)]
+enrollment_2024 = enrollment[enrollment['year'] == 2024]
+for df, label in zip([enrollment, enrollment_filtered, enrollment_2024], ['All Years', '2021-2023', '2024 Only']):
+    monthly_avg = df.groupby('month').mean(numeric_only=True)
+    # Plot the average values by month
+    plt.figure(figsize=(10, 6))
+    plt.plot(monthly_avg.index, monthly_avg['num_medicaid_gov'], marker='o', linestyle='-')
+    # Labels and title
+    plt.xlabel("Month")
+    plt.ylabel("Average Medicaid Enrollment (Millions)")
+    plt.title(f"Average Medicaid Enrollment by Month (Across {label})")
+    plt.xticks(ticks=range(1, 13), labels=[
+        "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ])
+    plt.grid(True)
+    plt.show()
+
 # collapse on averages based on the month 
 enrollment = enrollment.groupby(['year', 'state_name'])[['num_medicaid_chip_gov', 
                                                     'num_medicaid_gov']].mean().reset_index()
