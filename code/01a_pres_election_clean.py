@@ -13,6 +13,27 @@ cd_election_data = (cd_level / 'election_results')
 output = (work_dir / 'output')
 code = Path.cwd() 
 
+def standardize_county_name(county_name, state_name):
+    if not isinstance(county_name, str):  # Handle any non-string cases
+        return county_name
+    valid_suffixes = [' county', ' parish', ' borough', ' census area', ' municipality']
+    if any(county_name.endswith(suffix) for suffix in valid_suffixes):
+        return county_name
+    # Special cases for independent cities (mostly in Virginia, Missouri, Maryland, etc.)
+    independent_cities = {
+        'alexandria', 'bedford', 'bristol', 'charles', 'charlottesville', 'chesapeake',
+        'danville', 'emporia', 'fairfax', 'falls church', 'franklin', 'fredericksburg',
+        'hampton', 'harrisonburg', 'hopewell', 'lexington', 'lynchburg', 'manassas',
+        'manassas park', 'martinsville', 'newport news', 'norfolk', 'norton', 'petersburg',
+        'poquoson', 'portsmouth', 'radford', 'richmond', 'roanoke', 'staunton',
+        'suffolk', 'virginia beach', 'waynesboro', 'williamsburg', 'winchester',
+        'st. louis', 'baltimore'
+    }
+    if county_name in independent_cities:
+        return f"{county_name} city"
+    # Default case: Append " County"
+    return f"{county_name} county"
+
 historical_election = pd.read_csv(f'{raw_data}/county_pres_2000_2020.csv')
 election_2024 = pd.read_excel(f'{raw_data}/county_pres_2024.xlsx', sheet_name='County')
 
@@ -130,6 +151,9 @@ historical_election.rename(columns={
     'other': 'other_pres_votes',
     'totalvotes': 'total_pres_votes'
 }, inplace=True)
+
+historical_election['county_name'] = historical_election.apply(lambda row: standardize_county_name(row['county_name'], row['state_name']), axis=1)
+election_2024['county_name'] = election_2024.apply(lambda row: standardize_county_name(row['county_name'], row['state_name']), axis=1)
 
 ######################################################################################################################################
 # 2024 

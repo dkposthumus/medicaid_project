@@ -171,6 +171,10 @@ tract_pop[['tract_number', 'county_name', 'state_name']] = tract_pop['name'].app
     lambda x: pd.Series(parse_tract_name(x))
 )
 tract_pop.rename(columns={'total_population_tract': 'population'}, inplace=True)
+tract_pop_2023 = tract_pop[tract_pop['year'] == 2023].copy()
+tract_pop_2024 = tract_pop_2023.copy()
+tract_pop_2024['year'] = 2024
+tract_pop = pd.concat([tract_pop, tract_pop_2024], ignore_index=True)
 
 county_pop = tract_pop.copy()
 county_pop.drop(
@@ -178,6 +182,10 @@ county_pop.drop(
 )
 county_pop = county_pop.groupby(['year', 'state_name', 'state', 'county', 
                                  'county_name'])['population'].sum().reset_index()
+county_pop_2023 = county_pop[county_pop['year'] == 2023].copy()
+county_pop_2024 = county_pop_2023.copy()
+county_pop_2024['year'] = 2024
+county_pop = pd.concat([county_pop, county_pop_2024], ignore_index=True)
 
 state_pop = county_pop.copy()
 state_pop.drop(
@@ -200,6 +208,8 @@ medicaid_enrollment = medicaid_enrollment.applymap(lambda x: x.lower() if isinst
 master_state = pd.merge(state_acs5, state_pop, on=['state', 'state_name', 'year'], how='outer')
 master_state = pd.merge(master_state, medicaid_enrollment, on=['state_name', 'year'], how='outer')
 
+master_state['population'] = master_state.groupby('state_name')['population'].ffill()
+
 # compute state-wide enrollment:
 master_state['pct_enrollment_medicaid_chip_gov'] = (master_state['num_medicaid_chip_gov'] 
                                           / master_state['population'])
@@ -216,6 +226,9 @@ master_state.to_csv(f'{state_level}/medicaid_education_state.csv', index=False)
 # -----------------------------------------------------------------------------
 master_county = pd.merge(county_acs5, county_pop, on=['county', 'county_name', 'state', 'state_name', 'year'], how='outer')
 master_county = pd.merge(master_county, medicaid_enrollment, on=['state_name', 'year'], how='outer')
+
+master_county['population'] = master_county.groupby(['state_name', 'county_name'])['population'].ffill()
+master_county['county_share_of_state_medicaid'] = master_county.groupby(['county_name', 'state_name'])['county_share_of_state_medicaid'].ffill()
 
 # first, estimate the number of medicaid/chip enrollees on county-level
 for var in ['', '_chip']:
@@ -237,6 +250,9 @@ tract_pop['tract_number'] = tract_pop['tract_number'].astype(str)
 
 master_tract = pd.merge(tract_acs5, tract_pop, on=['tract_number', 'county', 'county_name', 'state', 'state_name', 'year'], how='outer')
 master_tract = pd.merge(master_tract, medicaid_enrollment, on=['state_name', 'year'], how='outer')
+
+master_tract['population'] = master_tract.groupby(['state_name', 'county_name', 'tract_number'])['population'].ffill()
+master_tract['county_share_of_state_medicaid'] = master_tract.groupby(['county_name', 'state_name', 'tract_number'])['tract_share_of_state_medicaid'].ffill()
 
 for var in ['', '_chip']:
     master_tract[f'num_tract_medicaid{var}_gov'] = (master_tract[f'num_medicaid{var}_gov']
