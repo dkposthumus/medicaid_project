@@ -15,6 +15,12 @@ code = Path.cwd()
 ## pull in county-level and state-level master data 
 state_level = pd.read_csv(f'{clean_data}/master_state_level.csv')
 county_level = pd.read_csv(f'{clean_data}/master_county.csv')
+# for county-level, create joint county-state identifier
+county_level['county-state'] = (county_level['county_name'] + '-' + county_level['state_name'])
+cd_level = pd.read_csv(f'{clean_data}/master_cd.csv')  
+# create joint cd-state identifier
+cd_level['cd119'] = cd_level['cd119'].astype(str)
+cd_level['cd-state'] = (cd_level['cd119'] + '-' + cd_level['state_name'])
 
 ######################################################################################################################################
 # Changes in medicaid enrollment over time for R states
@@ -28,23 +34,35 @@ election_years = {
 }
 
 # fill missing observations of pct_enrollment with 0
-for df, label, geovar in zip([state_level, county_level], ['States', 'Counties'],
-                              ['state', 'county']):
+for df, label, geovar, ct_var, ct_var_chip in zip([state_level, county_level], 
+                             ['States', 'Counties'],
+                              ['state_name', 'county-state', 'cd-state'],
+                              ['num_medicaid_gov', 'num_county_medicaid_gov'],
+                              ['num_medicaid_chip_gov', 'num_county_medicaid_chip_gov']):
     # Create a mapping of state-year to 'r' classification based on presidential vote
+    
+    df = df[df['year'].between(2012, 2024)]
     df['r_state'] = np.nan  # Initialize a new column
     for election_year, affected_years in election_years.items():
         trump_states = df[(df['year'] == election_year) &
-                               (df['republican_pres_votes'] > df['democratic_pres_votes'])][f'{geovar}_name'].unique()
-        df.loc[df['year'].isin(affected_years) & df[f'{geovar}_name'].isin(trump_states), 'r_state'] = 'r'
+                               (df['republican_pres_votes'] > df['democratic_pres_votes'])][geovar].unique()
+        df.loc[df['year'].isin(affected_years) & df[geovar].isin(trump_states), 'r_state'] = 'r'
 
-    for var, acs_var in zip(['num_medicaid_gov', 'pct_enrollment_medicaid_gov'],
+    for var, acs_var in zip([ct_var, 'pct_enrollment_medicaid_gov'],
                             ['total_medicaid_enrollees_acs', 'pct_enrollment_medicaid_acs']):
-        ratio = (df[df['year'].between(2017, 2020)][var] /
-            df[df['year'].between(2017, 2020)][acs_var]).mean()
+        df_filtered = df[~((df['year'].between(2017, 2020)) & 
+                          (df[[var, acs_var]].isna().any(axis=1)))]
+        df_filtered = df_filtered[~((df_filtered['year'].between(2017, 2020)) &
+                            (df_filtered[[var, acs_var]].eq(0).any(axis=1)))]
+        ratio_approx = (df_filtered[df_filtered['year'].between(2017, 2020)][var] /
+            df_filtered[df_filtered['year'].between(2017, 2020)][acs_var]).mean()
+        print(f'ratio for imputing 2012-2016 values of {var} data for {geovar}: {ratio_approx}')
         df.loc[df['year'].between(2012, 2016), var] = (
-            df[acs_var] * ratio)
+            df[acs_var] * ratio_approx)
 
-    for count_var, pct_var, title, data_min in zip(['num_medicaid_gov'],
+    df.to_csv(f'{clean_data}/check.csv')
+
+    for count_var, pct_var, title, data_min in zip([ct_var],
                               ['pct_enrollment_medicaid_gov'], ['Medicaid (Medicaid.gov)'], [2012]):
         min_year = data_min
         # now reproduce the same visual, with a different definition of 'r' (as defined by partisan control)
@@ -81,9 +99,9 @@ for df, label, geovar in zip([state_level, county_level], ['States', 'Counties']
         plt.show()
 
         # now try to decompose these results
-        baseline_states = df[(df['year'] == min_year) & (df['r_state'] == 'r')][f'{geovar}_name'].unique()
+        baseline_states = df[(df['year'] == min_year) & (df['r_state'] == 'r')][geovar].unique()
         # Create the fixed composition (counterfactual) data by filtering all years to these states:
-        df_fixed = df[df[f'{geovar}_name'].isin(baseline_states)].copy()
+        df_fixed = df[df[geovar].isin(baseline_states)].copy()
         df_fixed[pct_var] = df_fixed[pct_var].fillna(0)
         df_fixed = df_fixed[(df_fixed['year'] >= min_year) & (df_fixed['year'] <= 2024)]
     
@@ -153,7 +171,7 @@ for df, label, geovar in zip([state_level, county_level], ['States', 'Counties']
     color1 = 'tab:blue'
     ax2 = ax1.twinx()
     color2 = 'tab:red'
-    for count_var, pct_var, title, min_year in zip(['num_medicaid_chip_gov', 'num_medicaid_gov', 
+    for count_var, pct_var, title, min_year in zip([ct_var_chip, ct_var, 
                                'total_medicaid_enrollees_acs'],
                               ['pct_enrollment_medicaid_chip_gov', 'pct_enrollment_medicaid_gov', 
                                'pct_enrollment_medicaid_acs'],
@@ -182,7 +200,7 @@ for df, label, geovar in zip([state_level, county_level], ['States', 'Counties']
     ax1.tick_params(axis='y', labelcolor=color1)
     ax2.set_ylabel(f"Percentage of {title} Enrollment (%)", color=color2)
     ax2.tick_params(axis='y', labelcolor=color2)
-    plt.title("Enrollment Trends in Republican States (2012-2024), by Data Series - {label}")
+    plt.title(f"Enrollment Trends in Republican {label} (2012-2024), by Data Series - {label}")
     ax1.grid(True, which='both', linestyle='--', linewidth=0.5)
     handles1, labels1 = ax1.get_legend_handles_labels()
     handles2, labels2 = ax2.get_legend_handles_labels()
