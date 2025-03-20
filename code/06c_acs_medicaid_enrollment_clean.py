@@ -239,7 +239,7 @@ master_tract = pd.merge(tract_acs5, tract_pop, on=['tract_number', 'county', 'co
 master_tract = pd.merge(master_tract, medicaid_enrollment, on=['state_name', 'year'], how='outer')
 
 master_tract['population'] = master_tract.groupby(['state_name', 'county_name', 'tract_number'])['population'].ffill()
-master_tract['county_share_of_state_medicaid'] = master_tract.groupby(['county_name', 'state_name', 'tract_number'])['tract_share_of_state_medicaid'].ffill()
+master_tract['tract_share_of_state_medicaid'] = master_tract.groupby(['county_name', 'state_name', 'tract_number'])['tract_share_of_state_medicaid'].ffill()
 
 for var in ['', '_chip']:
     master_tract[f'num_tract_medicaid{var}_gov'] = (master_tract[f'num_medicaid{var}_gov']
