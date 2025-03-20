@@ -23,4 +23,10 @@ master = pd.merge(enrollment_education, house_2020_2024, on=['county_name', 'sta
 master = pd.merge(master, pres, on=['year', 'state_name', 'county_name'], how='outer')
 master = pd.merge(master, senate_2020_2024, on=['state_name', 'county_name'], how='outer')
 
+# now we also want estimates of the share of the population under each of the age/gender groups 
+for group in ['male_19', 'male_19_64', 'male_65',
+              'female_19', 'female_19_64', 'female_65']:
+    master[f'ct_{group}_medicaid_gov'] = (master['num_county_medicaid_gov'] 
+                                             * master[f'share_{group}_medicaid_acs'])
+
 master.to_csv(f'{clean_data}/master_county.csv', index=False)

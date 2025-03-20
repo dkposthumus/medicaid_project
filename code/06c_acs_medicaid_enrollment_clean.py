@@ -96,7 +96,6 @@ for col in medicaid_cols:
 
 # now we want the share of statewide total medicaid enrollees residing in that county for that year 
 state_totals = county_acs5.groupby(['state_name', 'state', 'year'])['total_medicaid_enrollees_acs'].sum().reset_index()
-
 state_totals.rename(columns={'total_medicaid_enrollees_acs': 'state_total_medicaid_enrollees_acs'}, 
                     inplace=True)
 
@@ -110,8 +109,6 @@ data_copy = county_acs5.copy()
 data_copy.drop(
     columns = {
         'pct_college_plus', 'pct_hs_only', 'pct_hs_or_less',
-        'share_male_19_medicaid_acs', 'share_male_19_64_medicaid_acs', 'share_male_65_medicaid_acs',
-        'share_female_19_medicaid_acs', 'share_female_19_64_medicaid_acs', 'share_female_65_medicaid_acs',
         'county_share_of_state_medicaid', 'state_total_medicaid_enrollees_acs', 'county',
         'county_name'
     }, inplace=True
@@ -135,12 +132,6 @@ county_levels.to_csv(f'{county_level}/county_levels_enrollees_educ.csv', index=F
 # drop unnecessary columns for each of these datasets
 county_acs5.drop(
     columns = {
-    'male_under_19_medicaid', 'male_19_to_64_medicaid',
-       'male_65_and_over_medicaid', 'female_under_19_medicaid',
-       'female_19_to_64_medicaid', 'female_65_and_over_medicaid',
-       'num_male_19_medicaid_acs', 'num_male_19_64_medicaid_acs',
-       'num_male_65_medicaid_acs', 'num_female_19_medicaid_acs',
-       'num_female_19_64_medicaid_acs', 'num_female_65_medicaid_acs',
        'pop_25_over', 'no_schooling', 'nursery_4th', 'gr5_6', 'gr7_8', 'gr9',
        'gr10', 'gr11', 'gr12_no_diploma', 'highschool_grad',
        'somecollege_lt1yr', 'somecollege_1plus', 'associates', 'bachelors',

@@ -23,10 +23,6 @@ enroll_educ_tract = pd.read_csv(f'{tract_level}/medicaid_education_tract.csv')
 enroll_educ_tract.drop(
     columns = {
         'census_tract', 'tract_x', 'pct_college_plus', 'pct_hs_only', 'pct_hs_or_less',
-        'share_male_19_medicaid_acs',
-       'share_male_19_64_medicaid_acs', 'share_male_65_medicaid_acs',
-       'share_female_19_medicaid_acs', 'share_female_19_64_medicaid_acs',
-       'share_female_65_medicaid_acs', 'state_total_medicaid_enrollees_acs',
        'tract_share_of_state_medicaid', 'name', 'tract_y',
        'pct_enrollment_medicaid_chip_gov', 'pct_enrollment_medicaid_acs',
        'pct_enrollment_medicaid_gov', 'check'
@@ -78,5 +74,11 @@ for var in ['', '_chip']:
 
 master_cd['pct_enrollment_medicaid_acs'] = (master_cd['total_medicaid_enrollees_acs']
                                          / master_cd['population'])
+
+# now we also want estimates of the share of the population under each of the age/gender groups 
+for group in ['male_19', 'male_19_64', 'male_65',
+              'female_19', 'female_19_64', 'female_65']:
+    master_cd[f'ct_{group}_medicaid_gov'] = (master_cd['num_tract_medicaid_gov'] 
+                                             * master_cd[f'share_{group}_medicaid_acs'])
 
 master_cd.to_csv(f'{clean_data}/master_cd.csv', index=False)
