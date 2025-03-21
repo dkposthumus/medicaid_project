@@ -24,7 +24,7 @@ house_2024 = pd.read_csv(f'{clean_data}/cd_level_house_2024.csv')
 
 enroll_educ_tract.drop(
     columns = {
-        'census_tract', 'tract_x', 'pct_college_plus', 'pct_hs_only', 'pct_hs_or_less',
+        'census_tract', 'tract_x',
         'name', 'tract_y',
        'pct_enrollment_medicaid_chip_gov', 'pct_enrollment_medicaid_acs',
        'pct_enrollment_medicaid_gov', 'check'
@@ -42,49 +42,6 @@ master_tract = pd.merge(tract_cd, enroll_educ_tract, on=['tract_number', 'county
 # bring in county_levels data
 master_cd = master_tract.groupby(['year', 'cd119', 'state', 'state_name']).sum().reset_index()
 
-# create education variables
-def educ_var_create(df):
-    df = df.copy()  # Avoid modifying the original DataFrame
-
-    # Ensure pop_25_over is correctly handled (avoid division by zero)
-    df['pop_25_over'] = df['pop_25_over'].replace({0: None})
-
-    # Convert cumulative counts into discrete counts
-    df['discrete_no_schooling'] = df['no_schooling']
-    df['discrete_nursery_4th'] = df['nursery_4th']
-    df['discrete_gr5_6'] = df['gr5_6'] - df['nursery_4th']
-    df['discrete_gr7_8'] = df['gr7_8'] - df['gr5_6']
-    df['discrete_gr9'] = df['gr9'] - df['gr7_8']
-    df['discrete_gr10'] = df['gr10'] - df['gr9']
-    df['discrete_gr11'] = df['gr11'] - df['gr10']
-    df['discrete_gr12_no_diploma'] = df['gr12_no_diploma'] - df['gr11']
-    df['discrete_highschool_grad'] = df['highschool_grad'] - df['gr12_no_diploma']
-    df['discrete_some_college'] = df['somecollege_1plus'] - df['highschool_grad']
-    df['discrete_associates'] = df['associates'] - df['somecollege_1plus']
-    df['discrete_bachelors'] = df['bachelors'] - df['associates']
-    df['discrete_masters'] = df['masters'] - df['bachelors']
-    df['discrete_profschool'] = df['profschool'] - df['masters']
-    df['discrete_doctorate'] = df['doctorate'] - df['profschool']
-
-    # Compute key education level percentages
-    df['pct_hs_or_less'] = (
-        df['discrete_no_schooling'] + df['discrete_nursery_4th'] + df['discrete_gr5_6'] +
-        df['discrete_gr7_8'] + df['discrete_gr9'] + df['discrete_gr10'] + df['discrete_gr11'] +
-        df['discrete_gr12_no_diploma'] + df['discrete_highschool_grad']
-    ) / df['pop_25_over']
-
-    df['pct_hs_only'] = df['discrete_highschool_grad'] / df['pop_25_over']
-
-    df['pct_college_plus'] = (
-        df['discrete_some_college'] + df['discrete_associates'] +
-        df['discrete_bachelors'] + df['discrete_masters'] +
-        df['discrete_profschool'] + df['discrete_doctorate']
-    ) / df['pop_25_over']
-
-    return df
-
-master_cd = educ_var_create(master_cd)
-
 master_cd = pd.merge(master_cd, house_2024, on=['cd119', 'state_name', 'year'], how='outer')
 
 for var in ['', '_chip']:
@@ -100,9 +57,6 @@ for group in ['male_19', 'male_19_64', 'male_65',
     master_cd[f'ct_{group}_medicaid_gov'] = (master_cd['num_tract_medicaid_gov'] 
                                              * master_cd[f'share_{group}_medicaid_acs'])
 
-# now forward fill education for missing years
-educ_cols = ['pct_college_plus', 'pct_hs_only', 'pct_hs_or_less']
-master_cd[educ_cols] = master_cd.groupby(['cd119', 'state_name'])[educ_cols].ffill()
 
 # now create republican / democratic variables
 master_cd['margin'] = np.abs((master_cd['republican_house_votes'] 

@@ -18,12 +18,12 @@ BASE_URL = "https://api.census.gov/data"
 # Define the variables from Table C27007 (Medicaid by Sex and Age) with Medicaid explicitly in names
 medicaid_vars = {
     ## pull population vars
-    "C27007_003E": "Male_Under_19_Medicaid",
-    "C27007_006E": "Male_19_to_64_Medicaid",
-    "C27007_009E": "Male_65_and_Over_Medicaid",
-    "C27007_013E": "Female_Under_19_Medicaid",
-    "C27007_016E": "Female_19_to_64_Medicaid",
-    "C27007_019E": "Female_65_and_Over_Medicaid",
+    "C27007_003E": "male_19_pop_acs",
+    "C27007_006E": "male_19_64_pop_acs",
+    "C27007_009E": "male_65_pop_acs",
+    "C27007_013E": "female_19_pop_acs",
+    "C27007_016E": "female_19_64_pop_acs",
+    "C27007_019E": "female_65_pop_acs",
 
     ## pull medicaid enrollment vars
     "C27007_004E": "num_male_19_medicaid_acs",
@@ -32,26 +32,6 @@ medicaid_vars = {
     "C27007_014E": "num_female_19_medicaid_acs",
     "C27007_017E": "num_female_19_64_medicaid_acs",
     "C27007_020E": "num_female_65_medicaid_acs",
-}
-
-edu_vars = {
-    "B15003_001E": "Pop_25_Over",
-    "B15003_002E": "No_Schooling",
-    "B15003_003E": "Nursery_4th",
-    "B15003_004E": "Gr5_6",
-    "B15003_005E": "Gr7_8",
-    "B15003_006E": "Gr9",
-    "B15003_007E": "Gr10",
-    "B15003_008E": "Gr11",
-    "B15003_009E": "Gr12_No_Diploma",
-    "B15003_010E": "HighSchool_Grad",
-    "B15003_011E": "SomeCollege_LT1yr",
-    "B15003_012E": "SomeCollege_1plus",
-    "B15003_013E": "Associates",
-    "B15003_014E": "Bachelors",
-    "B15003_015E": "Masters",
-    "B15003_016E": "ProfSchool",
-    "B15003_017E": "Doctorate",
 }
 
 ########################################################################
@@ -79,7 +59,7 @@ state_fips_codes = [
 years_5yr = list(range(2012, 2025))  # 2012 through 2024
 
 # Combine the same dictionaries for 5-year
-variables_5yr = {**medicaid_vars, **edu_vars}
+variables_5yr = {**medicaid_vars}
 variable_keys_5yr = ",".join(variables_5yr.keys())
 
 # Initialize an empty list to store the data
@@ -116,43 +96,6 @@ for year in years_5yr:
 
             # Add year column
             df_5yr["Year"] = year
-
-            # --------------------------------------------------
-            # DERIVE EDUCATIONAL ATTAINMENT PERCENTAGES
-            # --------------------------------------------------
-            df_5yr["Pop_25_Over"] = df_5yr["Pop_25_Over"].replace({0: None})
-
-            df_5yr["Pct_College_Plus"] = (
-                (df_5yr["Bachelors"] + df_5yr["Masters"] + df_5yr["ProfSchool"] + df_5yr["Doctorate"])
-                / df_5yr["Pop_25_Over"]
-                * 100
-            )
-            df_5yr["Pct_HS_Only"] = (
-                df_5yr["HighSchool_Grad"] / df_5yr["Pop_25_Over"] * 100
-            )
-            df_5yr["Pct_HS_or_Less"] = (
-                (
-                    df_5yr["No_Schooling"]
-                    + df_5yr["Nursery_4th"]
-                    + df_5yr["Gr5_6"]
-                    + df_5yr["Gr7_8"]
-                    + df_5yr["Gr9"]
-                    + df_5yr["Gr10"]
-                    + df_5yr["Gr11"]
-                    + df_5yr["Gr12_No_Diploma"]
-                    + df_5yr["HighSchool_Grad"]
-                )
-                / df_5yr["Pop_25_Over"]
-                * 100
-            )
-
-            # Append to all_data_5yr
-            all_data_5yr.append(df_5yr)
-        else:
-            print(
-                f"  ⚠️ Error for state {state_fips} in {year}: "
-                f"{response_5yr.status_code}, {response_5yr.text}"
-            )
 
 # Combine all 5-year data
 if all_data_5yr:

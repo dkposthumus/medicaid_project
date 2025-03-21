@@ -57,33 +57,6 @@ county_acs5.drop(columns={'pct_college_plus', 'pct_hs_only', 'pct_hs_or_less',
 
 county_acs5 = county_acs5.groupby(['year', 'county', 'state', 'county_name', 'state_name']).sum().reset_index()
 
-def educ_var_create(df):
-    df['pop_25_over'] = df['pop_25_over'].replace({0: None})  # Avoid division by zero
-# Compute education percentages
-    df['pct_college_plus'] = (
-        (df['bachelors'] + df['masters'] + df['profschool'] 
-        + df['doctorate'])
-        / df['pop_25_over'] 
-    )
-    df['pct_hs_only'] = df['highschool_grad'] / df['pop_25_over']
-    df['pct_hs_or_less'] = (
-        (
-            df['no_schooling']
-            + df['nursery_4th']
-            + df['gr5_6']
-            + df['gr7_8']
-            + df['gr9']
-            + df['gr10']
-            + df['gr11']
-            + df['gr12_no_diploma']
-            + df['highschool_grad']
-        )
-        / df['pop_25_over']
-    )
-    return df
-
-county_acs5 = educ_var_create(county_acs5)
-
 # now we want to produce, on the county-level, 
 # the shares of ALL medicaid enrollees belonging to each 'group' 
 medicaid_cols = [col for col in county_acs5.columns if col.endswith('medicaid_acs')]
@@ -108,7 +81,6 @@ county_acs5['county_share_of_state_medicaid'] = (county_acs5['total_medicaid_enr
 data_copy = county_acs5.copy()
 data_copy.drop(
     columns = {
-        'pct_college_plus', 'pct_hs_only', 'pct_hs_or_less',
         'county_share_of_state_medicaid', 'state_total_medicaid_enrollees_acs', 'county',
         'county_name'
     }, inplace=True
@@ -121,36 +93,10 @@ county_levels = county_acs5[[
        'female_19_to_64_medicaid', 'female_65_and_over_medicaid',
        'num_male_19_medicaid_acs', 'num_male_19_64_medicaid_acs',
        'num_male_65_medicaid_acs', 'num_female_19_medicaid_acs',
-       'num_female_19_64_medicaid_acs', 'num_female_65_medicaid_acs',
-       'pop_25_over', 'no_schooling', 'nursery_4th', 'gr5_6', 'gr7_8', 'gr9',
-       'gr10', 'gr11', 'gr12_no_diploma', 'highschool_grad',
-       'somecollege_lt1yr', 'somecollege_1plus', 'associates', 'bachelors',
-       'masters', 'profschool', 'doctorate', 
+       'num_female_19_64_medicaid_acs', 'num_female_65_medicaid_acs'
 ]]
 county_levels.to_csv(f'{county_level}/county_levels_enrollees_educ.csv', index=False)
-
-# drop unnecessary columns for each of these datasets
-county_acs5.drop(
-    columns = {
-       'pop_25_over', 'no_schooling', 'nursery_4th', 'gr5_6', 'gr7_8', 'gr9',
-       'gr10', 'gr11', 'gr12_no_diploma', 'highschool_grad',
-       'somecollege_lt1yr', 'somecollege_1plus', 'associates', 'bachelors',
-       'masters', 'profschool', 'doctorate'
-    }, inplace=True
-)
-
 state_acs5 = data_copy.groupby(['state', 'state_name', 'year']).sum().reset_index()
-# Compute total population 25+ years old (already exists, just a safeguard)
-state_acs5 = educ_var_create(state_acs5)
-
-state_acs5.drop(
-    columns = {
-    'pop_25_over', 'no_schooling', 'nursery_4th', 'gr5_6', 'gr7_8', 'gr9',
-       'gr10', 'gr11', 'gr12_no_diploma', 'highschool_grad',
-       'somecollege_lt1yr', 'somecollege_1plus', 'associates', 'bachelors',
-       'masters', 'profschool', 'doctorate'
-    }, inplace=True
-)
 
 # -----------------------------------------------------------------------------
 # 2. Load Population Data
@@ -224,6 +170,12 @@ for var in ['', '_chip']:
     master_county[f'pct_enrollment_medicaid{var}_gov'] = (master_county[f'num_county_medicaid{var}_gov'] 
                                           / master_county['population'])
     
+for var in ['19_to_64_medi_chip_gov', 'expansion_medi_chip_gov', '65_medi_chip_gov',
+       'covid_medi_chip_gov', '18_medi_chip_gov', 'disabled_medi_chip_gov', 
+       'unknown_med_chip_gov']:
+    master_county[f'num_county_{var}'] = (master_county[f'num_{var}']
+                                          * master_county['county_share_of_state_medicaid'])
+
 master_county['pct_enrollment_medicaid_acs'] = (master_county['total_medicaid_enrollees_acs']
                                         / master_county['population'])
 
@@ -246,7 +198,13 @@ for var in ['', '_chip']:
                                                  * master_tract['tract_share_of_state_medicaid'])
     master_tract[f'pct_enrollment_medicaid{var}_gov'] = (master_tract[f'num_tract_medicaid{var}_gov'] 
                                           / master_tract['population'])
-    
+
+for var in ['19_to_64_medi_chip_gov', 'expansion_medi_chip_gov', '65_medi_chip_gov',
+       'covid_medi_chip_gov', '18_medi_chip_gov', 'disabled_medi_chip_gov', 
+       'unknown_med_chip_gov']:
+    master_tract[f'num_tract_{var}'] = (master_tract[f'num_{var}']
+                                          * master_tract['tract_share_of_state_medicaid'])
+
 master_tract['pct_enrollment_medicaid_acs'] = (master_tract['total_medicaid_enrollees_acs']
                                         / master_tract['population'])
 
